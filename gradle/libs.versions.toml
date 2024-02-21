@@ -1,0 +1,50 @@
+[versions]
+agp = "8.2.2"
+androidx-activityCompose = "1.8.2"
+coroutines = "1.7.3"
+compose-plugin = "1.6.0-beta02"
+kotlin = "1.9.21"
+junit = "4.13.2"
+voyager = "1.0.0"
+coil3-io = "3.0.0-alpha02"
+ktor = "2.3.7"
+realmVersion = "1.13.0"
+windowSize="0.3.1"
+[libraries]
+androidx-activity-compose= { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+voyager-screenmodel={module="cafe.adriel.voyager:voyager-screenmodel",version.ref="voyager"}
+voyager-navigator = { group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyager" }
+voyager-transitions = { group = "cafe.adriel.voyager", name = "voyager-transitions", version.ref = "voyager" }
+
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+coil3 = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3-io" }
+coil3-network = { module = "io.coil-kt.coil3:coil-network", version.ref = "coil3-io" }
+coil3-core = { module = "io.coil-kt.coil3:coil-core", version.ref = "coil3-io" }
+windowSize = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform",version.ref = "windowSize"}
+
+
+# local database
+database-realm-base={ module = "io.realm.kotlin:library-base", version.ref = "realmVersion" }
+database-realm-sync={ module = "io.realm.kotlin:library-sync", version.ref = "realmVersion" }
+#Test
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+#
+
+
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+realm={id="io.realm.kotlin", version.ref = "realmVersion"}
+
