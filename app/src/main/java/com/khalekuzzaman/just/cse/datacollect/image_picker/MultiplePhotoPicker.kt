@@ -1,4 +1,4 @@
-package com.khalekuzzaman.just.cse.datacollect
+package com.khalekuzzaman.just.cse.datacollect.image_picker
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -19,7 +19,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,112 +28,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.khalekuzzaman.just.cse.datacollect.common_ui.GalleryScreen
-import com.khalekuzzaman.just.cse.datacollect.common_ui.command_pattern.Command
-import com.khalekuzzaman.just.cse.datacollect.common_ui.command_pattern.ImageGalleryCommands
-import com.khalekuzzaman.just.cse.datacollect.common_ui.command_pattern.UndoManager
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.update
-
-@Immutable
-data class GalleryImage(
-    val uri: Uri,
-    val isSelected: Boolean = false
-)
-
-@Immutable
-data class ImageGalleryState(
-    val images: List<GalleryImage> = emptyList()
-)
-
-class ViewModel {
-    private val _imageGalleryState = MutableStateFlow(ImageGalleryState(emptyList()))
-    val imageGalleryState = _imageGalleryState.asStateFlow()
-    val anySelected: Flow<Boolean> = _imageGalleryState.map { state ->
-        state.images.any { it.isSelected }
-    }
-    private var lastCommand: Command? = null
-
-    fun addImages(uris: List<Uri>) {
-        val command = ImageGalleryCommands.Add(
-            images = uris.map { GalleryImage(uri = it) },
-            currentState = _imageGalleryState.value
-        )
-        undoManager.execute(command)
-        command.execute()
-        lastCommand = command
-        updateState(command.state)
-    }
-
-    fun remove() {
-        val command = ImageGalleryCommands.Remove(_imageGalleryState.value)
-        command.execute()
-        lastCommand = command
-        updateState(command.state)
-    }
-
-    fun undo() {
-        lastCommand?.let { command ->
-            command.undo()
-            when (command) {
-                is ImageGalleryCommands.Add -> {
-                    updateState(command.state)
-                }
-                is ImageGalleryCommands.Remove->{
-                    updateState(command.state)
-                }
-            }
-
-        }
-
-    }
-
-    fun redo() {
-        lastCommand?.let { command ->
-            command.redo()
-            when (command) {
-                is ImageGalleryCommands.Add -> {
-                    updateState(command.state)
-                }
-                is ImageGalleryCommands.Remove->{
-                    updateState(command.state)
-                }
-            }
-
-        }
-
-    }
-
-    private fun updateState(imageGalleryState: ImageGalleryState) {
-        _imageGalleryState.update { imageGalleryState }
-    }
-
-    fun flipSelection(currentSelected: Uri) {
-        val command = ImageGalleryCommands.FlipSelection(
-            currentState = _imageGalleryState.value,
-            uri = currentSelected
-        )
-        command.execute()
-        updateState(command.state)
-    }
 
 
-}
-
-val viewModel = ViewModel()
-val undoManager = UndoManager()
+private val imageGalleryViewModel = GalleryViewModel()
 
 @Composable
 fun MultiplePhotoPicker() {
     LocalContext.current
-    val showImageGallery = viewModel.imageGalleryState.collectAsState().value.images.isNotEmpty()
-    val images = viewModel.imageGalleryState.collectAsState().value.images
-    val showRemoveButton = viewModel.anySelected.collectAsState(false).value
+    val showImageGallery = imageGalleryViewModel.imageGalleryState.collectAsState().value.isNotEmpty()
+    val images = imageGalleryViewModel.imageGalleryState.collectAsState().value
+    val showRemoveButton = imageGalleryViewModel.anySelected.collectAsState(false).value
     val multiplePhotoPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
-        onResult = viewModel::addImages
+        onResult = imageGalleryViewModel::addImages
     )
     GalleryScreen(
         enabledUndo = true,
@@ -146,17 +52,17 @@ fun MultiplePhotoPicker() {
                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
             )
         },
-        onRemoveRequest = viewModel::remove,
-        undoRequest = viewModel::undo,
-        redoRequest = viewModel::redo
+        onRemoveRequest = imageGalleryViewModel::remove,
+        undoRequest = imageGalleryViewModel::undo,
+        redoRequest = imageGalleryViewModel::redo
     ) {
         Column(
             modifier = Modifier.padding(it)
         ) {
             if (showImageGallery) {
                 ImageGallery(
-                    uiState = ImageGalleryState(images),
-                    onSelection = viewModel::flipSelection
+                    images = images,
+                    onSelection = imageGalleryViewModel::flipSelection
                 )
             }
         }
@@ -168,7 +74,7 @@ fun MultiplePhotoPicker() {
 
 @Composable
 fun ImageGallery(
-    uiState: ImageGalleryState,
+    images: List<GalleryMedia>,
     onSelection: (Uri) -> Unit,
 ) {
 
@@ -182,12 +88,12 @@ fun ImageGallery(
         state = state,
     ) {
         items(
-            items = uiState.images,
+            items = images,
             itemContent = { image ->
                 Box(
                     modifier = Modifier
                         .clickable {
-                            viewModel.flipSelection(image.uri)
+                            imageGalleryViewModel.flipSelection(image.uri)
                         }
                         .clip(RoundedCornerShape(8.dp))
                         .border(

@@ -1,4 +1,4 @@
-package com.khalekuzzaman.just.cse.datacollect
+package com.khalekuzzaman.just.cse.datacollect.common_ui
 
 import android.Manifest
 import android.os.Build
