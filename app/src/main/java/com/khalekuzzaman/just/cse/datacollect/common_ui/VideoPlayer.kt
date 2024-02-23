@@ -7,6 +7,7 @@ import androidx.annotation.OptIn
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -22,7 +23,7 @@ import androidx.media3.ui.PlayerView
 @OptIn(UnstableApi::class)
 @Composable
 fun VideoPlayerScreen(uri: Uri) {
-    println("C")
+    println("PlayerURi:$uri")
     val context = LocalContext.current
     val exoPlayer = ExoPlayer.Builder(context).build().apply {
             setMediaItem(fromUri(uri))
@@ -30,6 +31,7 @@ fun VideoPlayerScreen(uri: Uri) {
             play()
             prepare()
     }
+
 
     AndroidView(
         modifier = Modifier

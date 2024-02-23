@@ -28,7 +28,9 @@ import com.khalekuzzaman.just.cse.datacollect.image_picker.GalleryViewModel
 private val videoGalleryViewModel = GalleryViewModel()
 
 @Composable
-fun VideoGallery() {
+fun VideoGallery(
+    onExitRequest:()->Unit,
+) {
     LocalContext.current
     val showGallery = videoGalleryViewModel.imageGalleryState.collectAsState().value.isNotEmpty()
     val videos = videoGalleryViewModel.imageGalleryState.collectAsState().value
@@ -41,11 +43,7 @@ fun VideoGallery() {
         enabledUndo = true,
         enabledRedo = true,
         showRemoveButton = showRemoveButton,
-        onExitRequest = {
-            videoGalleryViewModel.imageGalleryState.value.forEach {
-                println("VideoGalleyURI:${it.uri}")
-            }
-        },
+        onExitRequest =onExitRequest,
         onAddRequest = {
             videoPicker.launch(
                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly)

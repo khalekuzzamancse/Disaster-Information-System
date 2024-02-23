@@ -33,7 +33,9 @@ import com.khalekuzzaman.just.cse.datacollect.common_ui.GalleryScreen
 private val imageGalleryViewModel = GalleryViewModel()
 
 @Composable
-fun MultiplePhotoPicker() {
+fun MultiplePhotoPicker(
+    onExitRequest:()->Unit,
+) {
     LocalContext.current
     val showImageGallery = imageGalleryViewModel.imageGalleryState.collectAsState().value.isNotEmpty()
     val images = imageGalleryViewModel.imageGalleryState.collectAsState().value
@@ -46,7 +48,7 @@ fun MultiplePhotoPicker() {
         enabledUndo = true,
         enabledRedo = true,
         showRemoveButton = showRemoveButton,
-        onExitRequest = { /*TODO*/ },
+        onExitRequest = onExitRequest,
         onAddRequest = {
             multiplePhotoPicker.launch(
                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
