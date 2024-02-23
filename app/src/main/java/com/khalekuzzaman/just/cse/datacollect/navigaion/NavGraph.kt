@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -20,12 +21,15 @@ object Destinations {
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
-fun RootNavHost() {
+fun RootNavHost(
+    modifier: Modifier=Modifier,
+) {
     val navController = rememberNavController()
     val gotoHome: () -> Unit = {
         navController.popBackStack()
     }
     NavHost(
+        modifier =modifier ,
         navController = navController,
         startDestination = Destinations.HOME
     ) {

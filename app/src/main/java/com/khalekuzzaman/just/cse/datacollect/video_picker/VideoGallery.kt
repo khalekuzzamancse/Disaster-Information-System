@@ -3,11 +3,9 @@ package com.khalekuzzaman.just.cse.datacollect.video_picker
 import android.net.Uri
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
@@ -20,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import com.khalekuzzaman.just.cse.datacollect.common_ui.VideoPlayerScreen
 import com.khalekuzzaman.just.cse.datacollect.image_picker.GalleryMedia
@@ -45,9 +42,6 @@ fun VideoGallery(
             itemContent = { video ->
                 Box(
                     modifier = Modifier
-                        .clickable {
-                            onSelection(video.uri)
-                        }
                         .clip(RoundedCornerShape(8.dp))
                         .border(
                             width = 2.dp,
@@ -55,13 +49,15 @@ fun VideoGallery(
                             else MaterialTheme.colorScheme.tertiary,
                             shape = RoundedCornerShape(8.dp)
                         )
-                        .padding(8.dp)
+                        .clickable {
+                            onSelection(video.uri)
+                        }
+
                 ) {
                     VideoPlayerScreen(
                         uri = video.uri
                     )
                     if (video.isSelected) {
-
                         Checkbox(
                             checked = true,
                             onCheckedChange = {

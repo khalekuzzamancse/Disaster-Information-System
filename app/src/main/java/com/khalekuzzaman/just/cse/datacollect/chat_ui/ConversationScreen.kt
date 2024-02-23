@@ -147,7 +147,6 @@ private fun AppNameLogoSection(
 
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
         Icon(
-//            modifier = Modifier.size(50.dp),
             imageVector = Icons.Filled.DataExploration,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary
