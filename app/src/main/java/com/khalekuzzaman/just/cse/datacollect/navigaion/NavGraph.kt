@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.khalekuzzaman.just.cse.datacollect.chat_ui.ConversionScreen
+import com.khalekuzzaman.just.cse.datacollect.chat_ui.HomeScreen
 import com.khalekuzzaman.just.cse.datacollect.common_ui.PermissionIfNeeded
 import com.khalekuzzaman.just.cse.datacollect.image_picker.MultiplePhotoPicker
 import com.khalekuzzaman.just.cse.datacollect.video_picker.VideoGallery
@@ -32,7 +32,7 @@ fun RootNavHost() {
         composable(Destinations.HOME) {
             Box() {
                 PermissionIfNeeded()
-                ConversionScreen(
+                HomeScreen(
                     onVideoPickRequest = {
                         navController.navigate(Destinations.VIDEO)
                     },
