@@ -12,10 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.khalekuzzaman.just.cse.datacollect.chat_ui.HomeScreen
+import com.khalekuzzaman.just.cse.datacollect.navigaion.screens.home.HomeScreen
 import com.khalekuzzaman.just.cse.datacollect.common_ui.PermissionIfNeeded
 import com.khalekuzzaman.just.cse.datacollect.image_picker.GalleryViewModel
 import com.khalekuzzaman.just.cse.datacollect.image_picker.MultiplePhotoPicker
@@ -41,46 +42,51 @@ fun RootNavHost(
     val imageGalleryViewModel = remember {
         GalleryViewModel()
     }
+    LocalContext.current
     val videoGalleryViewModel = remember { GalleryViewModel() }
 
-    NavHost(
-        modifier = modifier,
-        navController = navController,
-        startDestination = Destinations.HOME
-    ) {
-        composable(Destinations.HOME) {
-            Box() {
-                PermissionIfNeeded()
-                HomeScreen(
-                    pickedImageCount = imageGalleryViewModel.galleryState.collectAsState().value.size,
-                    pickedVideoCount = videoGalleryViewModel.galleryState.collectAsState().value.size,
-                    onVideoPickRequest = {
 
-                        navController.navigate(Destinations.VIDEOPICKER)
-                    },
-                    onImagePickRequest = {
+    Box {
+        NavHost(
+            modifier = modifier,
+            navController = navController,
+            startDestination = Destinations.HOME
+        ) {
+            composable(Destinations.HOME) {
+                Box() {
+                    PermissionIfNeeded()
+                    HomeScreen(
+                        images = imageGalleryViewModel.galleryState.collectAsState().value.map { it.uri },
+                        videos =  videoGalleryViewModel.galleryState.collectAsState().value.map { it.uri },
+                        onVideoPickRequest = {
+
+                            navController.navigate(Destinations.VIDEOPICKER)
+                        }
+                    ) {
                         navController.navigate(Destinations.IMAGEPICKER)
                     }
+                }
+            }
+            composable(
+                route = Destinations.IMAGEPICKER,
+                enterTransition = { slideInHorizontally() + fadeIn() },
+                exitTransition = { slideOutHorizontally() + fadeOut() }
+            ) {
+                MultiplePhotoPicker(
+                    onExitRequest = gotoHome,
+                    imageGalleryViewModel = imageGalleryViewModel
                 )
             }
-        }
-        composable(
-            route = Destinations.IMAGEPICKER,
-            enterTransition = { slideInHorizontally() + fadeIn() },
-            exitTransition = { slideOutHorizontally() + fadeOut() }
-        ) {
-            MultiplePhotoPicker(
-                onExitRequest = gotoHome,
-                imageGalleryViewModel = imageGalleryViewModel
-            )
+
+            composable(
+                route = Destinations.VIDEOPICKER,
+                enterTransition = { slideInVertically { 1000 } + fadeIn() },
+                exitTransition = { slideOutHorizontally() + fadeOut() }) {
+                VideoGallery(onExitRequest = gotoHome, videoGalleryViewModel = videoGalleryViewModel)
+            }
+
         }
 
-        composable(
-            route = Destinations.VIDEOPICKER,
-            enterTransition = { slideInVertically { 1000 } + fadeIn() },
-            exitTransition = { slideOutHorizontally() + fadeOut() }) {
-            VideoGallery(onExitRequest = gotoHome, videoGalleryViewModel = videoGalleryViewModel)
-        }
 
     }
 
