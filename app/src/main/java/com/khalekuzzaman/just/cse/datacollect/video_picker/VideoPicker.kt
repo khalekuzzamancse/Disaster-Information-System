@@ -25,19 +25,26 @@ import com.khalekuzzaman.just.cse.datacollect.common_ui.VideoPlayerScreen
 import com.khalekuzzaman.just.cse.datacollect.image_picker.GalleryViewModel
 
 
-private val videoGalleryViewModel = GalleryViewModel()
+
 
 @Composable
 fun VideoGallery(
+    videoGalleryViewModel:GalleryViewModel,
     onExitRequest:()->Unit,
 ) {
+    var enableAddButton by remember {
+        mutableStateOf(true)
+    }
     LocalContext.current
-    val showGallery = videoGalleryViewModel.imageGalleryState.collectAsState().value.isNotEmpty()
-    val videos = videoGalleryViewModel.imageGalleryState.collectAsState().value
+    val showGallery = videoGalleryViewModel.galleryState.collectAsState().value.isNotEmpty()
+    val videos = videoGalleryViewModel.galleryState.collectAsState().value
     val showRemoveButton = videoGalleryViewModel.anySelected.collectAsState(false).value
     val videoPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
-        onResult = videoGalleryViewModel::addImages
+        onResult = {
+            videoGalleryViewModel.addImages(it)
+            enableAddButton=true
+        }
     )
     GalleryScreen(
         enabledUndo = true,
@@ -45,13 +52,16 @@ fun VideoGallery(
         showRemoveButton = showRemoveButton,
         onExitRequest =onExitRequest,
         onAddRequest = {
+            enableAddButton=false
             videoPicker.launch(
                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly)
             )
+
         },
         onRemoveRequest = videoGalleryViewModel::remove,
         undoRequest = videoGalleryViewModel::undo,
-        redoRequest = videoGalleryViewModel::redo
+        redoRequest = videoGalleryViewModel::redo,
+        enableAddButton = enableAddButton
     ) {
         Column(
             modifier = Modifier.padding(it)

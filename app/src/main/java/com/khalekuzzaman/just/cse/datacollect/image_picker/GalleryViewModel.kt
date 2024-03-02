@@ -9,8 +9,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
 class GalleryViewModel {
+
     private val _imageGalleryState = MutableStateFlow(emptyList<GalleryMedia>())
-    val imageGalleryState = _imageGalleryState.asStateFlow()
+    val galleryState = _imageGalleryState.asStateFlow()
     val anySelected: Flow<Boolean> = _imageGalleryState.map { images ->
         images.any { it.isSelected }
     }

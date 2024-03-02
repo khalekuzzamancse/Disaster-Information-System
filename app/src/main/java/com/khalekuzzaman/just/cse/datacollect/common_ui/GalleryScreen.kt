@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GalleryScreen(
+    enableAddButton:Boolean,
     enabledUndo:Boolean,
     enabledRedo:Boolean,
     showRemoveButton:Boolean,
@@ -74,7 +75,9 @@ fun GalleryScreen(
                 )
             } else {
                 AddButton(
-                    onClick =onAddRequest
+                    onClick =onAddRequest,
+                    enabled = enableAddButton
+
                 )
 
             }
@@ -122,7 +125,8 @@ private fun RedoButton(
 
 @Composable
 private fun AddButton(
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    enabled: Boolean,
 ) {
     IconButton(
         colors = IconButtonDefaults.iconButtonColors().copy(
@@ -130,7 +134,8 @@ private fun AddButton(
             contentColor = MaterialTheme.colorScheme.onPrimary,
         ),
         onClick = onClick,
-        modifier = Modifier.size(56.dp)
+        modifier = Modifier.size(56.dp),
+        enabled = enabled
     ) {
         Icon(
             imageVector = Icons.Filled.Add,

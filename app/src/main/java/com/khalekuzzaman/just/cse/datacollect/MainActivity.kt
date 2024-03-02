@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.khalekuzzaman.just.cse.datacollect.chat_ui.CustomSnackBar
 import com.khalekuzzaman.just.cse.datacollect.connectivity.ConnectivityObserver
 import com.khalekuzzaman.just.cse.datacollect.connectivity.NetworkConnectivityObserver
 import com.khalekuzzaman.just.cse.datacollect.navigaion.RootNavHost
@@ -60,30 +61,4 @@ class MainActivity : ComponentActivity() {
 
 }
 
-@Composable
-fun CustomSnackBar(
-    message: String,
-    isErrorMessage: Boolean
-) {
-    var show by remember {
-        mutableStateOf(true)
-    }
-    LaunchedEffect(Unit) {
-        delay(4000)
-        show = false
-    }
-    val containerColor = if (isErrorMessage) Color.Red else Color.Green
-    val textColor = if (isErrorMessage) Color.White else Color.Black
-    if (show) {
-        Snackbar(
-            modifier = Modifier.padding(16.dp),
-            containerColor = containerColor,
-            contentColor = textColor,
-        ) {
-            Text(message)
-        }
-    }
-
-
-}
 
