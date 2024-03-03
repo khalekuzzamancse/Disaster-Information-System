@@ -14,10 +14,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 
+enum class SnackBarMessageType{
+    Error,Success
+}
+data class SnackBarMessage(val message: String, val type:SnackBarMessageType)
 @Composable
 fun CustomSnackBar(
-    message: String,
-    isErrorMessage: Boolean
+   message: SnackBarMessage,
 ) {
     var show by remember {
         mutableStateOf(true)
@@ -26,15 +29,15 @@ fun CustomSnackBar(
         delay(4000)
         show = false
     }
-    val containerColor = if (isErrorMessage) Color.Red else Color.Green
-    val textColor = if (isErrorMessage) Color.White else Color.Black
+    val containerColor = if (message.type ==SnackBarMessageType.Error) Color.Red else Color.Green
+    val textColor = if (message.type ==SnackBarMessageType.Error) Color.White else Color.Black
     if (show) {
         Snackbar(
             modifier = Modifier.padding(16.dp),
             containerColor = containerColor,
             contentColor = textColor,
         ) {
-            Text(message)
+            Text(message.message)
         }
     }
 

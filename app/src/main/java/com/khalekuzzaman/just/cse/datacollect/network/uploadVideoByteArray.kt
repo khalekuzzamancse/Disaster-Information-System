@@ -7,27 +7,37 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
+import java.util.Locale
 
-suspend fun uploadVideoByteArray(url: String, byteArray: ByteArray?): Result<String> {
+enum class UploadFileType(val contentType: String, val fileExtension: String) {
+    VIDEO("video/mp4", "mp4"),
+    IMAGE("image/jpeg", "jpg");
+}
+
+
+suspend fun uploadMediaByteArray(url: String, byteArray: ByteArray?, uploadFileType: UploadFileType): Result<String> {
     val httpClient = HttpClient()
 
     return try {
-        val response = if (byteArray != null) {
-            httpClient.submitFormWithBinaryData(
-                url = url,
-                formData = formData {
-                    append("video", byteArray, Headers.build {
-                        append(HttpHeaders.ContentType, "video/mp4") // Change to your video's MIME type
-                        append(HttpHeaders.ContentDisposition, "filename=video.mp4") // Change to your video's file name
-                    })
-                }
-            ) {
-                method = HttpMethod.Post
-            }
-        } else {
+        if (byteArray == null) {
             throw IllegalArgumentException("Byte array must not be null")
         }
 
+        val response = httpClient.submitFormWithBinaryData(
+            url = url,
+            formData = formData {
+                append(
+                    key = uploadFileType.name.lowercase(Locale.ROOT),
+                    value = byteArray,
+                    headers = Headers.build {
+                        append(HttpHeaders.ContentType, uploadFileType.contentType)
+                        append(HttpHeaders.ContentDisposition, "filename=upload.${uploadFileType.fileExtension}")
+                    }
+                )
+            }
+        ) {
+            method = HttpMethod.Post
+        }
         Result.success(response.bodyAsText())
     } catch (ex: Exception) {
         Result.failure(ex)
@@ -35,3 +45,59 @@ suspend fun uploadVideoByteArray(url: String, byteArray: ByteArray?): Result<Str
         httpClient.close()
     }
 }
+
+//suspend fun uploadVideoByteArray(url: String, byteArray: ByteArray?): Result<String> {
+//    val httpClient = HttpClient()
+//
+//    return try {
+//        val response = if (byteArray != null) {
+//            httpClient.submitFormWithBinaryData(
+//                url = url,
+//                formData = formData {
+//                    append("video", byteArray, Headers.build {
+//                        append(HttpHeaders.ContentType, "video/mp4") // Change to your video's MIME type
+//                        append(HttpHeaders.ContentDisposition, "filename=video.mp4") // Change to your video's file name
+//                    })
+//                }
+//            ) {
+//
+//                method = HttpMethod.Post
+//            }
+//        } else {
+//            throw IllegalArgumentException("Byte array must not be null")
+//        }
+//
+//        Result.success(response.bodyAsText())
+//    } catch (ex: Exception) {
+//        Result.failure(ex)
+//    } finally {
+//        httpClient.close()
+//    }
+//}
+//suspend fun uploadImageByteArray(url: String, byteArray: ByteArray?): Result<String> {
+//    val httpClient = HttpClient()
+//
+//    return try {
+//        val response = if (byteArray != null) {
+//            httpClient.submitFormWithBinaryData(
+//                url = url,
+//                formData = formData {
+//                    append("image", byteArray, Headers.build {
+//                        append(HttpHeaders.ContentType, "image/jpeg") // Adjust based on actual image type
+//                        append(HttpHeaders.ContentDisposition, "filename=image.jpg")
+//                    })
+//                }
+//            ) {
+//                method = HttpMethod.Post
+//            }
+//        } else {
+//            throw IllegalArgumentException("Byte array must not be null")
+//        }
+//
+//        Result.success(response.bodyAsText())
+//    } catch (ex: Exception) {
+//        Result.failure(ex)
+//    } finally {
+//        httpClient.close()
+//    }
+//}
