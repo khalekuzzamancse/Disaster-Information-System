@@ -77,5 +77,16 @@ dependencies {
     implementation("androidx.media3:media3-ui:1.2.1")
     //navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
+    //
+
+    val work_version = "2.9.0"
+    // Kotlin + coroutines
+    implementation("androidx.work:work-runtime-ktx:$work_version")
+    // optional - GCMNetworkManager support
+    implementation("androidx.work:work-gcm:$work_version")
+    // optional - Test helpers
+    androidTestImplementation("androidx.work:work-testing:$work_version")
+    // optional - Multiprocess support
+    implementation("androidx.work:work-multiprocess:$work_version")
 
 }
