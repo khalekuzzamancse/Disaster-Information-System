@@ -80,6 +80,7 @@ dependencies {
     //
 
     val work_version = "2.9.0"
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0" )// Check for the latest version
     // Kotlin + coroutines
     implementation("androidx.work:work-runtime-ktx:$work_version")
     // optional - GCMNetworkManager support

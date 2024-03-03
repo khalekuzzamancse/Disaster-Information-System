@@ -1,9 +1,11 @@
 package com.khalekuzzaman.just.cse.datacollect.module_1.navigaion.screens.home
+
 import android.content.Context
 import android.net.Uri
+import com.khalekuzzaman.just.cse.datacollect.core.MediaUploader.uploadImage
 import com.khalekuzzaman.just.cse.datacollect.core.connectivity.ConnectivityObserver
 import com.khalekuzzaman.just.cse.datacollect.core.connectivity.NetworkConnectivityObserver
-import com.khalekuzzaman.just.cse.datacollect.core.uploadImage
+import com.khalekuzzaman.just.cse.datacollect.core.work_manager.library.FileUploadWorkBuilder
 import com.khalekuzzaman.just.cse.datacollect.module_1.chat_ui.SnackBarMessage
 import com.khalekuzzaman.just.cse.datacollect.module_1.chat_ui.SnackBarMessageType
 import kotlinx.coroutines.CoroutineScope
@@ -41,19 +43,24 @@ class HomeViewModel(private val context: Context, private val scope: CoroutineSc
         }
         staratLoading()
         images.forEachIndexed { index, uri ->
-            val res = uploadImage(
+            val res = FileUploadWorkBuilder(
                 context = context,
                 uri = uri,
-                url = imageApiUrl
-            )
+                url = "http://192.168.10.154:8080/api/images/upload"
+            ).upLoad()
+//            val res = uploadImage(
+//                context = context,
+//                uri = uri,
+//                url = imageApiUrl
+//            )
             _progress.value = (index + 1) / images.size.toFloat()
-            if (res.isFailure) {
-                stopLoading()
-                val message = res.exceptionOrNull()?.message
-                SnackBarMessage("$message", SnackBarMessageType.Error).update()
-            } else {
-                SnackBarMessage("$res", SnackBarMessageType.Success).update()
-            }
+//            if (res.isFailure) {
+//                stopLoading()
+//                val message = res.exceptionOrNull()?.message
+//                SnackBarMessage("$message", SnackBarMessageType.Error).update()
+//            } else {
+//                SnackBarMessage("$res", SnackBarMessageType.Success).update()
+//            }
         }
         stopLoading()
 
@@ -62,6 +69,7 @@ class HomeViewModel(private val context: Context, private val scope: CoroutineSc
     private fun stopLoading() {
         _isUploading.value = false
     }
+
     private fun staratLoading() {
         _isUploading.value = true
     }
