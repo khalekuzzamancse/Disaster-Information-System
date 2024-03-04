@@ -22,9 +22,10 @@ abstract class FileUploaderWorker(
 
 
     override suspend fun doWork(): Result {
-        Log.d("WorkManagerTest: ", "doWork():Start")
         return try {
-            performWork()
+            val res=performWork()
+            println("VideoUpload:doWork():$res")
+            res
         } catch (e: Exception) {
             makeFailureResult(e)
         }

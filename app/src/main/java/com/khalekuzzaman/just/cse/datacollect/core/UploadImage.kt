@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import com.khalekuzzaman.just.cse.datacollect.core.network.FilePoster
 import com.khalekuzzaman.just.cse.datacollect.core.network.uriToByteArray
+import core.network.NetworkPostRequest
 
 
 object MediaUploader{
@@ -11,7 +12,9 @@ object MediaUploader{
         val byteArray = uriToByteArray(context, uri)
         return try {
             if (byteArray!=null){
-                FilePoster.FilePost(url).upload(fileType = FilePoster.FileType.IMAGE,byteArray = byteArray)
+                NetworkPostRequest.FilePost(url).upload(
+                    fileType = NetworkPostRequest.FileType.IMAGE,
+                    byteArray = byteArray)
             } else{
                 Result.failure(Throwable("Failed to byte array null"))
             }
@@ -25,7 +28,7 @@ object MediaUploader{
         val byteArray = uriToByteArray(context, uri)
         return try {
             if (byteArray!=null){
-                FilePoster.FilePost(url = url, fileName = "video").upload(fileType = FilePoster.FileType.VIDEO,byteArray = byteArray)
+                NetworkPostRequest.FilePost(url = url, fileName = "video").upload(fileType = NetworkPostRequest.FileType.VIDEO,byteArray = byteArray)
             } else{
                 Result.failure(Throwable("Failed to byte array null"))
             }

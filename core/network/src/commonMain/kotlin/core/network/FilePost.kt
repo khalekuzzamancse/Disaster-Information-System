@@ -1,4 +1,4 @@
-package com.khalekuzzaman.just.cse.datacollect.core.network
+package core.network
 
 import io.ktor.client.*
 import io.ktor.client.request.forms.*
@@ -6,12 +6,12 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.*
 import io.ktor.http.content.PartData
 
-interface FilePoster {
+object NetworkPostRequest {
 
     class FilePost(private val url: String,fileName:String="yyy") {
         private val httpClient = HttpClient()
 
-        suspend fun upload(fileType: FileType, byteArray: ByteArray): Result<String> {
+        suspend fun upload(fileType: NetworkPostRequest.FileType, byteArray: ByteArray): Result<String> {
             return try {
                 val response = submit(fileType = fileType, byteArray = byteArray)
                 Result.success(response)

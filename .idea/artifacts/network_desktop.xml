@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="network-desktop">
+    <output-path>$PROJECT_DIR$/core/network/build/libs</output-path>
+    <root id="archive" name="network-desktop.jar">
+      <element id="module-output" name="Data_Collect.core.network.desktopMain" />
+    </root>
+  </artifact>
+</component>

@@ -33,11 +33,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -53,14 +53,16 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:network"))
 
+    //
     implementation(libs.androidx.activity.compose)
     implementation(compose.ui)
     implementation(compose.material3)
     implementation(compose.materialIconsExtended)
     implementation(libs.kotlinx.coroutines.android)
     //permission handle
-    implementation ("com.google.accompanist:accompanist-permissions:0.29.2-rc")
+    implementation (libs.accompanist.permissions)
     //network IO
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
@@ -73,21 +75,19 @@ dependencies {
     implementation(libs.coil3)
     implementation(libs.coil3.core)
     //video player
-    implementation ("androidx.media3:media3-exoplayer:1.2.1")
-    implementation("androidx.media3:media3-ui:1.2.1")
+    implementation (libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
     //navigation
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-    //
+    implementation(libs.androidx.navigation.compose)
 
-    val work_version = "2.9.0"
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0" )// Check for the latest version
+    implementation(libs.androidx.lifecycle.livedata.ktx )// Check for the latest version
     // Kotlin + coroutines
-    implementation("androidx.work:work-runtime-ktx:$work_version")
+    implementation(libs.androidx.work.runtime.ktx)
     // optional - GCMNetworkManager support
-    implementation("androidx.work:work-gcm:$work_version")
+    implementation(libs.androidx.work.gcm)
     // optional - Test helpers
-    androidTestImplementation("androidx.work:work-testing:$work_version")
+    androidTestImplementation(libs.androidx.work.testing)
     // optional - Multiprocess support
-    implementation("androidx.work:work-multiprocess:$work_version")
+    implementation(libs.androidx.work.multiprocess)
 
 }

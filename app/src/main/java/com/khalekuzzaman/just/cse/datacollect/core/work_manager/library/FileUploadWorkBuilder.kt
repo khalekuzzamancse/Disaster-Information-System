@@ -31,11 +31,15 @@ class FileUploadWorkBuilder(
     private val workRequests = works.map(this::createWorkRequest)
     val workStatus = workManager
         .getWorkInfosFlow(WorkQuery.fromTags(works.map { it.name }))
-        .map { works -> works.map {
-            WorkManagerEntities.WorkStatus(
-                workName = it.tags.first().toString(), status = it.state
-            )
-        }.distinct()
+        .map { works ->
+
+            works.map {
+               val res= it.outputData.getString(WorkManagerEntities.RESULT_MESSAGE)
+                println("WorkMangerResult:$res")
+                WorkManagerEntities.WorkStatus(
+                    workName = it.tags.first().toString(), status = it.state
+                )
+            }.distinct()
         }
 
     fun upload() {
@@ -49,7 +53,7 @@ class FileUploadWorkBuilder(
 
     private fun createWorkRequest(work: WorkManagerEntities.UploadableFile): OneTimeWorkRequest {
         val inputData = createInputData(work.uri)
-        return  OneTimeWorkRequest.Builder(workerClass)
+        return OneTimeWorkRequest.Builder(workerClass)
             .setInputData(inputData)
             .addTag(work.name)
             .build()

@@ -16,6 +16,7 @@ class VideoUploadWorker(
     override suspend fun performWork(): Result {
         return if (uri != null && url != null) {
             val res = MediaUploader.uploadVideo(context, uri, url)
+            println("VideoUpload:performWork():$res")
             toWorkManagerResult(res)
         } else {
             makeFailureResult("URL or Uri is null")

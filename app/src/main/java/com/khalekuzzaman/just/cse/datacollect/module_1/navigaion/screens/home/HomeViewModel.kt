@@ -2,6 +2,7 @@ package com.khalekuzzaman.just.cse.datacollect.module_1.navigaion.screens.home
 
 import android.content.Context
 import android.net.Uri
+import androidx.work.WorkInfo
 import com.khalekuzzaman.just.cse.datacollect.core.connectivity.ConnectivityObserver
 import com.khalekuzzaman.just.cse.datacollect.core.connectivity.NetworkConnectivityObserver
 import com.khalekuzzaman.just.cse.datacollect.core.work_manager.ImageUploadWorker
@@ -38,6 +39,13 @@ class HomeViewModel(private val context: Context, private val scope: CoroutineSc
 
         }
     }
+    init {
+        CoroutineScope(Dispatchers.Default).launch {
+            println("WorksFlowInfo:Uploading:${isUploading.value}")
+
+        }
+    }
+
 
     suspend fun uploadImages(images: List<Uri>) {
         if (!hasInternet) {
@@ -45,30 +53,34 @@ class HomeViewModel(private val context: Context, private val scope: CoroutineSc
             return
         }
         uploadImage(context = context, uris = images, workName = "01").collect { works ->
-            val terminatedTasks = works
-                .filterNot{ it.isTerminated() }
-            val totalImages=images.size * 1f
-            val totalTerminated=terminatedTasks.size
-            _isUploading.value=totalTerminated<totalImages
-            _progress.value = totalTerminated/totalImages
-            println("WorksFlowInfo:${_progress.value}")
+            works.forEach { work ->
+                println("WorksFlowInfo:${work}")
+            }
+
+           _isUploading.value = works.any { it.status==WorkInfo.State.RUNNING }
+
         }
 
 
     }
+
     suspend fun uploadVideo(videos: List<Uri>) {
         if (!hasInternet) {
             SnackBarMessage("No Internet connection", SnackBarMessageType.Error).update()
             return
         }
         uploadVideos(context = context, uris = videos, workName = "vidoes").collect { works ->
-            val terminatedTasks = works
-                .filter{ it.isTerminated() }
-            val totalImages=videos.size * 1f
-            val totalTerminated=terminatedTasks.size
-            _isUploading.value=totalTerminated<totalImages
-            _progress.value = totalTerminated/totalImages
-            println("WorksFlowInfo:${_progress.value}")
+            //if at least one task is running,then uploading
+            _isUploading.value = works.any{it.isRunning()}
+            val totalNeedToSent=videos.size
+            val totalSent=works.count { it.isSucceed()}
+            println("WorksFlowInfo:(totalNeed:$totalNeedToSent ,sent:$totalSent)")
+
+            works.forEach { work ->
+                println("WorksFlowInfo:$work")
+
+            }
+
         }
 
     }
@@ -102,6 +114,7 @@ private fun uploadImage(context: Context, uris: List<Uri>, workName: String)
     builder.upload()
     return builder.workStatus
 }
+
 /**
  * Work name is required to make unique ,so that by mistake the same
  * work does not enqueue multiple time
