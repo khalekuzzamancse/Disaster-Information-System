@@ -6,26 +6,30 @@ import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.Serializable
 
 
-object GetRequests{
-    suspend inline fun <reified T> getRequest(url: String):Result<T>{
+object NetworkGetRequests{
+    suspend inline fun <reified T> request(networkMonitor: NetworkMonitor,url: String): Result<T> {
         val httpClient = HttpClient {
             install(ContentNegotiation) {
                 json()
             }
         }
+        val notConnected = !networkMonitor.isNetworkAvailable()
+        if (notConnected) {
+            return Result.failure(Throwable("Internet not connected"))
+        }
         return try {
-            val response = httpClient.get(url){
-            }.body<T>()
-            println("APIResponse:$response")
+            val response = httpClient.get(url) {}.body<T>()
             Result.success(response)
+
         } catch (ex: Exception) {
             Result.failure(Throwable(ex))
+        } finally {
+            try {
+                httpClient.close()
+            } catch (_: Exception) {
+            }
         }
     }
-
-
-
 }

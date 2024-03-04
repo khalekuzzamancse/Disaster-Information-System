@@ -54,6 +54,7 @@ android {
 
 dependencies {
     implementation(project(":core:network"))
+    implementation(project(":core:work_manager"))
 
     //
     implementation(libs.androidx.activity.compose)
@@ -64,13 +65,7 @@ dependencies {
     //permission handle
     implementation (libs.accompanist.permissions)
     //network IO
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.okhttp)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.kotlinx.json)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.ktor.client.okhttp)
-    //
+    //Image load from memory and network
     implementation(libs.coil3.network)
     implementation(libs.coil3)
     implementation(libs.coil3.core)
@@ -80,14 +75,6 @@ dependencies {
     //navigation
     implementation(libs.androidx.navigation.compose)
 
-    implementation(libs.androidx.lifecycle.livedata.ktx )// Check for the latest version
-    // Kotlin + coroutines
-    implementation(libs.androidx.work.runtime.ktx)
-    // optional - GCMNetworkManager support
-    implementation(libs.androidx.work.gcm)
-    // optional - Test helpers
-    androidTestImplementation(libs.androidx.work.testing)
-    // optional - Multiprocess support
-    implementation(libs.androidx.work.multiprocess)
+
 
 }

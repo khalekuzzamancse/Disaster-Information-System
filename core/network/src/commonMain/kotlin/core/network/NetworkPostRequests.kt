@@ -6,12 +6,12 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.*
 import io.ktor.http.content.PartData
 
-object NetworkPostRequest {
+object NetworkPostRequests {
 
     class FilePost(private val url: String,fileName:String="yyy") {
         private val httpClient = HttpClient()
 
-        suspend fun upload(fileType: NetworkPostRequest.FileType, byteArray: ByteArray): Result<String> {
+        suspend fun upload(fileType: NetworkPostRequests.FileType, byteArray: ByteArray): Result<String> {
             return try {
                 val response = submit(fileType = fileType, byteArray = byteArray)
                 Result.success(response)

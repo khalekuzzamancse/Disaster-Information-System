@@ -1,43 +1,53 @@
 plugins {
+    kotlin("multiplatform")
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
-}
 
+}
+kotlin {
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
+        }
+    }
+    jvm("desktop"){
+        jvmToolchain(17)
+    }
+    sourceSets{
+        val commonMain by getting{
+            dependencies {
+                implementation(libs.kotlinx.coroutines.core)
+
+            }
+        }
+        val androidMain by getting{
+            dependencies {
+                implementation(libs.androidx.lifecycle.livedata.ktx )// Check for the latest version
+                // Kotlin + coroutines
+                implementation(libs.androidx.work.runtime.ktx)
+                // optional - GCMNetworkManager support
+                implementation(libs.androidx.work.gcm)
+                implementation(libs.androidx.work.multiprocess)
+
+
+            }
+        }
+        val desktopMain by getting{
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing")
+            }
+        }
+    }
+
+
+}
 android {
     namespace = "core.work_manager"
     compileSdk = 34
-
     defaultConfig {
         minSdk = 27
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
-dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-}

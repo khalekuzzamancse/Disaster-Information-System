@@ -49,7 +49,7 @@ fun HomeScreen(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val homeViewModel = remember { HomeViewModel(context, scope) }
+    val homeViewModel = remember { HomeViewModel(context) }
 
     val isUploading = homeViewModel.isUploading.collectAsState().value
     val progress = homeViewModel.progress.collectAsState().value
@@ -66,8 +66,8 @@ fun HomeScreen(
             snackBarMessage = snackBarMessage,
             onSend = {
                 scope.launch {
-//                    homeViewModel.uploadImages(images = images)
-                    homeViewModel.uploadVideo(videos = videos)
+                    homeViewModel.uploadImages(images = images)
+                  //  homeViewModel.uploadVideo(videos = videos)
                     //upLoadVideos()
                 }
 
