@@ -66,7 +66,8 @@ fun HomeScreen(
             snackBarMessage = snackBarMessage,
             onSend = {
                 scope.launch {
-                    homeViewModel.uploadImages(images = images)
+//                    homeViewModel.uploadImages(images = images)
+                    homeViewModel.uploadVideo(videos = videos)
                     //upLoadVideos()
                 }
 

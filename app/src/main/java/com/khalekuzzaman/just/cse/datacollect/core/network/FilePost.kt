@@ -8,7 +8,7 @@ import io.ktor.http.content.PartData
 
 interface FilePoster {
 
-    class FilePost(private val url: String) {
+    class FilePost(private val url: String,fileName:String="yyy") {
         private val httpClient = HttpClient()
 
         suspend fun upload(fileType: FileType, byteArray: ByteArray): Result<String> {
@@ -38,7 +38,7 @@ interface FilePoster {
                         name = HttpHeaders.ContentType,
                         value = fileType.contentType
                     ) // Adjust based on actual image type
-                    append(HttpHeaders.ContentDisposition, "filename=image.jpg")
+                    append(HttpHeaders.ContentDisposition, "filename=${fileType.key}")
                 })
             }
         }

@@ -2,75 +2,63 @@ package com.khalekuzzaman.just.cse.datacollect.core.work_manager.library
 
 import android.content.Context
 import android.net.Uri
-import androidx.lifecycle.asFlow
-import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequest
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkInfo
 import androidx.work.WorkManager
+import androidx.work.WorkQuery
 import androidx.work.workDataOf
-import com.khalekuzzaman.just.cse.datacollect.core.work_manager.ImageUploadWorker
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.util.UUID
 
 /**
  * * This defined the useful methods,can be used as library to avoid reduce code
  */
+
+
+import androidx.work.*
+
+/**
+ * @param workerClass should be called as,  WorkerClassName::class.java
+ */
 class FileUploadWorkBuilder(
-    private val workName: String = UUID.randomUUID().toString(),
     context: Context,
-    private val uri: Uri,
     private val url: String,
+    private val workName: String,
+    private val workerClass: Class<out ListenableWorker>,
+    private val works: List<WorkManagerEntities.UploadableFile>
 ) {
     private val workManager = WorkManager.getInstance(context)
-    private val workRequest = createWorkRequest()
-    val result: Flow<Result<String?>> = workManager.getWorkInfoByIdLiveData(workRequest.id)
-            .asFlow().map { workInfo ->
-                when (workInfo.state) {
-                    WorkInfo.State.SUCCEEDED -> {
-                        Result.success(null)
-                    }
-                    WorkInfo.State.FAILED -> {
-                        val message = workInfo.outputData.getString(WorkManagerConst.RESULT_MESSAGE)
-                        Result.success(message)
-                    }
-                    else -> {
-                        Result.success(null)
-                    }
-                }
-            }
+    private val workRequests = works.map(this::createWorkRequest)
+    val workStatus = workManager
+        .getWorkInfosFlow(WorkQuery.fromTags(works.map { it.name }))
+        .map { works -> works.map {
+            WorkManagerEntities.WorkStatus(
+                workName = it.tags.first().toString(), status = it.state
+            )
+        }.distinct()
+        }
 
-    fun upLoad() {
+    fun upload() {
         cancelIfExit()
-        workManager.enqueueUniqueWork(workName, ExistingWorkPolicy.REPLACE, workRequest)
+        workManager.enqueueUniqueWork(workName, ExistingWorkPolicy.REPLACE, workRequests)
     }
 
     private fun cancelIfExit() {
         workManager.cancelUniqueWork(workName)
     }
 
-    private fun createInputData(): Data {
-        return workDataOf(
-            WorkManagerConst.API_URL to url,
-            WorkManagerConst.URI to uri.toString()
-        )
-
-    }
-
-    private fun createWorkRequest(): OneTimeWorkRequest {
-        val inputData = createInputData()
-        val constraints = Constraints.Builder()
-            .build()
-        return OneTimeWorkRequestBuilder<ImageUploadWorker>()
-            .setConstraints(constraints)
+    private fun createWorkRequest(work: WorkManagerEntities.UploadableFile): OneTimeWorkRequest {
+        val inputData = createInputData(work.uri)
+        return  OneTimeWorkRequest.Builder(workerClass)
             .setInputData(inputData)
+            .addTag(work.name)
             .build()
     }
 
+    private fun createInputData(uri: Uri): Data {
+        return workDataOf(
+            WorkManagerEntities.API_URL to url,
+            WorkManagerEntities.URI to uri.toString()
+        )
+    }
 }
-
-
-

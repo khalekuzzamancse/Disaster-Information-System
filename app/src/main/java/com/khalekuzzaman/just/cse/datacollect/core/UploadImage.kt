@@ -21,5 +21,19 @@ object MediaUploader{
         }
 
     }
+    suspend fun uploadVideo(context: Context, uri: Uri, url: String): Result<String> {
+        val byteArray = uriToByteArray(context, uri)
+        return try {
+            if (byteArray!=null){
+                FilePoster.FilePost(url = url, fileName = "video").upload(fileType = FilePoster.FileType.VIDEO,byteArray = byteArray)
+            } else{
+                Result.failure(Throwable("Failed to byte array null"))
+            }
+        }
+        catch (ex:Exception){
+            Result.failure(Throwable("Failed to :${ex.message}"))
+        }
+
+    }
 
 }

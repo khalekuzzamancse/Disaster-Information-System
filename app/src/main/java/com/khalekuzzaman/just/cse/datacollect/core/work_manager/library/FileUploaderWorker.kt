@@ -16,8 +16,8 @@ abstract class FileUploaderWorker(
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
 
-    protected val url = this.inputData.getString(WorkManagerConst.API_URL)
-    private val uriString = inputData.getString(WorkManagerConst.URI)
+    protected val url = this.inputData.getString(WorkManagerEntities.API_URL)
+    private val uriString = inputData.getString(WorkManagerEntities.URI)
     protected val uri = uriString?.let { Uri.parse(it) }
 
 
@@ -37,11 +37,11 @@ abstract class FileUploaderWorker(
         val message = result.exceptionOrNull()?.message
         return if (result.isFailure)
             Result.failure(
-                Data.Builder().putString(WorkManagerConst.RESULT_MESSAGE, "$message").build()
+                Data.Builder().putString(WorkManagerEntities.RESULT_MESSAGE, "$message").build()
             )
         else
             Result.success(
-                Data.Builder().putString(WorkManagerConst.RESULT_MESSAGE, "success").build()
+                Data.Builder().putString(WorkManagerEntities.RESULT_MESSAGE, "success").build()
             )
     }
 
