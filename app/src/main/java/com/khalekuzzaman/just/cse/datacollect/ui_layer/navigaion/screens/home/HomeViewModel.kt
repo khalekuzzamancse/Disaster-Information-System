@@ -2,12 +2,12 @@ package com.khalekuzzaman.just.cse.datacollect.ui_layer.navigaion.screens.home
 
 import android.content.Context
 import android.net.Uri
-import com.khalekuzzaman.just.cse.datacollect.data_layer.file_io.FileUploadHelper
 import com.khalekuzzaman.just.cse.datacollect.data_layer.connectivity.ConnectivityObserver
 import com.khalekuzzaman.just.cse.datacollect.data_layer.connectivity.NetworkConnectivityObserver
+import com.khalekuzzaman.just.cse.datacollect.data_layer.file_io.FileUploadHelper
 import com.khalekuzzaman.just.cse.datacollect.ui_layer.chat_ui.SnackBarMessage
 import com.khalekuzzaman.just.cse.datacollect.ui_layer.chat_ui.SnackBarMessageType
-import core.network.NetworkRequest
+import core.network.NetworkFileType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -21,7 +21,7 @@ class HomeViewModel(private val context: Context) {
 
     private val _snackBarMessage = MutableStateFlow<SnackBarMessage?>(null)
     val snackBarMessage = _snackBarMessage.asStateFlow()
-    private val uploader = FileUploadHelper("upload-work", fileType = NetworkRequest.FileType.IMAGE)
+    private val uploader = FileUploadHelper("upload-work", fileType = NetworkFileType.IMAGE)
     val progress = uploader.sentByPercentage
     val isUploading = uploader.isSending
 

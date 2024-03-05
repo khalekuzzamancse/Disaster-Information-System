@@ -1,5 +1,5 @@
 package core.network
 
-interface NetworkMonitor {
+fun interface NetworkMonitor {
    fun isNetworkAvailable():Boolean
 }

@@ -2,7 +2,7 @@ package com.khalekuzzaman.just.cse.datacollect.data_layer.file_io
 
 import android.content.Context
 import android.net.Uri
-import core.network.NetworkRequest
+import core.network.NetworkFileType
 import core.work_manager.SingleWorkBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,7 @@ import kotlin.random.Random
 
 class FileUploadHelper(
     private val taskName: String,
-    private val fileType: NetworkRequest.FileType,
+    private val fileType: NetworkFileType,
 ) {
     /**
      * Not holding the context,to make garbage collection easy
@@ -61,8 +61,8 @@ class FileUploadHelper(
 
     private suspend fun uploadFile(context: Context, uri: Uri): Result<String> {
         return when (fileType) {
-            NetworkRequest.FileType.IMAGE -> MediaUploader.uploadImage(context, uri)
-            NetworkRequest.FileType.VIDEO -> MediaUploader.uploadImage(context, uri)
+            NetworkFileType.IMAGE -> MediaUploader.uploadImage(context, uri)
+            NetworkFileType.VIDEO -> MediaUploader.uploadVideo(context, uri)
         }
     }
 

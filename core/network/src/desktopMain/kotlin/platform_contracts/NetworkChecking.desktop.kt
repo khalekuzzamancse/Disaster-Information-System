@@ -1,5 +1,5 @@
 package platform_contracts
 
 actual fun isNetworkAvailable(): Boolean {
-    TODO("Not yet implemented")
+    return true
 }
