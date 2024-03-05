@@ -23,12 +23,15 @@ kotlin {
         }
         val androidMain by getting{
             dependencies {
-                implementation(libs.androidx.lifecycle.livedata.ktx )// Check for the latest version
+                //to convert workmanager live data to flow
+                implementation(libs.androidx.lifecycle.livedata.ktx )
                 // Kotlin + coroutines
                 implementation(libs.androidx.work.runtime.ktx)
                 // optional - GCMNetworkManager support
                 implementation(libs.androidx.work.gcm)
                 implementation(libs.androidx.work.multiprocess)
+                //for notification manager
+                implementation(libs.androidx.core)
 
 
             }
@@ -50,4 +53,3 @@ android {
     }
 
 }
-

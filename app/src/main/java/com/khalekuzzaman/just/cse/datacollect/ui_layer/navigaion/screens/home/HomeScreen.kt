@@ -2,7 +2,6 @@ package com.khalekuzzaman.just.cse.datacollect.ui_layer.navigaion.screens.home
 
 
 import android.net.Uri
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,18 +17,20 @@ import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -52,9 +53,8 @@ fun HomeScreen(
     val homeViewModel = remember { HomeViewModel(context) }
 
     val isUploading = homeViewModel.isUploading.collectAsState().value
-    val progress = homeViewModel.progress.collectAsState().value
+    homeViewModel.progress.collectAsState().value
     val snackBarMessage = homeViewModel.snackBarMessage.collectAsState().value
-
 
 
     Box {
@@ -64,27 +64,15 @@ fun HomeScreen(
             onVideoPickRequest = onVideoPickRequest,
             onImagePickRequest = onImagePickRequest,
             snackBarMessage = snackBarMessage,
+            isSending = isUploading,
             onSend = {
                 scope.launch {
-                   // homeViewModel.uploadImages(images = images)
+                    // homeViewModel.uploadImages(images = images)
                     homeViewModel.uploadVideo(videos = videos)
                 }
 
             }
         )
-        if (isUploading) {
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(Color.Gray.copy(alpha = 0.7f)),
-                contentAlignment = Alignment.Center
-            ) {
-                LinearProgressIndicator(
-                    progress = {
-                        progress
-                    })
-            }
-        }
     }
 
 
@@ -99,8 +87,10 @@ fun HomeNonUpLoading(
     pickedVideoCount: Int = 0,
     onVideoPickRequest: () -> Unit,
     onImagePickRequest: () -> Unit = {},
+    isSending: Boolean,
     onSend: () -> Unit = {},
 ) {
+
 
     Scaffold(
         snackbarHost = {
@@ -112,53 +102,11 @@ fun HomeNonUpLoading(
             TopAppBar(
                 title = {},
                 actions = {
-                    BadgedBox(badge = {
-                        if (pickedImageCount > 0) {
-                            Badge {
-                                Text(text = "$pickedImageCount")
-                            }
-                        }
-
-
-                    }) {
-                        IconButton(onClick = onImagePickRequest) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.add_photo),
-                                contentDescription = "add photo",
-                                tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(30.dp)
-                            )
-                        }
-                    }
+                    AddImageButton(pickedImageCount, enable = !isSending, onImagePickRequest)
                     Spacer(modifier = Modifier.width(4.dp))
-                    BadgedBox(badge = {
-                        if (pickedVideoCount > 0)
-                            Badge {
-                                Text(text = "$pickedVideoCount")
-                            }
-                    }) {
-
-                        IconButton(onClick = onVideoPickRequest) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.add_video),
-                                contentDescription = "add video",
-                                tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(30.dp)
-
-                            )
-                        }
-                    }
+                    AddVideoButton(pickedVideoCount, enable =! isSending, onVideoPickRequest)
                     Spacer(modifier = Modifier.width(4.dp))
-                    IconButton(
-                        onClick = onSend,
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.Send,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
-                        )
-                    }
-
+                    SentButton(enable =! isSending, onSend)
                 }
 
             )
@@ -190,4 +138,67 @@ fun HomeNonUpLoading(
         }
     }
 
+}
+
+@Composable
+private fun SentButton(enable: Boolean, onClick: () -> Unit) {
+    IconButton(
+        onClick = onClick,
+        enabled = enable
+    ) {
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.Send,
+            contentDescription = null,
+            tint = if (enable) MaterialTheme.colorScheme.primary else LocalContentColor.current,
+        )
+    }
+}
+
+@Composable
+private fun AddImageButton(pickedImageCount: Int, enable: Boolean, onClick: () -> Unit) {
+    BadgeDecorator(pickedImageCount) {
+        IconButton(
+            onClick = onClick,
+            enabled = enable
+        ) {
+            Icon(
+                painter = painterResource(id = core.work_manager.R.drawable.add_photo),
+                contentDescription = "add video",
+                tint = if (enable) MaterialTheme.colorScheme.primary else LocalContentColor.current,
+                modifier = Modifier.size(30.dp)
+
+            )
+        }
+    }
+
+}
+
+@Composable
+private fun AddVideoButton(pickedVideoCount: Int, enable: Boolean, onClick: () -> Unit) {
+    BadgeDecorator(pickedVideoCount) {
+        IconButton(onClick = onClick ,enabled = enable) {
+            Icon(
+                painter = painterResource(id = R.drawable.add_video),
+                contentDescription = "add video",
+                tint = if (enable) MaterialTheme.colorScheme.primary else LocalContentColor.current,
+                modifier = Modifier.size(30.dp)
+
+            )
+        }
+    }
+
+}
+
+@Composable
+private fun BadgeDecorator(count: Int, content: @Composable () -> Unit) {
+    BadgedBox(
+        badge = {
+            if (count > 0)
+                Badge {
+                    Text(text = "$count")
+                }
+        },
+    ) {
+        content()
+    }
 }
