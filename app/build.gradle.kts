@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     kotlin("android")
     id("org.jetbrains.compose")
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 android {
@@ -32,17 +33,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.6"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
     packaging {
         resources {
@@ -52,27 +53,28 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:network"))
+    implementation(project(":core:work_manager"))
 
+    //
     implementation(libs.androidx.activity.compose)
     implementation(compose.ui)
     implementation(compose.material3)
     implementation(compose.materialIconsExtended)
     implementation(libs.kotlinx.coroutines.android)
     //permission handle
-    implementation ("com.google.accompanist:accompanist-permissions:0.29.2-rc")
+    implementation (libs.accompanist.permissions)
     //network IO
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.okhttp)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.kotlinx.json)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.ktor.client.okhttp)
-    //
+    //Image load from memory and network
     implementation(libs.coil3.network)
     implementation(libs.coil3)
     implementation(libs.coil3.core)
     //video player
-    implementation ("androidx.media3:media3-exoplayer:1.0.0-beta02")
-    implementation("androidx.media3:media3-ui:1.0.0-beta02")
+    implementation (libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
+    //navigation
+    implementation(libs.androidx.navigation.compose)
+
+
 
 }

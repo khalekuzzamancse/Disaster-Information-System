@@ -1,24 +1,37 @@
 [versions]
-agp = "8.2.2"
+accompanistPermissions = "0.29.2-rc"
+agp = "8.2.0"
 androidx-activityCompose = "1.8.2"
 coroutines = "1.7.3"
 compose-plugin = "1.6.0-beta02"
 kotlin = "1.9.21"
 junit = "4.13.2"
-voyager = "1.0.0"
+lifecycleLivedataKtx = "2.7.0"
+media3Exoplayer = "1.2.1"
+navigationCompose = "2.7.7"
 coil3-io = "3.0.0-alpha02"
 ktor = "2.3.7"
-realmVersion = "1.13.0"
 windowSize="0.3.1"
+workRuntimeKtx = "2.9.0"
+kotlin2 = "1.9.21"
+coreKtx = "1.10.1"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.6.1"
+material = "1.10.0"
 [libraries]
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 androidx-activity-compose= { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-voyager-screenmodel={module="cafe.adriel.voyager:voyager-screenmodel",version.ref="voyager"}
-voyager-navigator = { group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyager" }
-voyager-transitions = { group = "cafe.adriel.voyager", name = "voyager-transitions", version.ref = "voyager" }
-
+androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3Exoplayer" }
+androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3Exoplayer" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-work-gcm = { module = "androidx.work:work-gcm", version.ref = "workRuntimeKtx" }
+androidx-work-multiprocess = { module = "androidx.work:work-multiprocess", version.ref = "workRuntimeKtx" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
+androidx-work-testing = { module = "androidx.work:work-testing", version.ref = "workRuntimeKtx" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
-
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
@@ -28,14 +41,15 @@ coil3-network = { module = "io.coil-kt.coil3:coil-network", version.ref = "coil3
 coil3-core = { module = "io.coil-kt.coil3:coil-core", version.ref = "coil3-io" }
 windowSize = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform",version.ref = "windowSize"}
 
-
-# local database
-database-realm-base={ module = "io.realm.kotlin:library-base", version.ref = "realmVersion" }
-database-realm-sync={ module = "io.realm.kotlin:library-sync", version.ref = "realmVersion" }
 #Test
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 #
 
 
@@ -46,5 +60,6 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-realm={id="io.realm.kotlin", version.ref = "realmVersion"}
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin2" }
+
 

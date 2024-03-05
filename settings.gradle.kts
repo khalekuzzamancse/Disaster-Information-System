@@ -14,4 +14,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Data Collect"
+val coreModules= listOf(":core",":core:network",":core:work_manager")
 include(":app")
+include(coreModules)
+include(":mylibrary2")
