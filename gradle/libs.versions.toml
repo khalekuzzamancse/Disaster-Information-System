@@ -1,6 +1,6 @@
 [versions]
 accompanistPermissions = "0.29.2-rc"
-agp = "8.3.0"
+agp = "8.2.0"
 androidx-activityCompose = "1.8.2"
 coroutines = "1.7.3"
 compose-plugin = "1.6.0-beta02"

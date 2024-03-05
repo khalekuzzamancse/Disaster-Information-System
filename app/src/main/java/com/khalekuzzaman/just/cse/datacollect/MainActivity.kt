@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import com.khalekuzzaman.just.cse.datacollect.module_1.navigaion.RootNavHost
-import com.khalekuzzaman.just.cse.datacollect.module_1.theme.AppTheme
+import com.khalekuzzaman.just.cse.datacollect.ui_layer.navigaion.RootNavHost
+import com.khalekuzzaman.just.cse.datacollect.ui_layer.theme.AppTheme
 
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
