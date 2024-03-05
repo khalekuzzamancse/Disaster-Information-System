@@ -3,12 +3,12 @@ package com.khalekuzzaman.just.cse.datacollect.data_layer.file_io
 import android.content.Context
 import android.net.Uri
 import core.network.NetworkRequest
-import core.nofication_manager.ProgressNotificationBuilder
 import core.work_manager.SingleWorkBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import platform_contracts.ProgressNotificationBuilder
 import kotlin.random.Random
 
 class FileUploadHelper(
@@ -52,9 +52,10 @@ class FileUploadHelper(
     }
 
     private fun buildNotificationBuilder(context: Context, target: Int) {
-        notificationBuilder = ProgressNotificationBuilder(
+        notificationBuilder = ProgressNotificationBuilder(context)
+        notificationBuilder.build(
             title = "Uploading", message = "image uploading",
-            id = Random.nextInt(), target = target, context = context
+            id = Random.nextInt(), target = target
         )
     }
 
