@@ -51,11 +51,17 @@ fun PermissionIfNeeded() {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.MANAGE_EXTERNAL_STORAGE
+            Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+            //notifications
+            "android.permission.FOREGROUND_SERVICE",
+            "android.permission.POST_NOTIFICATIONS"
+
         )
     )
 
+
 }
+
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun PermissionManage(
@@ -87,6 +93,7 @@ fun PermissionManage(
     }
 
 }
+
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun RequestMultiplePermissions(
@@ -133,6 +140,7 @@ private fun HandleRequests(
         deniedContent(shouldShowRationale)
     }
 }
+
 //Single permission
 @ExperimentalPermissionsApi
 @Composable
@@ -175,11 +183,13 @@ private fun HandleRequest(
         is PermissionStatus.Granted -> {
             content()
         }
+
         is PermissionStatus.Denied -> {
             deniedContent(permissionState.status.shouldShowRationale)
         }
     }
 }
+
 @Composable
 fun Content(text: String, showButton: Boolean = true, onClick: () -> Unit) {
     Column(
