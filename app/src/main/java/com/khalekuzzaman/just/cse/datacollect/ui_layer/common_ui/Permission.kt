@@ -54,7 +54,9 @@ fun PermissionIfNeeded() {
             Manifest.permission.MANAGE_EXTERNAL_STORAGE,
             //notifications
             "android.permission.FOREGROUND_SERVICE",
-            "android.permission.POST_NOTIFICATIONS"
+            "android.permission.POST_NOTIFICATIONS",
+            //maps
+            "android.permission.ACCESS_BACKGROUND_LOCATION"
 
         )
     )

@@ -59,7 +59,6 @@ fun RootNavHost(
                         images = imageGalleryViewModel.galleryState.collectAsState().value.map { it.uri },
                         videos =  videoGalleryViewModel.galleryState.collectAsState().value.map { it.uri },
                         onVideoPickRequest = {
-
                             navController.navigate(Destinations.VIDEOPICKER)
                         }
                     ) {

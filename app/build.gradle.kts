@@ -53,28 +53,27 @@ android {
 }
 
 dependencies {
+    implementation(project(":ui"))
     implementation(project(":core:network"))
     implementation(project(":core:work_manager"))
 
+    //Google map
+    implementation(libs.maps.compose)
+
     //
     implementation(libs.androidx.activity.compose)
-    implementation(compose.ui)
-    implementation(compose.material3)
-    implementation(compose.materialIconsExtended)
+
     implementation(libs.kotlinx.coroutines.android)
     //permission handle
     implementation (libs.accompanist.permissions)
     //network IO
-    //Image load from memory and network
-    implementation(libs.coil3.network)
-    implementation(libs.coil3)
-    implementation(libs.coil3.core)
+
     //video player
     implementation (libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
     //navigation
     implementation(libs.androidx.navigation.compose)
-
+    implementation(libs.play.services.location)
 
 
 }

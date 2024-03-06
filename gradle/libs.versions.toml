@@ -3,10 +3,11 @@ accompanistPermissions = "0.29.2-rc"
 agp = "8.2.0"
 androidx-activityCompose = "1.8.2"
 coroutines = "1.7.3"
-compose-plugin = "1.6.0-beta02"
+compose-plugin = "1.6.0"
 kotlin = "1.9.21"
 junit = "4.13.2"
 lifecycleLivedataKtx = "2.7.0"
+mapsCompose = "4.3.3"
 media3Exoplayer = "1.2.1"
 navigationCompose = "2.7.7"
 coil3-io = "3.0.0-alpha02"
@@ -14,12 +15,13 @@ ktor = "2.3.7"
 windowSize="0.3.1"
 workRuntimeKtx = "2.9.0"
 kotlin2 = "1.9.21"
-coreKtx = "1.10.1"
+coreKtx = "1.12.0"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 appcompat = "1.6.1"
-material = "1.10.0"
+material = "1.11.0"
 core = "1.12.0"
+playServicesLocation = "21.1.0"
 [libraries]
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 androidx-activity-compose= { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -40,6 +42,7 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 coil3 = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3-io" }
 coil3-network = { module = "io.coil-kt.coil3:coil-network", version.ref = "coil3-io" }
 coil3-core = { module = "io.coil-kt.coil3:coil-core", version.ref = "coil3-io" }
+maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
 windowSize = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform",version.ref = "windowSize"}
 
 #Test
@@ -52,6 +55,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 #
 
 
