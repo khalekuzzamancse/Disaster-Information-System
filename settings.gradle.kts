@@ -16,9 +16,8 @@ dependencyResolutionManagement {
 rootProject.name = "Data Collect"
 val coreModules= listOf(":core",":core:network",":core:work_manager")
 val uiLayers= listOf(":ui")
-val applications= listOf(":applications",":applications:desktop")
+val applications= listOf(":applications",":applications:android",":applications:desktop")
 include(applications)
 include(uiLayers)
-include(":app")
 include(coreModules)
 
