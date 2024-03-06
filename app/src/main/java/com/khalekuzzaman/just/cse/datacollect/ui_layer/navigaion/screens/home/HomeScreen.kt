@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material3.Badge
@@ -39,6 +41,9 @@ import com.khalekuzzaman.just.cse.datacollect.ui_layer.chat_ui.CustomSnackBar
 import com.khalekuzzaman.just.cse.datacollect.ui_layer.chat_ui.MessageInputField
 import com.khalekuzzaman.just.cse.datacollect.ui_layer.chat_ui.SnackBarMessage
 import kotlinx.coroutines.launch
+import platform_contracts.DateUtilsCustom
+import ui.form.BaseDescriptionFormManager
+import ui.routes.SubmitFormRoutes
 
 
 @Composable
@@ -55,7 +60,6 @@ fun HomeScreen(
     val isUploading = homeViewModel.isUploading.collectAsState().value
     homeViewModel.progress.collectAsState().value
     val snackBarMessage = homeViewModel.snackBarMessage.collectAsState().value
-
 
     Box {
         HomeNonUpLoading(
@@ -116,25 +120,16 @@ fun HomeNonUpLoading(
             modifier = Modifier
                 .padding(scaffoldPadding)
                 .padding(start = 8.dp, end = 8.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+
+            ,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             WelcomeToHome()
             Spacer(modifier = Modifier.height(16.dp))
-            Column {
-                Text(
-                    text = "Description",
-                    style = MaterialTheme.typography.labelLarge
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                MessageInputField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(250.dp),
-                )
-
-            }
-
+            val viewModel = remember { BaseDescriptionFormManager(DateUtilsCustom()) }
+            SubmitFormRoutes(formStateManager = viewModel, onSubmitClick = {})
         }
     }
 
