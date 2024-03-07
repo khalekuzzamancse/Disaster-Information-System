@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import com.khalekuzzaman.just.cse.datacollect.ui_layer.navigaion.RootNavHost
 import com.khalekuzzaman.just.cse.datacollect.ui_layer.theme.AppTheme
+import khalekuzzaman_cse_libraries.common_ui.CMPComponentsDemo
 
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -16,7 +16,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-               RootNavHost()
+                CMPComponentsDemo.Welcome()
+
+
             }
         }
     }

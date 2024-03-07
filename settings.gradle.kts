@@ -10,14 +10,21 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("https://maven.pkg.github.com/khalekuzzamancse/PersonalLibraries")
+            credentials {
+                username = System.getenv("GITHUB_USERNAME")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+
     }
 }
 
-rootProject.name = "Data Collect"
-val coreModules= listOf(":core",":core:network",":core:work_manager")
-val uiLayers= listOf(":ui")
-val applications= listOf(":applications",":applications:android",":applications:desktop")
-include(applications)
-include(uiLayers)
-include(coreModules)
+rootProject.name = "DisasterInformationSystem"
+val coreModules = listOf(":core", ":core:network", ":core:work_manager")
+val uiLayers = listOf(":ui")
+val applications = listOf(":applications", ":applications:android", ":applications:desktop")
+val features= listOf(":feature",":feature:navigation",":feature:image_picker",":feature:video_picker",":feature:data_submission",":feature:video_compression")
+include(applications+uiLayers+coreModules+features)
 
