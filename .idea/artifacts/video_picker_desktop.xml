@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="video_picker-desktop">
+    <output-path>$PROJECT_DIR$/feature/video_picker/build/libs</output-path>
+    <root id="archive" name="video_picker-desktop.jar" />
+  </artifact>
+</component>

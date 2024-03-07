@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="image_picker-desktop">
+    <output-path>$PROJECT_DIR$/feature/image_picker/build/libs</output-path>
+    <root id="archive" name="image_picker-desktop.jar" />
+  </artifact>
+</component>
