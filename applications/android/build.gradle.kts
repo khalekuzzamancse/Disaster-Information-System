@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.androidApplication)
     kotlin("android")
@@ -53,6 +52,7 @@ android {
 }
 
 dependencies {
+    implementation("khalekuzzamancse.cse:cmp-components:1.0.0")
     implementation(project(":ui"))
     implementation(project(":core:network"))
     implementation(project(":core:work_manager"))
@@ -65,11 +65,11 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
     //permission handle
-    implementation (libs.accompanist.permissions)
+    implementation(libs.accompanist.permissions)
     //network IO
 
     //video player
-    implementation (libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
     //navigation
     implementation(libs.androidx.navigation.compose)
