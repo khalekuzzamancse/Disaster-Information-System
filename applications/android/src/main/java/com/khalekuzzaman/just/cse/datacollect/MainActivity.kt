@@ -6,7 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import com.khalekuzzaman.just.cse.datacollect.ui_layer.theme.AppTheme
-import khalekuzzaman_cse_libraries.common_ui.CMPComponentsDemo
+import data_submission.platform_contracts.DateUtilsCustom
+import data_submission.ui.routes.SubmitFormRoutes
+import ui.form.BaseDescriptionFormManager
 
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -16,9 +18,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                CMPComponentsDemo.Welcome()
-
-
+              //  RootNavHost()
+                SubmitFormRoutes(
+                    BaseDescriptionFormManager(
+                        DateUtilsCustom(),
+                    )
+                )
             }
         }
     }

@@ -17,10 +17,10 @@
             <option value="$PROJECT_DIR$/core/work_manager" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/data_submission" />
-            <option value="$PROJECT_DIR$/feature/image_picker" />
+            <option value="$PROJECT_DIR$/feature/home" />
+            <option value="$PROJECT_DIR$/feature/image_video_picker" />
             <option value="$PROJECT_DIR$/feature/navigation" />
             <option value="$PROJECT_DIR$/feature/video_compression" />
-            <option value="$PROJECT_DIR$/feature/video_picker" />
             <option value="$PROJECT_DIR$/ui" />
           </set>
         </option>
