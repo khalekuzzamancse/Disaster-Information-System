@@ -3,13 +3,15 @@ package data_submission.ui.routes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ui.form.BaseDescriptionFormManager
-import ui.form.CompactForm
+import data_submission.ui.form.CompactForm
 
 @Composable
 fun SubmitFormRoutes(
@@ -17,7 +19,12 @@ fun SubmitFormRoutes(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier,//find why vertical scroll causes crash on  google map selection
+        modifier,
+        //defining the scroll here causes the google map problem
+        //while scrolling,because the scroll consume the drag event of the marker
+        //so avoid the form as scrollable
+        //try better solution
+
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CompactForm(

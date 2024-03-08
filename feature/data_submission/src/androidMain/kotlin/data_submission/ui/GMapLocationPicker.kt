@@ -2,7 +2,11 @@ package data_submission.ui
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -11,6 +15,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,6 +26,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
@@ -50,7 +56,9 @@ internal fun GMapLocationPicker(
     val scope = rememberCoroutineScope()
     val hostState = remember { SnackbarHostState() }
     Scaffold(
-        modifier=Modifier.fillMaxSize(),//disconnecting modifier for debug
+        modifier = Modifier.widthIn(0.dp,500.dp).heightIn(0.dp,1000.dp),
+        //not defining size is causes crash while the parent is scrollable
+        //may be the compose framework this version has bug,fix it later
         topBar = {
             TopAppBar(
                 title = { },
@@ -81,7 +89,8 @@ internal fun GMapLocationPicker(
         GMap(
             Modifier
                 .padding(innerPadding)
-                .fillMaxSize(),
+                .fillMaxSize()
+            ,
             onLocationPicked = {
                 location = it
             }
@@ -113,7 +122,7 @@ fun GMap(
     MoveCameraToCurrentLocation(cameraPositionState, currentLocation)
 
     GoogleMap(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
         cameraPositionState = cameraPositionState
     ) {
         currentLocation?.let { location ->
