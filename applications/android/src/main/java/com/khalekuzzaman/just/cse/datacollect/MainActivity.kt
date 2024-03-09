@@ -6,7 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import com.khalekuzzaman.just.cse.datacollect.ui_layer.theme.AppTheme
-import khalekuzzaman_cse_libraries.common_ui.CMPComponentsDemo
+import platform_contract.NavigationRoot
 
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -16,9 +16,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                CMPComponentsDemo.Welcome()
-
-
+                NavigationRoot()
+                    //
             }
         }
     }

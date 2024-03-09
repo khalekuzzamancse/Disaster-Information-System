@@ -1,4 +1,4 @@
-
+<!-- Hello-->
 # Table of Contents
 
 1. [Disaster Information System](#disaster-information-system)
@@ -95,12 +95,6 @@ The app is currently in development. The `prodRelease` variant is [available on 
 <details open>
   <summary><strong>SRS Documentations</strong></summary>
 
-- [Chapter 01 - Introduction]()
-- [Chapter 02 - Software Requirement Specification]()
-- [Chapter 03 - System Design]()
-- [Chapter 04 - Implementation Details]()
-- [Chapter 05 - Testing]()
-- [Chapter 06 - User Manual]()
 </details>
 <!-- New section -->
 <!-- New section -->

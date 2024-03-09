@@ -54,23 +54,27 @@ android {
 dependencies {
     implementation("khalekuzzamancse.cse:cmp-components:1.0.0")
     implementation(project(":ui"))
+    implementation(project(":feature:navigation"))
+    implementation(project(":feature:image_video_picker"))
     implementation(project(":core:network"))
     implementation(project(":core:work_manager"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:data_submission"))
 
-    //Google map
-    implementation(libs.maps.compose)
+    implementation(compose.ui)
+    implementation(compose.material3)
+    implementation(compose.animation)
+    implementation(compose.animationGraphics)
+    implementation(compose.materialIconsExtended)
+    implementation(compose.foundation)
+    implementation(compose.runtime)
+    implementation(libs.windowSize)
 
     //
+
     implementation(libs.androidx.activity.compose)
-
     implementation(libs.kotlinx.coroutines.android)
-    //permission handle
-    implementation(libs.accompanist.permissions)
-    //network IO
-
-    //video player
-    implementation(libs.androidx.media3.exoplayer)
-    implementation(libs.androidx.media3.ui)
+ 
     //navigation
     implementation(libs.androidx.navigation.compose)
     implementation(libs.play.services.location)

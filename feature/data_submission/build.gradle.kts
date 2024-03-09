@@ -32,6 +32,11 @@ kotlin {
         }
         val androidMain by getting{
             dependencies {
+                //permission
+                implementation (libs.accompanist.permissions)
+                //Google map
+                implementation(libs.maps.compose)
+                implementation(libs.play.services.location)
             }
         }
         val desktopMain by getting{
@@ -41,6 +46,11 @@ kotlin {
             }
         }
     }
+    compilerOptions {
+        // Common compiler options applied to all Kotlin source sets
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+
 
 
 }

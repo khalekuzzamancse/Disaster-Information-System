@@ -1,6 +1,8 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="video_compression-desktop">
     <output-path>$PROJECT_DIR$/feature/video_compression/build/libs</output-path>
-    <root id="archive" name="video_compression-desktop.jar" />
+    <root id="archive" name="video_compression-desktop.jar">
+      <element id="module-output" name="DisasterInformationSystem.feature.video_compression.desktopMain" />
+    </root>
   </artifact>
 </component>

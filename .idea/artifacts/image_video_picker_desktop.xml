@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="image_video_picker-desktop">
+    <output-path>$PROJECT_DIR$/feature/image_video_picker/build/libs</output-path>
+    <root id="archive" name="image_video_picker-desktop.jar">
+      <element id="module-output" name="DisasterInformationSystem.feature.image_video_picker.desktopMain" />
+    </root>
+  </artifact>
+</component>
