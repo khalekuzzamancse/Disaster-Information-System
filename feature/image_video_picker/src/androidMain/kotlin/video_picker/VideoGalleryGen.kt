@@ -1,4 +1,4 @@
-package image_picker.video_picker
+package video_picker
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -29,16 +29,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import image_picker.GalleryScreenG
+import image_picker.GalleryScreen
 import image_picker.common.KMPFile
 import image_picker.common.GalleryMediaGeneric
-import image_picker.common.GalleryViewModelG
+import image_picker.common.GalleryViewModel
 
 
 @Composable
 fun VideoGalleryGen(
-    videoGalleryViewModel: GalleryViewModelG,
-    onExitRequest:()->Unit,
+    videoGalleryViewModel: GalleryViewModel,
 ) {
     var enableAddButton by remember {
         mutableStateOf(true)
@@ -54,11 +53,11 @@ fun VideoGalleryGen(
             enableAddButton=true
         }
     )
-    GalleryScreenG(
+    GalleryScreen(
+        enableAddButton = enableAddButton,
         enabledUndo = true,
         enabledRedo = true,
         showRemoveButton = showRemoveButton,
-        onExitRequest =onExitRequest,
         onAddRequest = {
             enableAddButton=false
             videoPicker.launch(
@@ -68,8 +67,7 @@ fun VideoGalleryGen(
         },
         onRemoveRequest = videoGalleryViewModel::remove,
         undoRequest = videoGalleryViewModel::undo,
-        redoRequest = videoGalleryViewModel::redo,
-        enableAddButton = enableAddButton
+        redoRequest = videoGalleryViewModel::redo
     ) {
         Column(
             modifier = Modifier.padding(it)

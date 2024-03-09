@@ -6,9 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import com.khalekuzzaman.just.cse.datacollect.ui_layer.theme.AppTheme
-import data_submission.platform_contracts.DateUtilsCustom
-import data_submission.ui.routes.SubmitFormRoutes
-import ui.form.BaseDescriptionFormManager
+import platform_contract.NavigationRoot
 
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -18,12 +16,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-              //  RootNavHost()
-                SubmitFormRoutes(
-                    BaseDescriptionFormManager(
-                        DateUtilsCustom(),
-                    )
-                )
+                NavigationRoot()
             }
         }
     }

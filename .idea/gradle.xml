@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/applications/android" />
             <option value="$PROJECT_DIR$/applications/desktop" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/di" />
             <option value="$PROJECT_DIR$/core/network" />
             <option value="$PROJECT_DIR$/core/work_manager" />
             <option value="$PROJECT_DIR$/feature" />

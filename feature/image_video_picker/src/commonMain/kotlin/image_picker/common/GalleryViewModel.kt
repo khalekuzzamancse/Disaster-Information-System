@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
-class GalleryViewModelG {
+class GalleryViewModel {
 
     private val _imageGalleryState = MutableStateFlow(emptyList<GalleryMediaGeneric>())
     val galleryState = _imageGalleryState.asStateFlow()

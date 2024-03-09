@@ -1,9 +1,9 @@
 package data_submission.platform_contracts
 
 import kotlinx.coroutines.flow.StateFlow
-import ui.form.FormEvent
-import ui.form.FormState
-import ui.form.BaseDescriptionFormManager
+import data_submission.ui.form.FormEvent
+import data_submission.ui.form.FormState
+import data_submission.ui.form.BaseDescriptionFormManager
 
 /**
  * * Defining the contract so that if a specific platform need to use it own

@@ -17,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import ui.form.components.ReadOnlyTextField
 
 /**
  * Defining so client module that the component does not depends on underlying date representation

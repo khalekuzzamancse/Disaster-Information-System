@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
 }
+
 kotlin {
     jvm{
         jvmToolchain(17)
@@ -12,7 +13,7 @@ kotlin {
     sourceSets{
         val jvmMain by getting{
             dependencies {
-                implementation(project(":ui"))
+                implementation(project(":feature:navigation"))
                 implementation(compose.desktop.common)
                 implementation(compose.desktop.currentOs)
             }

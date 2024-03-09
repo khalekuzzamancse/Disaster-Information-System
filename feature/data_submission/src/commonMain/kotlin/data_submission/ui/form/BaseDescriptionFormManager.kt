@@ -1,10 +1,10 @@
-package ui.form
+package data_submission.ui.form
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import data_submission.platform_contracts.DescriptionFormStateManager
 import data_submission.platform_contracts.DateUtilsCustom
-import ui.form.components.TimePickerData
+import data_submission.ui.form.components.TimePickerData
 
 class BaseDescriptionFormManager(private val dateUtil: DateUtilsCustom) :
     DescriptionFormStateManager {

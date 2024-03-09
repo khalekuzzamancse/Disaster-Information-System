@@ -1,4 +1,4 @@
-package image_picker.video_picker
+package video_picker
 
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever

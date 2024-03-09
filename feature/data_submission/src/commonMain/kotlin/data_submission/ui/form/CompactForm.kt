@@ -22,13 +22,11 @@ import androidx.compose.ui.unit.dp
 import data_submission.platform_contracts.LocationPicker
 import data_submission.ui.form.components.DatePicker
 import data_submission.ui.form.components.DatePickerDate
-import ui.form.FormEvent
-import ui.form.FormState
-import ui.form.components.DescriptionTextField
+import data_submission.ui.form.components.DescriptionTextField
 import ui.form.components.FormTextField
-import ui.form.components.ReadOnlyTextField
-import ui.form.components.TimePickerCustom
-import ui.form.components.TimePickerData
+import data_submission.ui.form.components.ReadOnlyTextField
+import data_submission.ui.form.components.TimePickerCustom
+import data_submission.ui.form.components.TimePickerData
 
 
 @Composable

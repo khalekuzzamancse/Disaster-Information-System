@@ -17,6 +17,12 @@ kotlin {
     sourceSets{
         val commonMain by getting{
             dependencies {
+                implementation(project(":ui"))
+                implementation(project(":core:di"))
+                implementation(project(":feature:home"))
+                implementation(project(":feature:data_submission"))
+                implementation(project(":feature:image_video_picker"))
+                //
                 implementation(compose.ui)
                 implementation(compose.material3)
                 implementation(compose.animation)
@@ -32,6 +38,8 @@ kotlin {
         }
         val androidMain by getting{
             dependencies {
+                //navigation
+                implementation(libs.androidx.navigation.compose)
             }
         }
         val desktopMain by getting{
@@ -41,7 +49,10 @@ kotlin {
             }
         }
     }
-
+    compilerOptions {
+        // Common compiler options applied to all Kotlin source sets
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
 
 }
 android {

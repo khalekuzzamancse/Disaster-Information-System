@@ -37,47 +37,45 @@ import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
 import image_picker.common.KMPFile
 import image_picker.common.GalleryMediaGeneric
-import image_picker.common.GalleryViewModelG
+import image_picker.common.GalleryViewModel
 
 
 /**
  * Only the public API
  */
 @Composable
-fun MultiplePhotoPickerGen(
-    imageGalleryViewModelG: GalleryViewModelG,
-    onExitRequest: () -> Unit,
+fun PhotoPickerAndroid(
+    imageGalleryViewModel: GalleryViewModel,
 ) {
     var enableAddButton by remember {
         mutableStateOf(true)
     }
     LocalContext.current
     val showImageGallery =
-        imageGalleryViewModelG.galleryState.collectAsState().value.isNotEmpty()
-    val images = imageGalleryViewModelG.galleryState.collectAsState().value
-    val showRemoveButton = imageGalleryViewModelG.anySelected.collectAsState(false).value
+        imageGalleryViewModel.galleryState.collectAsState().value.isNotEmpty()
+    val images = imageGalleryViewModel.galleryState.collectAsState().value
+    val showRemoveButton = imageGalleryViewModel.anySelected.collectAsState(false).value
     val multiplePhotoPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
         onResult = {uris->
-            imageGalleryViewModelG.addImages(uris.map { KMPFile(it.toString() )})
+            imageGalleryViewModel.addImages(uris.map { KMPFile(it.toString() )})
             enableAddButton=true
         }
     )
-    GalleryScreenG(
+    GalleryScreen(
+        enableAddButton = enableAddButton,
         enabledUndo = true,
         enabledRedo = true,
         showRemoveButton = showRemoveButton,
-        onExitRequest = onExitRequest,
         onAddRequest = {
             enableAddButton=false
             multiplePhotoPicker.launch(
                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
             )
         },
-        onRemoveRequest = imageGalleryViewModelG::remove,
-        undoRequest = imageGalleryViewModelG::undo,
-        redoRequest = imageGalleryViewModelG::redo,
-        enableAddButton = enableAddButton
+        onRemoveRequest = imageGalleryViewModel::remove,
+        undoRequest = imageGalleryViewModel::undo,
+        redoRequest = imageGalleryViewModel::redo
     ) {
         Column(
             modifier = Modifier.padding(it)
@@ -85,8 +83,8 @@ fun MultiplePhotoPickerGen(
             if (showImageGallery) {
                 ImageGallery(
                     images = images,
-                    onSelection = imageGalleryViewModelG::flipSelection,
-                    imageGalleryViewModelG = imageGalleryViewModelG
+                    onSelection = imageGalleryViewModel::flipSelection,
+                    imageGalleryViewModel = imageGalleryViewModel
                 )
             }
         }
@@ -98,7 +96,7 @@ fun MultiplePhotoPickerGen(
 
 @Composable
 fun ImageGallery(
-    imageGalleryViewModelG: GalleryViewModelG,
+    imageGalleryViewModel: GalleryViewModel,
     images: List<GalleryMediaGeneric>,
     onSelection: (KMPFile) -> Unit,
 ) {
@@ -121,7 +119,7 @@ fun ImageGallery(
                     Box(
                         modifier = Modifier
                             .clickable {
-                                imageGalleryViewModelG.flipSelection(image.identity)
+                                imageGalleryViewModel.flipSelection(image.identity)
                             }
                             .clip(RoundedCornerShape(8.dp))
                             .border(

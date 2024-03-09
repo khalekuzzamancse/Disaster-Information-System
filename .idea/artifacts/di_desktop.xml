@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="di-desktop">
+    <output-path>$PROJECT_DIR$/core/di/build/libs</output-path>
+    <root id="archive" name="di-desktop.jar">
+      <element id="module-output" name="DisasterInformationSystem.core.di.desktopMain" />
+    </root>
+  </artifact>
+</component>

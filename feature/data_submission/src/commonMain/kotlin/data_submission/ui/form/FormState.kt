@@ -1,10 +1,10 @@
-package ui.form
+package data_submission.ui.form
 
-import ui.form.components.TimePickerData
+import data_submission.ui.form.components.TimePickerData
 
 data class FormState(
-    var title: String ,
-    var date: String ,
+    var title: String,
+    var date: String,
     var startTime: TimePickerData,
     var endTime: TimePickerData,
     var location: String = "",
