@@ -44,7 +44,7 @@ fun AppNameLogoSection(
             style = TextStyle(
                 fontWeight = FontWeight.ExtraBold,
                 fontSize = 17.sp,
-                fontFamily = FontFamily.Cursive
+                fontFamily = FontFamily.Serif
             )
         )
     }

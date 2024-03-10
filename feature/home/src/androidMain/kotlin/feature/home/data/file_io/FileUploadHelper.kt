@@ -3,7 +3,7 @@ package feature.home.data.file_io
 import android.content.Context
 import android.net.Uri
 import com.khalekuzzaman.just.cse.datacollect.data_layer.file_io.MediaUploader
-import core.network.NetworkFileType
+import core.network.components.NetworkFileType
 import core.work_manager.SingleWorkBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

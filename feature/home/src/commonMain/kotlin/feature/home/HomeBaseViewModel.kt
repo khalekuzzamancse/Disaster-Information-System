@@ -1,11 +1,11 @@
 package feature.home
 
 
-import core.network.NetworkMonitor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import platform_contracts.NetworkConnectivityObserver
 import ui.SnackBarMessage
 import ui.SnackBarMessageType
 
@@ -14,7 +14,6 @@ import ui.SnackBarMessageType
  *
  */
 open class HomeBaseViewModel(
-    private val networkMonitor: NetworkMonitor,
     private val imageUploader: MediaUploader,
     private val videoUploader: MediaUploader,
 ) {
@@ -33,10 +32,6 @@ open class HomeBaseViewModel(
         }
 
     open suspend fun uploadImages() {
-        if (!networkMonitor.isNetworkAvailable()) {
-            SnackBarMessage("No Internet connection", SnackBarMessageType.Error).update()
-            return
-        }
         val isUploaded = imageUploader.upload()
         if (!isUploaded) {
             SnackBarMessage("Not uploaded", SnackBarMessageType.Error).update()
@@ -45,10 +40,6 @@ open class HomeBaseViewModel(
     }
 
    open suspend fun uploadVideo() {
-        if (!networkMonitor.isNetworkAvailable()) {
-            SnackBarMessage("No Internet connection", SnackBarMessageType.Error).update()
-            return
-        }
         val isUploaded = videoUploader.upload()
         if (!isUploaded) {
             SnackBarMessage("Not uploaded", SnackBarMessageType.Error).update()

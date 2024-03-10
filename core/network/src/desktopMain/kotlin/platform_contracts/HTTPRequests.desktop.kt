@@ -2,28 +2,27 @@
 
 package platform_contracts
 
-import core.network.Header
-import core.network.NetworkFileType
-import core.network.NetworkMonitor
-import core.network.NetworkRequestsInternal
+import core.network.components.Header
+import core.network.components.NetworkFileType
+import core.network.NetworkRequestsCommon
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 /**
  * Separator between the underlying implementation ,to make loosely couple
  */
-actual object NetworkRequests {
+actual object HTTPRequests {
     actual suspend inline fun <reified T> get(
-        networkMonitor: NetworkMonitor,
+        networkMonitor: NetworkConnectivityObserver,
         url: String
     ): Result<T> {
-        return NetworkRequestsInternal.request<T>(networkMonitor = networkMonitor, url = url)
+        return NetworkRequestsCommon.requestForGet<T>(networkMonitor = networkMonitor, url = url)
     }
 
     actual suspend inline fun <reified T> get(
         url: String,
         header: Header
     ): Result<T> {
-        return NetworkRequestsInternal.request<T>(url = url, header = header)
+        return NetworkRequestsCommon.requestForGet<T>(url = url, header = header)
 
     }
 
@@ -32,6 +31,6 @@ actual object NetworkRequests {
         fileType: NetworkFileType,
         byteArray: ByteArray
     ): Result<String> {
-        return NetworkRequestsInternal.uploadFile(url, fileType, byteArray)
+        return NetworkRequestsCommon.uploadFile(url, fileType, byteArray)
     }
 }

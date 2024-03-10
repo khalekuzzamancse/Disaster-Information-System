@@ -1,6 +1,6 @@
 package core.network.post
 
-import core.network.NetworkFileType
+import core.network.components.NetworkFileType
 import io.ktor.client.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.bodyAsText

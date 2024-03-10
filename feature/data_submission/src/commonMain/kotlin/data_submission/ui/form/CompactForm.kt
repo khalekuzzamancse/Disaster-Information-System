@@ -20,13 +20,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import data_submission.platform_contracts.LocationPicker
-import data_submission.ui.form.components.DatePicker
-import data_submission.ui.form.components.DatePickerDate
-import data_submission.ui.form.components.DescriptionTextField
-import ui.form.components.FormTextField
-import data_submission.ui.form.components.ReadOnlyTextField
-import data_submission.ui.form.components.TimePickerCustom
-import data_submission.ui.form.components.TimePickerData
+import data_submission.ui.components.DatePicker
+import data_submission.ui.components.DatePickerDate
+import data_submission.ui.components.DescriptionTextField
+import data_submission.ui.components.FormTextField
+import data_submission.ui.components.ReadOnlyTextField
+import data_submission.ui.components.TimePickerCustom
+import data_submission.ui.components.TimePickerData
+import data_submission.ui.components.TwoPaneLayout
 
 
 @Composable
@@ -56,6 +57,10 @@ fun CompactForm(
 
 }
 
+/**
+ * It is depends only primitive so it loosely coupled and test-able in isolation
+ */
+
 @Composable
 private fun Form(
     modifier: Modifier = Modifier,
@@ -73,45 +78,45 @@ private fun Form(
     description: String,
     onDescriptionChanged: (String) -> Unit,
 ) {
-    val colors = TextFieldDefaults.colors(
-        focusedContainerColor = MaterialTheme.colorScheme.surface,
-        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-    )
-    var isLocationInputMode by remember { mutableStateOf(false) }
 
-    if (isLocationInputMode) {
-        LocationPicker(
-            modifier=modifier,
-            onLocationPicked = {loc->
-            isLocationInputMode=false
-            onLocationChanged("$loc")
-        })
-    }
-    else{
-        FormWithNoLocation(
-            modifier = modifier,
-            fieldModifier = fieldModifier,
-            title = title,
-            onTitleChanged = onTitleChanged,
-            date = date,
-            onDateChanged = onDateChanged,
-            startTime = startTime,
-            onStartTime = onStartTime,
-            endTime = endTime,
-            onEndTimeChanged = onEndTimeChanged,
-            location = location,
-            onLocationPickedRequest = {
-                isLocationInputMode = true
-            },
-            description = description,
-            onDescriptionChanged = onDescriptionChanged,
-        )
-    }
+    var mapOpened by remember { mutableStateOf(false) }
+    TwoPaneLayout(
+        modifier = Modifier.fillMaxWidth(),
+        showBothPanes = mapOpened,
+        primaryPane = {
+            _PrimitiveForm(
+                modifier = modifier,
+                fieldModifier = fieldModifier,
+                title = title,
+                onTitleChanged = onTitleChanged,
+                date = date,
+                onDateChanged = onDateChanged,
+                startTime = startTime,
+                onStartTime = onStartTime,
+                endTime = endTime,
+                onEndTimeChanged = onEndTimeChanged,
+                location = location,
+                onLocationPickedRequest = {
+                    mapOpened = true
+                },
+                description = description,
+                onDescriptionChanged = onDescriptionChanged,
+            )
+        },
+        secondaryPane = {
+            LocationPicker(
+                modifier=modifier,
+                onLocationPicked = {loc->
+                    mapOpened=false
+                    onLocationChanged("$loc")
+                })
+        }
+    )
 
 }
 
 @Composable
-private fun FormWithNoLocation(
+private fun _PrimitiveForm(
     modifier: Modifier = Modifier,
     fieldModifier: Modifier,
     title: String,

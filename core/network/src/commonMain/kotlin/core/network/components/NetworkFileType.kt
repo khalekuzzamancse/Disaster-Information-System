@@ -1,4 +1,4 @@
-package core.network;
+package core.network.components;
 
 /**
      * @param key is the key or file type that used  in the back-end while defining the end-point/api/rest controller

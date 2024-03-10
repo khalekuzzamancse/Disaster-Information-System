@@ -1,4 +1,4 @@
-package routes
+package components
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box

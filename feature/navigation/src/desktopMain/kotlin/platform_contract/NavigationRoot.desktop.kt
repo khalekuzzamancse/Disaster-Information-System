@@ -11,7 +11,7 @@ import di.DateUtilsProvider
 import routes.Destination
 import routes.HomeRoute
 import routes.ImagePickerRoute
-import routes.NavLayoutDecorator
+import components.NavLayoutDecorator
 import routes.ReportFormRoute
 import routes.VideoPickerRoute
 
@@ -20,16 +20,18 @@ actual fun NavigationRoot() {
     var selected by remember { mutableStateOf(Destination.HOME) }
     val formManager = remember { BaseDescriptionFormManager(DateUtilsProvider.dateUtil) }
     NavLayoutDecorator(
-        selected=selected,
+        selected = selected,
         onDestinationSelected = {
-            selected=it
+            selected = it
         },
     ) {
         AnimatedContent(selected) { destination ->
             when (destination) {
                 Destination.HOME -> {
                     HomeRoute(
-                        onSend = {},
+                        onSend = {
+                            println("FormValid:${formManager.isValid()}")
+                        },
                         isSending = false
                     )
                 }

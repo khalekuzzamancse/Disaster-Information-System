@@ -31,7 +31,7 @@ import image_picker.PhotoPickerAndroid
 import image_picker.common.GalleryViewModel
 import kotlinx.coroutines.launch
 import routes.Destination
-import routes.NavLayoutDecorator
+import components.NavLayoutDecorator
 import routes.ReportFormRoute
 import ui.PermissionIfNeeded
 import video_picker.VideoGalleryGen

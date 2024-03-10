@@ -19,7 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import data_submission.ui.form.components.PickedLocation
+import data_submission.ui.components.PickedLocation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

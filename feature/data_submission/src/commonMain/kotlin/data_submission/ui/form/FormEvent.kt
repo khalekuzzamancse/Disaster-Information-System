@@ -1,7 +1,7 @@
 package data_submission.ui.form
 
-import data_submission.ui.form.components.DatePickerDate
-import data_submission.ui.form.components.TimePickerData
+import data_submission.ui.components.DatePickerDate
+import data_submission.ui.components.TimePickerData
 
 
 sealed interface FormEvent

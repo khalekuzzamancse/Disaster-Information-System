@@ -1,14 +1,14 @@
 package core.network.get
 
 
-import core.network.Header
-import core.network.NetworkMonitor
+import core.network.components.Header
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
+import platform_contracts.NetworkConnectivityObserver
 
 
 /**
@@ -30,8 +30,8 @@ internal class KtorGetRequests {
         }
     }
 
-    suspend inline fun <reified T> request(networkMonitor: NetworkMonitor, url: String): Result<T> {
-        val notConnected = !networkMonitor.isNetworkAvailable()
+    suspend inline fun <reified T> request(networkMonitor: NetworkConnectivityObserver, url: String): Result<T> {
+        val notConnected = !networkMonitor.isInternetAvailable()
         if (notConnected) {
             return Result.failure(Throwable("Internet not connected"))
         }

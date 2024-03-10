@@ -14,4 +14,5 @@ import data_submission.ui.form.BaseDescriptionFormManager
 interface DescriptionFormStateManager {
     val fromState:StateFlow<FormState>
     fun onFormEvent(event: FormEvent)
+    fun isValid():Boolean
 }

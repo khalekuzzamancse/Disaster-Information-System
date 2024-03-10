@@ -1,4 +1,4 @@
-package core.network
+package core.network.components
 
 data class Header(
     val key: String,

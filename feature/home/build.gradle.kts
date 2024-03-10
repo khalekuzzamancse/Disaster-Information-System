@@ -28,6 +28,8 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.runtime)
                 implementation(libs.windowSize)
+                //for resources access
+                implementation(compose.components.resources)
                 //
                 implementation(libs.kotlinx.coroutines.core)
 

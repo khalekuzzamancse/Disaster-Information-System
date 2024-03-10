@@ -2,7 +2,7 @@ package feature.home
 
 import android.content.Context
 import android.net.Uri
-import core.network.NetworkFileType
+import core.network.components.NetworkFileType
 import feature.home.data.connectivity.ConnectivityObserver
 import feature.home.data.connectivity.NetworkConnectivityObserver
 import feature.home.data.file_io.FileUploadHelper

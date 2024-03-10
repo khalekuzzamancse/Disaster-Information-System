@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import data_submission.platform_contracts.DescriptionFormStateManager
 import data_submission.platform_contracts.DateUtilsCustom
-import data_submission.ui.form.components.TimePickerData
+import data_submission.ui.components.TimePickerData
 
 class BaseDescriptionFormManager(private val dateUtil: DateUtilsCustom) :
     DescriptionFormStateManager {
@@ -20,6 +20,7 @@ class BaseDescriptionFormManager(private val dateUtil: DateUtilsCustom) :
     )
     override val fromState = _state.asStateFlow()
 
+
     override fun onFormEvent(event: FormEvent) {
 
         val newState = when (event) {
@@ -32,4 +33,6 @@ class BaseDescriptionFormManager(private val dateUtil: DateUtilsCustom) :
         }
         _state.value = newState
     }
+
+    override fun isValid()=_state.value.areAllFieldsFilled()
 }

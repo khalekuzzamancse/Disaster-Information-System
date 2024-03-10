@@ -38,7 +38,7 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import kotlinx.coroutines.launch
-import data_submission.ui.form.components.PickedLocation
+import data_submission.ui.components.PickedLocation
 
 
 @OptIn(ExperimentalMaterial3Api::class)

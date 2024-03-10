@@ -1,4 +1,4 @@
-package data_submission.ui.form.components
+package data_submission.ui.components
 
 /**
  * Used to decouple the Underlying LatLong class of Google Map

@@ -1,6 +1,6 @@
 package data_submission.ui.form
 
-import data_submission.ui.form.components.TimePickerData
+import data_submission.ui.components.TimePickerData
 
 data class FormState(
     var title: String,
@@ -9,4 +9,13 @@ data class FormState(
     var endTime: TimePickerData,
     var location: String = "",
     var description: String = ""
-)
+){
+    fun areAllFieldsFilled(): Boolean {
+        return title.isNotBlank() &&
+                date.isNotBlank() &&
+                startTime.isValid() &&
+                endTime.isValid() &&
+                location.isNotBlank() &&
+                description.isNotBlank()
+    }
+}

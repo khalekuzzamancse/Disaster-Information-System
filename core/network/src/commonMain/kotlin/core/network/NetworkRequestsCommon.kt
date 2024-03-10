@@ -1,7 +1,10 @@
 package core.network
 
+import core.network.components.Header
+import core.network.components.NetworkFileType
 import core.network.post.KtorFilePost
 import core.network.get.KtorGetRequests
+import platform_contracts.NetworkConnectivityObserver
 
 
 /**
@@ -13,14 +16,14 @@ import core.network.get.KtorGetRequests
  * * So using to decouple the client module to depends on specific underlying library
  */
 @PublishedApi
-internal object NetworkRequestsInternal {
+internal object NetworkRequestsCommon {
     suspend fun uploadFile(url: String, fileType: NetworkFileType, byteArray: ByteArray):Result<String>{
         return  KtorFilePost().upload(url, fileType, byteArray)
     }
-    suspend inline fun < reified T> request(networkMonitor: NetworkMonitor, url: String):Result<T>{
+    suspend inline fun < reified T> requestForGet(networkMonitor: NetworkConnectivityObserver, url: String):Result<T>{
        return KtorGetRequests().request<T>(networkMonitor, url)
     }
-    suspend inline fun <reified T> request(url: String, header: Header): Result<T>{
+    suspend inline fun <reified T> requestForGet(url: String, header: Header): Result<T>{
         return KtorGetRequests().request<T>(url, header)
     }
 

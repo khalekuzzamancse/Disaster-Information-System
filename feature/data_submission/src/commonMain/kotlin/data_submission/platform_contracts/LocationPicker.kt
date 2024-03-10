@@ -2,7 +2,7 @@ package data_submission.platform_contracts
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import data_submission.ui.form.components.PickedLocation
+import data_submission.ui.components.PickedLocation
 
 /**
  * * Defining DateUtil as platform specif because Java code not run in IOS
