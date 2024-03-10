@@ -9,7 +9,7 @@ import android.content.Context
 // Define an interface for common notification builder functionalities
 
 // Define the abstract base class to hold common properties and methods
-internal abstract class BaseNotificationBuilder(
+abstract class BaseNotificationBuilder(
     protected val context: Context
 )  {
     protected val manager: NotificationManager =

@@ -18,10 +18,7 @@ kotlin {
         val commonMain by getting{
             dependencies {
                 //network IO
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.okhttp)
-                implementation(libs.ktor.client.content.negotiation)
-                api(libs.ktor.serialization.kotlinx.json)
+                implementation(libs.bundles.ktorClient)
                 implementation(libs.kotlinx.coroutines.core)
 
             }

@@ -38,6 +38,7 @@ kotlin {
         val androidMain by getting{
             dependencies {
                 implementation(project(":core:work_manager"))
+                implementation(libs.androidx.core)
             }
         }
         val desktopMain by getting{

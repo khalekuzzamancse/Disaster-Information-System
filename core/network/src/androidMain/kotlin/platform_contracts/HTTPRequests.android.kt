@@ -31,8 +31,9 @@ actual object HTTPRequests {
     actual suspend fun uploadFile(
         url: String,
         fileType: NetworkFileType,
-        byteArray: ByteArray
+        byteArray: ByteArray,
+        networkMonitor: NetworkConnectivityObserver
     ): Result<String> {
-       return NetworkRequestsCommon.uploadFile(url, fileType, byteArray)
+       return NetworkRequestsCommon.uploadFile(url, fileType, byteArray,networkMonitor)
     }
 }

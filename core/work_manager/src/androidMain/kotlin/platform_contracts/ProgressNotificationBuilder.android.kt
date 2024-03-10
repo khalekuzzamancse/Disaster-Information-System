@@ -1,11 +1,11 @@
 package platform_contracts
 
 import android.content.Context
-import core.nofication_manager.ProgressNotificationBuilderAndroid
+import core.nofication_manager.DeterminerProgressNotificationBuilderAndroid
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class ProgressNotificationBuilder(context: Context) {
-    private val builder= ProgressNotificationBuilderAndroid(context)
+    private val builder= DeterminerProgressNotificationBuilderAndroid(context)
     actual fun build(
         title: String,
         message: String,

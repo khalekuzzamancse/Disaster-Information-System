@@ -1,11 +1,11 @@
-package feature.home
+package feature.home.ui
 
 
+import feature.home.domain.MediaUploader
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import platform_contracts.NetworkConnectivityObserver
 import ui.SnackBarMessage
 import ui.SnackBarMessageType
 

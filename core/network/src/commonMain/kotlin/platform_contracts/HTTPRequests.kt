@@ -6,7 +6,7 @@ import core.network.components.Header
 import core.network.components.NetworkFileType
 
 expect object HTTPRequests {
-    suspend fun uploadFile(url: String, fileType: NetworkFileType, byteArray: ByteArray): Result<String>
+    suspend fun uploadFile(url: String, fileType: NetworkFileType, byteArray: ByteArray,networkMonitor: NetworkConnectivityObserver): Result<String>
     suspend inline fun <reified T> get(networkMonitor: NetworkConnectivityObserver, url: String): Result<T>
     suspend inline fun <reified T> get(url: String, header: Header): Result<T>
 }
