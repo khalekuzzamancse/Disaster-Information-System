@@ -17,8 +17,8 @@ import platform_contracts.NetworkConnectivityObserver
  */
 @PublishedApi
 internal object NetworkRequestsCommon {
-    suspend fun uploadFile(url: String, fileType: NetworkFileType, byteArray: ByteArray):Result<String>{
-        return  KtorFilePost().upload(url, fileType, byteArray)
+    suspend fun uploadFile(url: String, fileType: NetworkFileType, byteArray: ByteArray,networkMonitor: NetworkConnectivityObserver):Result<String>{
+        return  KtorFilePost().upload(url, fileType, byteArray,networkMonitor)
     }
     suspend inline fun < reified T> requestForGet(networkMonitor: NetworkConnectivityObserver, url: String):Result<T>{
        return KtorGetRequests().request<T>(networkMonitor, url)

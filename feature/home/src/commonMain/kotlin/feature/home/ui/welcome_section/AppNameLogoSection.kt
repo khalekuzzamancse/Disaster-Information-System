@@ -1,4 +1,4 @@
-package feature.home.welcome_section
+package feature.home.ui.welcome_section
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

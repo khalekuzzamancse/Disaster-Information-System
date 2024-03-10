@@ -33,7 +33,7 @@ internal class KtorGetRequests {
     suspend inline fun <reified T> request(networkMonitor: NetworkConnectivityObserver, url: String): Result<T> {
         val notConnected = !networkMonitor.isInternetAvailable()
         if (notConnected) {
-            return Result.failure(Throwable("Internet not connected"))
+            return Result.failure(Throwable("No Internet Connection !"))
         }
         return try {
             val response: T = httpClient.get(url).body<T>()

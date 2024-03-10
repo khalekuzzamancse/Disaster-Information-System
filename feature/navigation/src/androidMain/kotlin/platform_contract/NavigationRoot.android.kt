@@ -25,8 +25,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import core.di.DateUtilsProvider
 import data_submission.ui.form.BaseDescriptionFormManager
-import feature.home.HomeDestination
-import feature.home.HomeViewModel
+import feature.home.ui.destination.HomeDestination
+import feature.home.ui.HomeViewModelAndroid
 import image_picker.PhotoPickerAndroid
 import image_picker.common.GalleryViewModel
 import kotlinx.coroutines.launch
@@ -42,7 +42,7 @@ actual fun NavigationRoot() {
 
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val homeViewModel = remember { HomeViewModel(context) }
+    val homeViewModelAndroid = remember { HomeViewModelAndroid(context) }
 
 
     var selected by remember { mutableStateOf(Destination.HOME) }
@@ -69,14 +69,14 @@ actual fun NavigationRoot() {
         RootNavHost(
             modifier = Modifier,
             formManager = formManager,
-            homeViewModel = homeViewModel,
+            homeViewModelAndroid = homeViewModelAndroid,
             imageGalleryViewModel = imageGalleryViewModel,
             videoGalleryViewModel = videoGalleryViewModel,
             navController = navController,
             onSendRequest = {
                 scope.launch {
-                    homeViewModel.uploadImages(images = imageGalleryViewModel.galleryState.value.map { it.identity.id.toUri() })
-                    //homeViewModel.uploadVideo(videos = videoGalleryViewModel.galleryState.value.map { it.identity.id.toUri() })
+                    homeViewModelAndroid.uploadImages(images = imageGalleryViewModel.galleryState.value.map { it.identity.id.toUri() })
+                    homeViewModelAndroid.uploadVideo(videos = videoGalleryViewModel.galleryState.value.map { it.identity.id.toUri() })
                 }
 
             }
@@ -89,7 +89,7 @@ actual fun NavigationRoot() {
 @Composable
 private fun RootNavHost(
     modifier: Modifier = Modifier,
-    homeViewModel: HomeViewModel,
+    homeViewModelAndroid: HomeViewModelAndroid,
     formManager: BaseDescriptionFormManager,
     imageGalleryViewModel: GalleryViewModel,
     videoGalleryViewModel: GalleryViewModel,
@@ -97,9 +97,8 @@ private fun RootNavHost(
     onSendRequest: () -> Unit,
 ) {
 
-    val isUploading = homeViewModel.isUploading.collectAsState().value
-    homeViewModel.progress.collectAsState().value
-    val snackBarMessage = homeViewModel.snackBarMessage.collectAsState().value
+    val isUploading = homeViewModelAndroid.isUploading.collectAsState().value
+    val snackBarMessage = homeViewModelAndroid.snackBarMessage.collectAsState().value
     NavHost(
         modifier = modifier,
         navController = navController,

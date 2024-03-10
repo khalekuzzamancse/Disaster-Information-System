@@ -1,4 +1,4 @@
-package feature.home
+package feature.home.domain
 
 import kotlinx.coroutines.flow.Flow
 

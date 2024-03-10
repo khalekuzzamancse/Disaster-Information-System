@@ -1,4 +1,4 @@
-package feature.home
+package feature.home.ui.destination
 
 
 import androidx.compose.foundation.layout.Column
@@ -21,7 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import feature.home.welcome_section.WelcomeToHome
+import feature.home.ui.welcome_section.WelcomeToHome
 import ui.CustomSnackBar
 import ui.SnackBarMessage
 
@@ -60,7 +60,7 @@ fun HomeDestination(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             WelcomeToHome()
-            Spacer(modifier = Modifier.height(16.dp))
+
 
         }
     }

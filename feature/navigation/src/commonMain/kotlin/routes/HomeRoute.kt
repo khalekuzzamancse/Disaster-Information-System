@@ -1,7 +1,7 @@
 package routes
 
 import androidx.compose.runtime.Composable
-import feature.home.HomeDestination
+import feature.home.ui.destination.HomeDestination
 
 @Composable
 fun HomeRoute(

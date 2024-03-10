@@ -6,6 +6,7 @@ import io.ktor.client.request.forms.*
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.*
 import io.ktor.http.content.PartData
+import platform_contracts.NetworkConnectivityObserver
 
 
 internal class KtorFilePost {
@@ -14,8 +15,14 @@ internal class KtorFilePost {
     suspend fun upload(
         url: String,
         networkFileType: NetworkFileType,
-        byteArray: ByteArray
+        byteArray: ByteArray,
+        networkMonitor: NetworkConnectivityObserver
     ): Result<String> {
+        val notConnected = !networkMonitor.isInternetAvailable()
+        if (notConnected) {
+            return Result.failure(Throwable("No Internet Connection !"))
+        }
+
         return try {
             val response = submit(url, networkFileType = networkFileType, byteArray = byteArray)
             Result.success(response)

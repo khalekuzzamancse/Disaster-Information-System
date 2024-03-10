@@ -5,7 +5,7 @@ import androidx.core.app.NotificationCompat
 import core.work_manager.R
 import kotlin.properties.Delegates
 
-internal class ProgressNotificationBuilderAndroid(context: Context) : BaseNotificationBuilder(context) {
+internal class DeterminerProgressNotificationBuilderAndroid(context: Context) : BaseNotificationBuilder(context) {
     /*
     The trick is to replace the old notification with new once,
     so we have to keep the id as same and unique,
