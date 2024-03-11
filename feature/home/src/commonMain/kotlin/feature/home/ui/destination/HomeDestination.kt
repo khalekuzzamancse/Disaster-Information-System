@@ -31,6 +31,7 @@ fun HomeDestination(
     snackBarMessage: SnackBarMessage?=null,
     isSending: Boolean,
     onSend: () -> Unit = {},
+    onAboutUs:()->Unit={},
 ) {
 
 
@@ -45,7 +46,9 @@ fun HomeDestination(
                 title = {},
                 actions = {
                     SentButton(enable = !isSending, onSend)
-                    MyDropDownMenu()
+                    MyDropDownMenu(
+                        onAboutClick = onAboutUs
+                    )
                 }
 
             )
@@ -60,7 +63,6 @@ fun HomeDestination(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             WelcomeToHome()
-
 
         }
     }

@@ -28,6 +28,7 @@ import core.di.DateUtilsProvider
 import data_submission.ui.form.BaseDescriptionFormManager
 import feature.home.ui.HomeViewModelAndroid
 import feature.home.ui.MyDropDownMenu
+import feature.home.ui.TeacherAboutUs
 import feature.home.ui.destination.HomeDestination
 import image_picker.PhotoPickerAndroid
 import image_picker.common.GalleryViewModel
@@ -50,7 +51,8 @@ actual fun NavigationRoot() {
     if (showSlashScreen) {
         SplashScreen()
     } else {
-        RootDestination()
+       RootDestination()
+
     }
 
 
@@ -99,6 +101,15 @@ private fun RootDestination() {
                     homeViewModelAndroid.uploadVideo(videos = videoGalleryViewModel.galleryState.value.map { it.identity.id.toUri() })
                 }
 
+
+            },
+            onAboutUs = {
+                println("ClickedITeams:abut")
+                try {
+                    navController.navigate(Destination.ABOUT_US.toString())
+                } catch (_: Exception) {
+
+                }
             }
         )
     }
@@ -114,6 +125,7 @@ private fun RootNavHost(
     imageGalleryViewModel: GalleryViewModel,
     videoGalleryViewModel: GalleryViewModel,
     navController: NavHostController,
+    onAboutUs:()->Unit,
     onSendRequest: () -> Unit,
 ) {
 
@@ -130,7 +142,8 @@ private fun RootNavHost(
                 HomeDestination(
                     snackBarMessage = snackBarMessage,
                     isSending = isUploading,
-                    onSend = onSendRequest
+                    onSend = onSendRequest,
+                    onAboutUs =onAboutUs
                 )
 
             }
@@ -160,6 +173,12 @@ private fun RootNavHost(
             VideoGalleryGen(
                 videoGalleryViewModel = videoGalleryViewModel
             )
+        }
+        composable(
+            route = Destination.ABOUT_US.toString(),
+            enterTransition = { slideInVertically { 1000 } + fadeIn() },
+            exitTransition = { slideOutHorizontally() + fadeOut() }) {
+           TeacherAboutUs()
         }
 
     }
