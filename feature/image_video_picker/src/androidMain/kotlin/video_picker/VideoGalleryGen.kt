@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridS
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.VideoLibrary
+
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -100,6 +101,9 @@ private fun _VideoGallery(
             } else {
                 NoVodeosScreen()
             }
+            else{
+                NoVodeosScreen()
+            }
         }
 
     }
@@ -172,10 +176,12 @@ private fun NoVodeosScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
+
                 imageVector = Icons.Default.VideoLibrary,
                 contentDescription = "No Images",
                 tint = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.padding(bottom = 8.dp).size(64.dp)
+
             )
             Text(
                 text = "No Video found",

@@ -4,6 +4,7 @@ package feature.home.ui.destination
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -34,6 +35,7 @@ internal fun HomeDestinationCommon(
     isSending: Boolean,
     onSendRequest: () -> Unit = {},
     onAboutUsRequest: () -> Unit = {},
+
 ) {
     Scaffold(
         snackbarHost = {
@@ -48,6 +50,7 @@ internal fun HomeDestinationCommon(
                     SentButton(enable = !isSending, onSendRequest)
                     MyDropDownMenu(
                         onAboutClick = onAboutUsRequest
+
                     )
                 }
 

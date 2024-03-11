@@ -7,6 +7,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -26,7 +27,9 @@ import components.NavLayoutDecorator
 import core.di.DateUtilsProvider
 import data_submission.ui.form.BaseDescriptionFormManager
 import feature.home.ui.HomeViewModelAndroid
+
 import feature.home.ui.TeacherAboutUs
+
 import image_picker.PhotoPickerAndroid
 import image_picker.common.GalleryViewModel
 import kotlinx.coroutines.delay
@@ -34,6 +37,7 @@ import kotlinx.coroutines.launch
 import routes.Destination
 import routes.ReportFormRoute
 import routes.SplashScreen
+
 import video_picker.VideoGallery
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -53,6 +57,7 @@ actual fun NavigationRoot() {
 
 
 }
+
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
@@ -120,6 +125,7 @@ private fun RootNavHost(
     videoGalleryViewModel: GalleryViewModel,
     navController: NavHostController,
     onAboutUs: () -> Unit,
+
     onSendRequest: () -> Unit,
 ) {
 
@@ -140,6 +146,7 @@ private fun RootNavHost(
                     isSending = isUploading,
                     onSendRequest = onSendRequest,
                     onAboutUsRequest = onAboutUs
+
                 )
         }
         composable(
@@ -174,6 +181,7 @@ private fun RootNavHost(
             enterTransition = { slideInVertically { 1000 } + fadeIn() },
             exitTransition = { slideOutHorizontally() + fadeOut() }) {
             TeacherAboutUs()
+
         }
 
     }

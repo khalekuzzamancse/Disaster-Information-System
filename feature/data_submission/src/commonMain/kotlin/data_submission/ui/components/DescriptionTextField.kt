@@ -41,12 +41,12 @@ internal fun DescriptionTextField(
     val content: @Composable ColumnScope.() -> Unit = if (errorMessage == null) @Composable {
         {
             Column {
-                Text(text = label)
-                Spacer(Modifier.height(8.dp))
-                Row {
-                    Spacer(Modifier.width(10.dp))//for leading space
+                    Text(text = label)
+                     Spacer(Modifier.height(8.dp))
+                     Row {
+                    Spacer(Modifier.width(10.dp))
                     Icon(imageVector = leadingIcon, contentDescription = null,tint = MaterialTheme.colorScheme.tertiary)
-                }
+                     }
             }
             TextField(
                 singleLine = singleLine,

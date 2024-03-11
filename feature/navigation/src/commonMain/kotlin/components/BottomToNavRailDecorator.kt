@@ -188,7 +188,9 @@ private fun LocalNavRail(
                             selectedContainerColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f),
                             selectedIconColor = MaterialTheme.colorScheme.secondary,
                             selectedTextColor =MaterialTheme.colorScheme.contentColorFor(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f)),
+
                             unselectedIconColor = MaterialTheme.colorScheme.primary,//because they are clickable button,so high importance
+
 
                          //   se = MaterialTheme.colorScheme.onSecondary,
 
@@ -265,6 +267,7 @@ private fun LocalBottomNavigationBar(
                     selectedIconColor = MaterialTheme.colorScheme.secondary,
                     selectedIndicatorColor = MaterialTheme.colorScheme.onSecondary,
                     unselectedIconColor = MaterialTheme.colorScheme.primary,//because they are clickable button,so high importance
+
                 )
             )
         }

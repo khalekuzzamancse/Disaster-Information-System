@@ -225,6 +225,7 @@ private fun NoImagesScreen() {
                 contentDescription = "No Images",
                 tint = MaterialTheme.colorScheme.tertiary,
                 modifier = Modifier.padding(bottom = 8.dp).size(64.dp)
+
             )
             Text(
                 text = "No images found",

@@ -14,8 +14,6 @@ import platform_contract.NavigationRoot
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
-//        window.statusBarColor = android.graphics.Color.TRANSPARENT
         setContent {
             DisasterInfoSystemTheme {
                 NavigationRoot()
