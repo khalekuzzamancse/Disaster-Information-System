@@ -1,9 +1,14 @@
 package feature.home.ui.destination
 
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -18,6 +23,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import feature.home.ui.MyDropDownMenu
 import feature.home.ui.welcome_section.WelcomeToHome
@@ -28,10 +34,10 @@ import ui.SnackBarMessage
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeDestination(
-    snackBarMessage: SnackBarMessage?=null,
+    snackBarMessage: SnackBarMessage? = null,
     isSending: Boolean,
     onSend: () -> Unit = {},
-    onAboutUs:()->Unit={},
+    onAboutUs: () -> Unit = {},
 ) {
 
 
@@ -58,11 +64,13 @@ fun HomeDestination(
             modifier = Modifier
                 .padding(scaffoldPadding)
                 .padding(start = 8.dp, end = 8.dp)
-                .fillMaxWidth()
+                .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            WelcomeToHome()
+
+                WelcomeToHome(modifier = Modifier)
 
         }
     }

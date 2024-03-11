@@ -11,14 +11,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.filled.VideoChat
+import androidx.compose.material.icons.filled.VideoLibrary
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -52,7 +52,7 @@ fun VideoGalleryGen(
         mutableStateOf(true)
     }
     LocalContext.current
-    val showGallery = videoGalleryViewModel.galleryState.collectAsState().value.isNotEmpty()
+    val hasImages = videoGalleryViewModel.galleryState.collectAsState().value.isNotEmpty()
     val videos = videoGalleryViewModel.galleryState.collectAsState().value
     val showRemoveButton = videoGalleryViewModel.anySelected.collectAsState(false).value
     val videoPicker = rememberLauncherForActivityResult(
@@ -64,8 +64,8 @@ fun VideoGalleryGen(
     )
     GalleryScreen(
         enableAddButton = enableAddButton,
-        enabledUndo = true,
-        enabledRedo = true,
+        enabledUndo = videoGalleryViewModel.isUndoAvailable.collectAsState(false).value,
+        enabledRedo = videoGalleryViewModel.isUndoAvailable.collectAsState(false).value,
         showRemoveButton = showRemoveButton,
         onAddRequest = {
             enableAddButton=false
@@ -81,7 +81,7 @@ fun VideoGalleryGen(
         Column(
             modifier = Modifier.padding(it)
         ) {
-            if (showGallery) {
+            if (hasImages) {
                 VideoGalleryGen(
                     videos = videos,
                     onSelection = videoGalleryViewModel::flipSelection
@@ -162,10 +162,10 @@ private fun NoVodeosScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
-                imageVector = Icons.Default.VideoChat,
+                imageVector = Icons.Default.VideoLibrary,
                 contentDescription = "No Images",
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(bottom = 8.dp)
+                tint = MaterialTheme.colorScheme.secondary,
+                modifier = Modifier.padding(bottom = 8.dp).size(64.dp)
             )
             Text(
                 text = "No Video found",

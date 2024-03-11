@@ -35,7 +35,8 @@ fun MyDropDownMenu(
         IconButton(onClick = { expanded = !expanded }) {
             Icon(
                 imageVector = Icons.Default.MoreVert,
-                contentDescription = "More"
+                contentDescription = "More",
+                tint = MaterialTheme.colorScheme.primary //to indicate as clickable
             )
         }
 

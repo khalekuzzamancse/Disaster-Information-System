@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ShortText
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Edit
@@ -13,6 +14,7 @@ import androidx.compose.material.icons.filled.Title
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Map
+import androidx.compose.material.icons.outlined.ShortText
 import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material.icons.outlined.Title
 import androidx.compose.material.icons.twotone.Map
@@ -152,7 +154,7 @@ private fun _PrimitiveForm(
             label = "Title",
             value = title,
             onValueChanged = onTitleChanged,
-            leadingIcon = Icons.Outlined.Title,
+            leadingIcon = Icons.AutoMirrored.Outlined.ShortText,
         )
 
         DatePicker(

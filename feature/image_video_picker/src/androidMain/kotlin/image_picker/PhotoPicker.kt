@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
@@ -58,7 +59,7 @@ fun PhotoPickerAndroid(
         mutableStateOf(true)
     }
     LocalContext.current
-    val showImageGallery =
+    val hasImages =
         imageGalleryViewModel.galleryState.collectAsState().value.isNotEmpty()
     val images = imageGalleryViewModel.galleryState.collectAsState().value
     val showRemoveButton = imageGalleryViewModel.anySelected.collectAsState(false).value
@@ -71,8 +72,8 @@ fun PhotoPickerAndroid(
     )
     GalleryScreen(
         enableAddButton = enableAddButton,
-        enabledUndo = true,
-        enabledRedo = true,
+        enabledUndo = imageGalleryViewModel.isUndoAvailable.collectAsState(false).value,
+        enabledRedo = imageGalleryViewModel.isUndoAvailable.collectAsState(false).value,
         showRemoveButton = showRemoveButton,
         onAddRequest = {
             enableAddButton=false
@@ -87,7 +88,7 @@ fun PhotoPickerAndroid(
         Column(
             modifier = Modifier.padding(it)
         ) {
-            if (showImageGallery) {
+            if (hasImages) {
                 ImageGallery(
                     images = images,
                     onSelection = imageGalleryViewModel::flipSelection,
@@ -211,8 +212,8 @@ private fun NoImagesScreen() {
             Icon(
                 imageVector = Icons.Default.Image,
                 contentDescription = "No Images",
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(bottom = 8.dp)
+                tint = MaterialTheme.colorScheme.tertiary,
+                modifier = Modifier.padding(bottom = 8.dp).size(64.dp)
             )
             Text(
                 text = "No images found",

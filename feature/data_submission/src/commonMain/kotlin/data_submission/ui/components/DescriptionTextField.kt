@@ -46,7 +46,7 @@ internal fun DescriptionTextField(
                 Spacer(Modifier.height(8.dp))
                 Box(Modifier.padding(8.dp)) {
                     if (leadingIcon != null) {
-                        Icon(imageVector = leadingIcon, contentDescription = null)
+                        Icon(imageVector = leadingIcon, contentDescription = null,tint = MaterialTheme.colorScheme.tertiary)
                     }
                 }
             }

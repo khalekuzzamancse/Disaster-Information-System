@@ -14,7 +14,10 @@ class GalleryViewModel {
     val anySelected: Flow<Boolean> = _imageGalleryState.map { images ->
         images.any { it.isSelected }
     }
-    private var lastCommand: Command? = null
+    private var lastCommand= MutableStateFlow<Command?>(null)
+    val isUndoAvailable=lastCommand.map { it!=null }
+
+
 
 
 
@@ -24,19 +27,19 @@ class GalleryViewModel {
             newImages =identities.map { GalleryMediaGeneric(identity = it) }
         )
         command.execute()
-        lastCommand = command
+        lastCommand.value = command
         updateState(command.state)
     }
 
     fun remove() {
         val command = GalleryCommands.Remove(_imageGalleryState.value)
         command.execute()
-        lastCommand = command
+        lastCommand.value = command
         updateState(command.state)
     }
 
     fun undo() {
-        lastCommand?.let { command ->
+        lastCommand.value?.let { command ->
             command.undo()
             when (command) {
                 is GalleryCommands.Add -> {
@@ -53,7 +56,7 @@ class GalleryViewModel {
     }
 
     fun redo() {
-        lastCommand?.let { command ->
+        lastCommand.value?.let { command ->
             command.redo()
             when (command) {
                 is GalleryCommands.Add -> {
