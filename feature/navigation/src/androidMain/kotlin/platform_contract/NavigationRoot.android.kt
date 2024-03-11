@@ -44,18 +44,17 @@ import video_picker.VideoGalleryGen
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 actual fun NavigationRoot() {
-//    var showSlashScreen by remember { mutableStateOf(true) }
-//    LaunchedEffect(Unit) {
-//        delay(5000)
-//        showSlashScreen = false
-//    }
-//    if (showSlashScreen) {
-//        SplashScreen()
-//    } else {
-//       RootDestination()
-//
-//    }
-    RootDestination()
+    var showSlashScreen by remember { mutableStateOf(true) }
+    LaunchedEffect(Unit) {
+        delay(5_000)
+        showSlashScreen = false
+    }
+    if (showSlashScreen) {
+        SplashScreen()
+    } else {
+       RootDestination()
+
+    }
 
 
 }
