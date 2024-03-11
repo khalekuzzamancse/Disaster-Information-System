@@ -38,9 +38,7 @@ kotlin {
         }
         val androidMain by getting{
             dependencies {
-                //for permission management
-                implementation (libs.accompanist.permissions)
-                //for gallery and intent launching
+                //for gallery and intent launching and for context to access permission
                 implementation(libs.androidx.activity.compose)
             }
         }

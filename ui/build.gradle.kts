@@ -40,11 +40,12 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                //permission
-                implementation (libs.accompanist.permissions)
+
                 //Google map
                 implementation(libs.maps.compose)
                 implementation(libs.play.services.location)
+                //to access Context such as for permissions
+                implementation(libs.androidx.activity.compose)
 
             }
         }

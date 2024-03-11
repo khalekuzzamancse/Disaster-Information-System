@@ -1,7 +1,7 @@
 package routes
 
 import androidx.compose.runtime.Composable
-import feature.home.ui.destination.HomeDestination
+import platform_contract.HomeDestination
 
 @Composable
 fun HomeRoute(
@@ -10,7 +10,7 @@ fun HomeRoute(
 ) {
     HomeDestination(
         isSending = isSending,
-        onSend = onSend
+        onSendRequest = onSend
     )
 
 }

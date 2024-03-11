@@ -1,4 +1,5 @@
 package image_picker.common
+import androidx.compose.runtime.remember
 import image_picker.command_pattern.Command
 import image_picker.command_pattern.GalleryCommands
 import kotlinx.coroutines.flow.Flow
@@ -7,7 +8,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
-class GalleryViewModel {
+class GalleryViewModel(
+) {
 
     private val _imageGalleryState = MutableStateFlow(emptyList<GalleryMediaGeneric>())
     val galleryState = _imageGalleryState.asStateFlow()

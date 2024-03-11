@@ -46,34 +46,45 @@ import coil3.compose.AsyncImagePainter
 import image_picker.common.KMPFile
 import image_picker.common.GalleryMediaGeneric
 import image_picker.common.GalleryViewModel
+import ui.permission.PermissionDecorator
+import ui.permission.PermissionManager
 
 
 /**
  * Only the public API
  */
+
 @Composable
-fun PhotoPickerAndroid(
-    imageGalleryViewModel: GalleryViewModel,
+fun PhotoPickerAndroid(viewModel: GalleryViewModel,) {
+    PermissionDecorator(
+        permissions = PermissionManager.storagePermission
+    ){
+        PhotoPicker(viewModel)
+    }
+}
+@Composable
+private fun PhotoPicker(
+    viewModel: GalleryViewModel,
 ) {
     var enableAddButton by remember {
         mutableStateOf(true)
     }
     LocalContext.current
     val hasImages =
-        imageGalleryViewModel.galleryState.collectAsState().value.isNotEmpty()
-    val images = imageGalleryViewModel.galleryState.collectAsState().value
-    val showRemoveButton = imageGalleryViewModel.anySelected.collectAsState(false).value
+        viewModel.galleryState.collectAsState().value.isNotEmpty()
+    val images = viewModel.galleryState.collectAsState().value
+    val showRemoveButton = viewModel.anySelected.collectAsState(false).value
     val multiplePhotoPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
         onResult = {uris->
-            imageGalleryViewModel.addImages(uris.map { KMPFile(it.toString() )})
+            viewModel.addImages(uris.map { KMPFile(it.toString() )})
             enableAddButton=true
         }
     )
     GalleryScreen(
         enableAddButton = enableAddButton,
-        enabledUndo = imageGalleryViewModel.isUndoAvailable.collectAsState(false).value,
-        enabledRedo = imageGalleryViewModel.isUndoAvailable.collectAsState(false).value,
+        enabledUndo = viewModel.isUndoAvailable.collectAsState(false).value,
+        enabledRedo = viewModel.isUndoAvailable.collectAsState(false).value,
         showRemoveButton = showRemoveButton,
         onAddRequest = {
             enableAddButton=false
@@ -81,9 +92,9 @@ fun PhotoPickerAndroid(
                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
             )
         },
-        onRemoveRequest = imageGalleryViewModel::remove,
-        undoRequest = imageGalleryViewModel::undo,
-        redoRequest = imageGalleryViewModel::redo
+        onRemoveRequest = viewModel::remove,
+        undoRequest = viewModel::undo,
+        redoRequest = viewModel::redo
     ) {
         Column(
             modifier = Modifier.padding(it)
@@ -91,8 +102,8 @@ fun PhotoPickerAndroid(
             if (hasImages) {
                 ImageGallery(
                     images = images,
-                    onSelection = imageGalleryViewModel::flipSelection,
-                    imageGalleryViewModel = imageGalleryViewModel
+                    onSelection = viewModel::flipSelection,
+                    imageGalleryViewModel = viewModel
                 )
             }
             else{

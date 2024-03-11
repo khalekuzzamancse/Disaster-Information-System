@@ -26,7 +26,6 @@ class HomeViewModelAndroid(
     val snackBarMessage = _snackBarMessage.asStateFlow()
     val isUploading = MutableStateFlow(false)
     private val worker = WorkMangerWorker(context)
-
     suspend fun uploadImages(images: List<Uri>) {
         runIfInternetConnected {
             val imageMedias = images.mapIndexed { index, uri ->
@@ -43,6 +42,9 @@ class HomeViewModelAndroid(
             }
             worker.uploadMedia(videoMedias, MediaType.VIDEO)
         }
+
+    }
+    private fun isReportFormFilled(){
 
     }
 
