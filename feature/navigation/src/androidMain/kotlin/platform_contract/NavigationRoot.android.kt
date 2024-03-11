@@ -8,6 +8,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -23,23 +24,45 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import components.NavLayoutDecorator
 import core.di.DateUtilsProvider
 import data_submission.ui.form.BaseDescriptionFormManager
-import feature.home.ui.destination.HomeDestination
 import feature.home.ui.HomeViewModelAndroid
+import feature.home.ui.MyDropDownMenu
+import feature.home.ui.TeacherAboutUs
+import feature.home.ui.destination.HomeDestination
 import image_picker.PhotoPickerAndroid
 import image_picker.common.GalleryViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import routes.Destination
-import components.NavLayoutDecorator
 import routes.ReportFormRoute
+import routes.SplashScreen
 import ui.PermissionIfNeeded
 import video_picker.VideoGalleryGen
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 actual fun NavigationRoot() {
+//    var showSlashScreen by remember { mutableStateOf(true) }
+//    LaunchedEffect(Unit) {
+//        delay(5000)
+//        showSlashScreen = false
+//    }
+//    if (showSlashScreen) {
+//        SplashScreen()
+//    } else {
+//       RootDestination()
+//
+//    }
+    RootDestination()
 
+
+}
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+@Composable
+private fun RootDestination() {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val homeViewModelAndroid = remember { HomeViewModelAndroid(context) }
@@ -66,6 +89,7 @@ actual fun NavigationRoot() {
         selected = selected,
         onDestinationSelected = { selected = it },
     ) {
+
         RootNavHost(
             modifier = Modifier,
             formManager = formManager,
@@ -79,9 +103,19 @@ actual fun NavigationRoot() {
                     homeViewModelAndroid.uploadVideo(videos = videoGalleryViewModel.galleryState.value.map { it.identity.id.toUri() })
                 }
 
+
+            },
+            onAboutUs = {
+                println("ClickedITeams:abut")
+                try {
+                    navController.navigate(Destination.ABOUT_US.toString())
+                } catch (_: Exception) {
+
+                }
             }
         )
     }
+
 
 }
 
@@ -94,6 +128,7 @@ private fun RootNavHost(
     imageGalleryViewModel: GalleryViewModel,
     videoGalleryViewModel: GalleryViewModel,
     navController: NavHostController,
+    onAboutUs:()->Unit,
     onSendRequest: () -> Unit,
 ) {
 
@@ -110,7 +145,8 @@ private fun RootNavHost(
                 HomeDestination(
                     snackBarMessage = snackBarMessage,
                     isSending = isUploading,
-                    onSend = onSendRequest
+                    onSend = onSendRequest,
+                    onAboutUs =onAboutUs
                 )
 
             }
@@ -140,6 +176,12 @@ private fun RootNavHost(
             VideoGalleryGen(
                 videoGalleryViewModel = videoGalleryViewModel
             )
+        }
+        composable(
+            route = Destination.ABOUT_US.toString(),
+            enterTransition = { slideInVertically { 1000 } + fadeIn() },
+            exitTransition = { slideOutHorizontally() + fadeOut() }) {
+           TeacherAboutUs()
         }
 
     }

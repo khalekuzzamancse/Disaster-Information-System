@@ -1,8 +1,12 @@
 package data_submission.ui.components
+
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
@@ -23,25 +27,27 @@ internal fun DescriptionTextField(
     keyboardType: KeyboardType = KeyboardType.Text,
     shape: Shape = TextFieldDefaults.shape,
     errorMessage: String? = null,
-    label: String?=null,
+    label: String? = null,
     value: String,
     leadingIcon: ImageVector?,
     onValueChanged: (String) -> Unit,
 ) {
-    val singleLine=false
+    val singleLine = false
     val colors = TextFieldDefaults.colors(
         focusedContainerColor = MaterialTheme.colorScheme.surface,
         unfocusedContainerColor = MaterialTheme.colorScheme.surface,
     )
     val content: @Composable ColumnScope.() -> Unit = if (errorMessage == null) @Composable {
         {
-            Row {
-                if (leadingIcon != null) {
-                    Icon(imageVector = leadingIcon, contentDescription = null)
-                }
-                Spacer(Modifier.width(4.dp))
+            Column {
                 if (label != null) {
                     Text(text = label)
+                }
+                Spacer(Modifier.height(8.dp))
+                Box(Modifier.padding(8.dp)) {
+                    if (leadingIcon != null) {
+                        Icon(imageVector = leadingIcon, contentDescription = null)
+                    }
                 }
             }
             TextField(
@@ -58,13 +64,15 @@ internal fun DescriptionTextField(
         }
     } else @Composable {
         {
-            Row {
+            Column {
+                if (label != null) {
+                    Text(text = label, modifier = Modifier.padding(4.dp))
+                }
+                Spacer(Modifier.height(8.dp))
                 if (leadingIcon != null) {
                     Icon(imageVector = leadingIcon, contentDescription = null)
                 }
-                if (label != null) {
-                    Text(text = label)
-                }
+
             }
             TextField(
                 label = null,

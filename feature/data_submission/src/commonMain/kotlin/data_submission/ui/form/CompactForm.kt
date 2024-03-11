@@ -10,6 +10,12 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Title
+import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.Description
+import androidx.compose.material.icons.outlined.Map
+import androidx.compose.material.icons.outlined.Timer
+import androidx.compose.material.icons.outlined.Title
+import androidx.compose.material.icons.twotone.Map
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -146,14 +152,14 @@ private fun _PrimitiveForm(
             label = "Title",
             value = title,
             onValueChanged = onTitleChanged,
-            leadingIcon = Icons.Default.Title,
+            leadingIcon = Icons.Outlined.Title,
         )
 
         DatePicker(
             modifier = fieldModifier,
             label = "Event Date",
             value = date,
-            leadingIcon = Icons.Default.DateRange,
+            leadingIcon = Icons.Outlined.DateRange,
             trailingIcon = Icons.Default.Edit,
             onDateSelected = { onDateChanged(it) },
             colors = colors
@@ -162,7 +168,7 @@ private fun _PrimitiveForm(
             modifier = fieldModifier,
             label = "Event Start Time",
             value = startTime,
-            leadingIcon = Icons.Default.Timer,
+            leadingIcon = Icons.Outlined.Timer,
             trailingIcon = Icons.Default.Edit,
             onTimeSelected = onStartTime,
             colors = colors
@@ -172,7 +178,7 @@ private fun _PrimitiveForm(
             modifier = fieldModifier,
             label = "Event End Time",
             value = endTime,
-            leadingIcon = Icons.Default.Timer,
+            leadingIcon = Icons.Outlined.Timer,
             trailingIcon = Icons.Default.Edit,
             onTimeSelected = onEndTimeChanged,
             colors = colors
@@ -182,7 +188,7 @@ private fun _PrimitiveForm(
             modifier = fieldModifier,
             label = "Location",
             value = location,
-            leadingIcon = Icons.Default.Map,
+            leadingIcon = Icons.TwoTone.Map,
             trailingIcon = Icons.Default.Edit,
             onTrailingIconClick = onLocationPickedRequest,
             colors = colors
@@ -192,7 +198,7 @@ private fun _PrimitiveForm(
             modifier = fieldModifier,
             label = "Description",
             value = description,
-            leadingIcon = Icons.Default.Description,
+            leadingIcon = Icons.Outlined.Description,
             onValueChanged = onDescriptionChanged,
         )
 

@@ -2,9 +2,7 @@ package feature.home.ui.destination
 
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -21,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import feature.home.ui.MyDropDownMenu
 import feature.home.ui.welcome_section.WelcomeToHome
 import ui.CustomSnackBar
 import ui.SnackBarMessage
@@ -32,6 +31,7 @@ fun HomeDestination(
     snackBarMessage: SnackBarMessage?=null,
     isSending: Boolean,
     onSend: () -> Unit = {},
+    onAboutUs:()->Unit={},
 ) {
 
 
@@ -46,6 +46,9 @@ fun HomeDestination(
                 title = {},
                 actions = {
                     SentButton(enable = !isSending, onSend)
+                    MyDropDownMenu(
+                        onAboutClick = onAboutUs
+                    )
                 }
 
             )
@@ -60,7 +63,6 @@ fun HomeDestination(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             WelcomeToHome()
-
 
         }
     }

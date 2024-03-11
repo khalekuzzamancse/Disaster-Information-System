@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import disasterinformationsystem.feature.home.generated.resources.Res
-import disasterinformationsystem.feature.home.generated.resources.just_logo
+import disasterinformationsystem.feature.home.generated.resources.just_logo_2
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -26,7 +26,7 @@ fun WelcomeToHome(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        val res: DrawableResource =Res.drawable.just_logo
+        val res: DrawableResource = Res.drawable.just_logo_2
         //after that compile it again to generate Res class, use : .\gradlew generateComposeResClass
         Image(
             modifier=Modifier.size(64.dp),
