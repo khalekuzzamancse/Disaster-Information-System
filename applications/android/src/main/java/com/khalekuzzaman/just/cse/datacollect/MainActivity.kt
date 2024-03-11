@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import androidx.compose.material3.BottomAppBar
 import com.khalekuzzaman.just.cse.datacollect.ui_layer.theme.DisasterInfoSystemTheme
 import platform_contract.NavigationRoot
 
@@ -16,6 +17,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             DisasterInfoSystemTheme {
+                BottomAppBar {
+
+                }
                 NavigationRoot()
 
                 //

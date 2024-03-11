@@ -5,22 +5,32 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.NavigationDrawerItemColors
+import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
@@ -52,7 +62,7 @@ fun BottomBarToNavRailDecorator(
     content: @Composable () -> Unit,
 ) {
     val windowSize = calculateWindowSizeClass().widthSizeClass
-    AnimatedContent(windowSize){window->
+    AnimatedContent(windowSize) { window ->
         when (window) {
             WindowWidthSizeClass.Compact -> {
                 CompactModeLayout(
@@ -78,7 +88,6 @@ fun BottomBarToNavRailDecorator(
     }
 
 
-
 }
 
 /*
@@ -93,7 +102,7 @@ fun BottomBarToNavRailDecorator(
 class BottomToNavDecoratorItem(
     val label: String,
     val focusedIcon: ImageVector,
-    val unFocusedIcon: ImageVector =focusedIcon,
+    val unFocusedIcon: ImageVector = focusedIcon,
     val badge: String? = null,
 )
 
@@ -134,20 +143,20 @@ private fun NonCompactModeLayout(
     topAppbar: @Composable () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
-        Row(modifier=modifier) {
-            LocalNavRail(
-                destinations = destinations,
-                selected = selected,
-                onItemSelected = onItemSelected
-            )
-            Scaffold(
-                modifier = Modifier,
-                topBar = topAppbar,
-            ) { scaffoldPadding ->
-                Box(Modifier.padding(scaffoldPadding)) { content() }//takes the remaining space,after the NavRail takes place
-            }
-
+    Row(modifier = modifier) {
+        LocalNavRail(
+            destinations = destinations,
+            selected = selected,
+            onItemSelected = onItemSelected
+        )
+        Scaffold(
+            modifier = Modifier,
+           topBar = topAppbar,
+        ) { scaffoldPadding ->
+            Box(Modifier.padding(scaffoldPadding)) { content() }//takes the remaining space,after the NavRail takes place
         }
+
+    }
 
 
 }
@@ -162,43 +171,67 @@ private fun LocalNavRail(
     onItemSelected: (Int) -> Unit,
     selected: Int? = null,
 ) {
-    NavigationRail(modifier=modifier) {
-        Column(Modifier.width(IntrinsicSize.Max)) {
-            destinations.forEachIndexed { index, navigationItem ->
-                //Using Drawer item so place the icon and label side by side
-                NavigationDrawerItem(
-                    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
-                    icon = {
-                        Icon(
-                            navigationItem.focusedIcon,
-                            contentDescription = null
-                        )
-                    },
-                    label = {
-                        Text(
-                            text = navigationItem.label
-                        )
-                    },
-                    selected = selected==index,
-                    onClick = { onItemSelected(index) }
-                )
+
+    NavigationRail(
+        modifier = modifier,
+        containerColor = MaterialTheme.colorScheme.surface
+    ) {
+        Surface (
+            modifier=Modifier.fillMaxHeight(),
+            tonalElevation =3.dp //same as bottom bar elevation
+        ){
+            Column(Modifier.width(IntrinsicSize.Max)) {
+                destinations.forEachIndexed { index, navigationItem ->
+                    //Using Drawer item so place the icon and label side by side
+                    NavigationDrawerItem(
+                        colors = NavigationDrawerItemDefaults.colors(
+                            selectedContainerColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f),
+                            selectedIconColor = MaterialTheme.colorScheme.secondary,
+                            selectedTextColor =MaterialTheme.colorScheme.contentColorFor(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f)),
+                            unselectedIconColor = MaterialTheme.colorScheme.tertiary,
+
+
+                         //   se = MaterialTheme.colorScheme.onSecondary,
+
+                        ),
+                        modifier = Modifier.padding(4.dp),
+                        icon = {
+                            Icon(
+                                navigationItem.focusedIcon,
+                                contentDescription = null
+                            )
+                        },
+                        label = {
+                            Text(
+                                text = navigationItem.label
+                            )
+                        },
+                        selected = selected == index,
+                        onClick = { onItemSelected(index) },
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                }
             }
         }
 
+
     }
 }
+
 /**
  * Used to loose coupling,so that direcly this file can be copy -paste without BottomBar from another file
  */
 
 @Composable
 private fun LocalBottomNavigationBar(
-    modifier: Modifier=Modifier,
+    modifier: Modifier = Modifier,
     destinations: List<BottomToNavDecoratorItem>,
-    selected:Int?=null,
-    onDestinationSelected:(Int) -> Unit,
+    selected: Int? = null,
+    onDestinationSelected: (Int) -> Unit,
 ) {
-    NavigationBar(modifier = modifier) {
+    NavigationBar(
+        modifier = modifier,
+        ) {
         destinations.forEachIndexed { index, destination ->
             NavigationBarItem(
                 selected = selected == index,
@@ -228,7 +261,12 @@ private fun LocalBottomNavigationBar(
                             )
                         }
                     }
-                }
+                },
+                colors = NavigationBarItemDefaults.colors().copy(
+                    unselectedIconColor = MaterialTheme.colorScheme.tertiary,
+                    selectedIconColor = MaterialTheme.colorScheme.secondary,
+                    selectedIndicatorColor = MaterialTheme.colorScheme.onSecondary,
+                )
             )
         }
     }

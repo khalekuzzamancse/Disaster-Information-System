@@ -8,6 +8,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -43,17 +44,18 @@ import video_picker.VideoGalleryGen
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 actual fun NavigationRoot() {
-    var showSlashScreen by remember { mutableStateOf(true) }
-    LaunchedEffect(Unit) {
-        delay(5000)
-        showSlashScreen = false
-    }
-    if (showSlashScreen) {
-        SplashScreen()
-    } else {
-       RootDestination()
-
-    }
+//    var showSlashScreen by remember { mutableStateOf(true) }
+//    LaunchedEffect(Unit) {
+//        delay(5000)
+//        showSlashScreen = false
+//    }
+//    if (showSlashScreen) {
+//        SplashScreen()
+//    } else {
+//       RootDestination()
+//
+//    }
+    RootDestination()
 
 
 }
@@ -113,6 +115,7 @@ private fun RootDestination() {
             }
         )
     }
+
 
 }
 
