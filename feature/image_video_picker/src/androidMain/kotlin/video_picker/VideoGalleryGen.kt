@@ -101,9 +101,7 @@ private fun _VideoGallery(
             } else {
                 NoVodeosScreen()
             }
-            else{
-                NoVodeosScreen()
-            }
+
         }
 
     }
