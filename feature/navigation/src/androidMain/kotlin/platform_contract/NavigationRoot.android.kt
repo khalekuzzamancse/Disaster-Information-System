@@ -32,14 +32,32 @@ import image_picker.common.GalleryViewModel
 import kotlinx.coroutines.launch
 import routes.Destination
 import components.NavLayoutDecorator
+import kotlinx.coroutines.delay
 import routes.ReportFormRoute
+import routes.SplashScreen
 import ui.PermissionIfNeeded
 import video_picker.VideoGalleryGen
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 actual fun NavigationRoot() {
+    var showSlashScreen by remember { mutableStateOf(true) }
+    LaunchedEffect(Unit) {
+        delay(5000)
+        showSlashScreen = false
+    }
+    if (showSlashScreen) {
+        SplashScreen()
+    } else {
+        RootDestination()
+    }
 
+
+}
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+@Composable
+private fun RootDestination() {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val homeViewModelAndroid = remember { HomeViewModelAndroid(context) }
@@ -66,6 +84,7 @@ actual fun NavigationRoot() {
         selected = selected,
         onDestinationSelected = { selected = it },
     ) {
+
         RootNavHost(
             modifier = Modifier,
             formManager = formManager,

@@ -33,6 +33,7 @@ kotlin {
                 implementation(libs.windowSize)
                 //
                 implementation(libs.kotlinx.coroutines.core)
+                implementation(compose.components.resources)
 
             }
         }
