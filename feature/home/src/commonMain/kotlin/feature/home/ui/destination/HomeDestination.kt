@@ -1,8 +1,10 @@
 package feature.home.ui.destination
 
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -26,15 +28,15 @@ import ui.SnackBarMessage
 
 
 @OptIn(ExperimentalMaterial3Api::class)
+@PublishedApi //hiding to client module
 @Composable
-fun HomeDestination(
-    snackBarMessage: SnackBarMessage?=null,
+internal fun HomeDestinationCommon(
+    snackBarMessage: SnackBarMessage? = null,
     isSending: Boolean,
-    onSend: () -> Unit = {},
-    onAboutUs:()->Unit={},
+    onSendRequest: () -> Unit = {},
+    onAboutUsRequest: () -> Unit = {},
+
 ) {
-
-
     Scaffold(
         snackbarHost = {
             if (snackBarMessage != null) {
@@ -45,9 +47,10 @@ fun HomeDestination(
             TopAppBar(
                 title = {},
                 actions = {
-                    SentButton(enable = !isSending, onSend)
+                    SentButton(enable = !isSending, onSendRequest)
                     MyDropDownMenu(
-                        onAboutClick = onAboutUs
+                        onAboutClick = onAboutUsRequest
+
                     )
                 }
 
@@ -58,11 +61,13 @@ fun HomeDestination(
             modifier = Modifier
                 .padding(scaffoldPadding)
                 .padding(start = 8.dp, end = 8.dp)
-                .fillMaxWidth()
+                .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            WelcomeToHome()
+
+            WelcomeToHome(modifier = Modifier)
 
         }
     }

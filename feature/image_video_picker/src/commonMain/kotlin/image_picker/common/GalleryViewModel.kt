@@ -1,4 +1,5 @@
 package image_picker.common
+import androidx.compose.runtime.remember
 import image_picker.command_pattern.Command
 import image_picker.command_pattern.GalleryCommands
 import kotlinx.coroutines.flow.Flow
@@ -7,14 +8,18 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
-class GalleryViewModel {
+class GalleryViewModel(
+) {
 
     private val _imageGalleryState = MutableStateFlow(emptyList<GalleryMediaGeneric>())
     val galleryState = _imageGalleryState.asStateFlow()
     val anySelected: Flow<Boolean> = _imageGalleryState.map { images ->
         images.any { it.isSelected }
     }
-    private var lastCommand: Command? = null
+    private var lastCommand= MutableStateFlow<Command?>(null)
+    val isUndoAvailable=lastCommand.map { it!=null }
+
+
 
 
 
@@ -24,19 +29,19 @@ class GalleryViewModel {
             newImages =identities.map { GalleryMediaGeneric(identity = it) }
         )
         command.execute()
-        lastCommand = command
+        lastCommand.value = command
         updateState(command.state)
     }
 
     fun remove() {
         val command = GalleryCommands.Remove(_imageGalleryState.value)
         command.execute()
-        lastCommand = command
+        lastCommand.value = command
         updateState(command.state)
     }
 
     fun undo() {
-        lastCommand?.let { command ->
+        lastCommand.value?.let { command ->
             command.undo()
             when (command) {
                 is GalleryCommands.Add -> {
@@ -53,7 +58,7 @@ class GalleryViewModel {
     }
 
     fun redo() {
-        lastCommand?.let { command ->
+        lastCommand.value?.let { command ->
             command.redo()
             when (command) {
                 is GalleryCommands.Add -> {

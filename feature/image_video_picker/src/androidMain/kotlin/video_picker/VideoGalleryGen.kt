@@ -11,14 +11,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.filled.VideoChat
+import androidx.compose.material.icons.filled.VideoLibrary
+
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -42,50 +43,63 @@ import image_picker.GalleryScreen
 import image_picker.common.KMPFile
 import image_picker.common.GalleryMediaGeneric
 import image_picker.common.GalleryViewModel
+import ui.permission.PermissionDecorator
+import ui.permission.PermissionManager
 
 
 @Composable
-fun VideoGalleryGen(
-    videoGalleryViewModel: GalleryViewModel,
+fun VideoGallery(viewModel: GalleryViewModel) {
+    PermissionDecorator(
+        permissions = PermissionManager.storagePermission
+    ) {
+        _VideoGallery(viewModel)
+    }
+}
+
+@Composable
+private fun _VideoGallery(
+    viewModel: GalleryViewModel,
 ) {
     var enableAddButton by remember {
         mutableStateOf(true)
     }
     LocalContext.current
-    val showGallery = videoGalleryViewModel.galleryState.collectAsState().value.isNotEmpty()
-    val videos = videoGalleryViewModel.galleryState.collectAsState().value
-    val showRemoveButton = videoGalleryViewModel.anySelected.collectAsState(false).value
+    val hasImages = viewModel.galleryState.collectAsState().value.isNotEmpty()
+    val videos = viewModel.galleryState.collectAsState().value
+    val showRemoveButton = viewModel.anySelected.collectAsState(false).value
     val videoPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
-        onResult = {uris->
-            videoGalleryViewModel.addImages(uris.map { KMPFile(it.toString()) })
-            enableAddButton=true
+        onResult = { uris ->
+            viewModel.addImages(uris.map { KMPFile(it.toString()) })
+            enableAddButton = true
         }
     )
     GalleryScreen(
         enableAddButton = enableAddButton,
-        enabledUndo = true,
-        enabledRedo = true,
+        enabledUndo = viewModel.isUndoAvailable.collectAsState(false).value,
+        enabledRedo = viewModel.isUndoAvailable.collectAsState(false).value,
         showRemoveButton = showRemoveButton,
         onAddRequest = {
-            enableAddButton=false
+            enableAddButton = false
             videoPicker.launch(
                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly)
             )
 
         },
-        onRemoveRequest = videoGalleryViewModel::remove,
-        undoRequest = videoGalleryViewModel::undo,
-        redoRequest = videoGalleryViewModel::redo
+        onRemoveRequest = viewModel::remove,
+        undoRequest = viewModel::undo,
+        redoRequest = viewModel::redo
     ) {
         Column(
             modifier = Modifier.padding(it)
         ) {
-            if (showGallery) {
-                VideoGalleryGen(
+            if (hasImages) {
+                VideoGallery(
                     videos = videos,
-                    onSelection = videoGalleryViewModel::flipSelection
+                    onSelection = viewModel::flipSelection
                 )
+            } else {
+                NoVodeosScreen()
             }
             else{
                 NoVodeosScreen()
@@ -99,7 +113,7 @@ fun VideoGalleryGen(
 
 
 @Composable
-fun VideoGalleryGen(
+fun VideoGallery(
     videos: List<GalleryMediaGeneric>,
     onSelection: (KMPFile) -> Unit,
 ) {
@@ -162,10 +176,12 @@ private fun NoVodeosScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
-                imageVector = Icons.Default.VideoChat,
+
+                imageVector = Icons.Default.VideoLibrary,
                 contentDescription = "No Images",
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(bottom = 8.dp)
+                tint = MaterialTheme.colorScheme.secondary,
+                modifier = Modifier.padding(bottom = 8.dp).size(64.dp)
+
             )
             Text(
                 text = "No Video found",

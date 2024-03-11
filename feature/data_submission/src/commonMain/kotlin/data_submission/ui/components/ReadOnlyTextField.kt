@@ -2,6 +2,7 @@ package data_submission.ui.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
@@ -34,7 +35,7 @@ internal fun ReadOnlyTextField(
             readOnly = true,
             leadingIcon = {
                 if (leadingIcon != null) {
-                    Icon(imageVector = leadingIcon, contentDescription = null)
+                    Icon(imageVector = leadingIcon, contentDescription = null,tint = MaterialTheme.colorScheme.tertiary)
                 }
             },
             trailingIcon = {
@@ -42,7 +43,8 @@ internal fun ReadOnlyTextField(
                     Icon(
                         modifier = Modifier.clickable { onTrailingIconClick?.invoke() },
                         imageVector = trailingIcon,
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary//to indicate that it is important/clickable
                     )
                 }
             },

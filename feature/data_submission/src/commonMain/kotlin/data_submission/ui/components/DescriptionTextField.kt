@@ -27,9 +27,9 @@ internal fun DescriptionTextField(
     keyboardType: KeyboardType = KeyboardType.Text,
     shape: Shape = TextFieldDefaults.shape,
     errorMessage: String? = null,
-    label: String? = null,
+    label: String,
     value: String,
-    leadingIcon: ImageVector?,
+    leadingIcon: ImageVector,
     onValueChanged: (String) -> Unit,
 ) {
     val singleLine = false
@@ -37,18 +37,16 @@ internal fun DescriptionTextField(
         focusedContainerColor = MaterialTheme.colorScheme.surface,
         unfocusedContainerColor = MaterialTheme.colorScheme.surface,
     )
+
     val content: @Composable ColumnScope.() -> Unit = if (errorMessage == null) @Composable {
         {
             Column {
-                if (label != null) {
                     Text(text = label)
-                }
-                Spacer(Modifier.height(8.dp))
-                Box(Modifier.padding(8.dp)) {
-                    if (leadingIcon != null) {
-                        Icon(imageVector = leadingIcon, contentDescription = null)
-                    }
-                }
+                     Spacer(Modifier.height(8.dp))
+                     Row {
+                    Spacer(Modifier.width(10.dp))
+                    Icon(imageVector = leadingIcon, contentDescription = null,tint = MaterialTheme.colorScheme.tertiary)
+                     }
             }
             TextField(
                 singleLine = singleLine,
@@ -65,12 +63,11 @@ internal fun DescriptionTextField(
     } else @Composable {
         {
             Column {
-                if (label != null) {
-                    Text(text = label, modifier = Modifier.padding(4.dp))
-                }
+                Text(text = label)
                 Spacer(Modifier.height(8.dp))
-                if (leadingIcon != null) {
-                    Icon(imageVector = leadingIcon, contentDescription = null)
+                Row {
+                    Spacer(Modifier.width(10.dp))
+                    Icon(imageVector = leadingIcon, contentDescription = null,tint = MaterialTheme.colorScheme.tertiary)
                 }
 
             }

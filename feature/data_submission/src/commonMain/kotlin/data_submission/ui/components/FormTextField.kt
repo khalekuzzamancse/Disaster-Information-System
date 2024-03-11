@@ -44,7 +44,7 @@ fun FormTextField(
                 onValueChange = onValueChanged,
                 leadingIcon = {
                     if (leadingIcon != null) {
-                        Icon(imageVector = leadingIcon, contentDescription = null)
+                        Icon(imageVector = leadingIcon, contentDescription = null, tint = MaterialTheme.colorScheme.tertiary)
                     }
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
