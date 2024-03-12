@@ -55,11 +55,11 @@ dependencies {
     implementation("khalekuzzamancse.cse:cmp-components:1.0.0")
     implementation(project(":ui"))
     implementation(project(":feature:navigation"))
-    implementation(project(":feature:image_video_picker"))
+    implementation(project(":feature:media_picker"))
     implementation(project(":core:network"))
     implementation(project(":core:work_manager"))
     implementation(project(":feature:home"))
-    implementation(project(":feature:data_submission"))
+    implementation(project(":feature:report_form"))
 
     implementation(compose.ui)
     implementation(compose.material3)

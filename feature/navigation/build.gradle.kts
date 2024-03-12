@@ -20,8 +20,9 @@ kotlin {
                 implementation(project(":ui"))
                 implementation(project(":core:di"))
                 implementation(project(":feature:home"))
-                implementation(project(":feature:data_submission"))
-                implementation(project(":feature:image_video_picker"))
+                implementation(project(":feature:report_form"))
+                implementation(project(":feature:media_picker"))
+                implementation(project(":core:network"))
                 //
                 implementation(compose.ui)
                 implementation(compose.material3)
@@ -41,6 +42,10 @@ kotlin {
             dependencies {
                 //navigation
                 implementation(libs.androidx.navigation.compose)
+                //for media upload
+                implementation(project(":core:work_manager"))
+                //to access android such as to use Uri
+                implementation(libs.androidx.core)
             }
         }
         val desktopMain by getting{
