@@ -47,7 +47,7 @@ import image_picker.common.KMPFile
 import image_picker.common.GalleryMediaGeneric
 import image_picker.common.GalleryViewModel
 import ui.permission.PermissionDecorator
-import ui.permission.PermissionManager
+import ui.permission.PermissionFactory
 
 
 /**
@@ -57,7 +57,7 @@ import ui.permission.PermissionManager
 @Composable
 fun PhotoPickerAndroid(viewModel: GalleryViewModel,) {
     PermissionDecorator(
-        permissions = PermissionManager.storagePermission
+        permissions = PermissionFactory.storagePermissions()
     ){
         PhotoPicker(viewModel)
     }
