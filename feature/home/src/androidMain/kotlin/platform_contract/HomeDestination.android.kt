@@ -1,6 +1,10 @@
 package platform_contract
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import feature.home.ui.destination.HomeDestinationCommon
 import ui.SnackBarMessage
 import ui.permission.PermissionDecorator
@@ -16,13 +20,34 @@ actual fun HomeDestination(
     onSendRequest: () -> Unit,
     onAboutUsRequest: () -> Unit
 ) {
-    PermissionDecorator(
-        permissions = PermissionFactory.notificationPermissions()
-    ){
+
+    /**
+     * Check permission only when sent is clicked
+     */
+    var isSentButtonClicked by remember { mutableStateOf(false) }
+    if (isSentButtonClicked) {
+        PermissionDecorator(
+            permissions = PermissionFactory.notificationPermissions()
+        ) {
+            HomeDestinationCommon(
+                snackBarMessage = snackBarMessage,
+                isSending = isSending,
+                onSendRequest = {
+                    isSentButtonClicked = true
+                    onSendRequest()
+                },
+                onAboutUsRequest = onAboutUsRequest
+            )
+        }
+
+    } else {
         HomeDestinationCommon(
             snackBarMessage = snackBarMessage,
             isSending = isSending,
-            onSendRequest = onSendRequest,
+            onSendRequest = {
+                isSentButtonClicked = true
+                onSendRequest()
+            },
             onAboutUsRequest = onAboutUsRequest
         )
     }

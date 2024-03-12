@@ -37,14 +37,14 @@ object PermissionFactory {
     fun storagePermissions(): List<Permission> {
         return when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> listOf(
-                Permission(READ_MEDIA_IMAGES, "Read Images"),
-                Permission(READ_MEDIA_VIDEO, "Read Images"),
-                Permission(READ_MEDIA_VISUAL_USER_SELECTED, "Visual User Selected")
+                Permission(READ_MEDIA_IMAGES, "Read Media Images"),
+                Permission(READ_MEDIA_VIDEO, "Read Media Video"),
+                Permission(READ_MEDIA_VISUAL_USER_SELECTED, "Read Visual User Selected")
             )
 
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> listOf(
-                Permission(READ_MEDIA_IMAGES, "Read Images"),
-                Permission(READ_MEDIA_VIDEO, "Read Images")
+                Permission(READ_MEDIA_IMAGES, "Read Media Images"),
+                Permission(READ_MEDIA_VIDEO, "Read Media Video"),
             )
 
             else -> listOf(
