@@ -27,28 +27,27 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.runtime)
                 implementation(libs.windowSize)
-                //for resources access
-                implementation(compose.components.resources)
                 //
                 implementation(libs.kotlinx.coroutines.core)
+                //network IO for image loading
+                api(libs.coil3.network)
+                api(libs.coil3)
+                api(libs.coil3.core)
 
             }
         }
         val androidMain by getting{
             dependencies {
-                implementation(libs.androidx.core)
-                //for view model
-                val lifecycleVersion = "2.7.0"
-                // ViewModel
-                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-                // ViewModel utilities for Compose
-                implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
+                //for gallery and intent launching and for context to access permission
+                implementation(libs.androidx.activity.compose)
+                //
+                //navigation
                 implementation(libs.androidx.navigation.compose)
             }
         }
         val desktopMain by getting{
             dependencies {
-                //dependency to support android coroutine on desktop
+                //dependency to support android coil on desktop
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing")
             }
         }
@@ -57,7 +56,7 @@ kotlin {
 
 }
 android {
-    namespace = "feature.home"
+    namespace = "media_picker"
     compileSdk = 34
     defaultConfig {
         minSdk = 27

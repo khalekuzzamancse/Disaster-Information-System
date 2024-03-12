@@ -17,8 +17,6 @@ kotlin {
     sourceSets{
         val commonMain by getting{
             dependencies {
-                implementation(project(":ui"))
-                //
                 implementation(compose.ui)
                 implementation(compose.material3)
                 implementation(compose.animation)
@@ -27,8 +25,6 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.runtime)
                 implementation(libs.windowSize)
-                //for resources access
-                implementation(compose.components.resources)
                 //
                 implementation(libs.kotlinx.coroutines.core)
 
@@ -36,28 +32,30 @@ kotlin {
         }
         val androidMain by getting{
             dependencies {
-                implementation(libs.androidx.core)
-                //for view model
-                val lifecycleVersion = "2.7.0"
-                // ViewModel
-                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-                // ViewModel utilities for Compose
-                implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
-                implementation(libs.androidx.navigation.compose)
+                //Google map
+                implementation(libs.maps.compose)
+                implementation(libs.play.services.location)
+                //to access  such as for permissions
+                implementation(project(":ui"))
             }
         }
         val desktopMain by getting{
             dependencies {
-                //dependency to support android coroutine on desktop
+                //dependency to support android coil on desktop
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing")
             }
         }
     }
+    compilerOptions {
+        // Common compiler options applied to all Kotlin source sets
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+
 
 
 }
 android {
-    namespace = "feature.home"
+    namespace = "report_form"
     compileSdk = 34
     defaultConfig {
         minSdk = 27

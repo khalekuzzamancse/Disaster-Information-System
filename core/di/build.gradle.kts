@@ -18,7 +18,7 @@ kotlin {
         val commonMain by getting{
             dependencies {
                 //to provide the CustomDateUtils Implementation
-                implementation(project(":feature:data_submission"))
+                implementation(project(":feature:report_form"))
             
 
                 implementation(libs.kotlinx.coroutines.core)

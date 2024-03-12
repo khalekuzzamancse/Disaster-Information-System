@@ -6,7 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import data_submission.ui.form.BaseDescriptionFormManager
+import data_submission.ui.form.ReportFormControllerImpl
 import di.DateUtilsProvider
 import routes.Destination
 import routes.HomeRoute
@@ -18,7 +18,7 @@ import routes.VideoPickerRoute
 @Composable
 actual fun NavigationRoot() {
     var selected by remember { mutableStateOf(Destination.HOME) }
-    val formManager = remember { BaseDescriptionFormManager(DateUtilsProvider.dateUtil) }
+    val formManager = remember { ReportFormControllerImpl(DateUtilsProvider.dateUtil) }
     NavLayoutDecorator(
         selected = selected,
         onDestinationSelected = {
