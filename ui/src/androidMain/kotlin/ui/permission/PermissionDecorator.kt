@@ -44,7 +44,7 @@ fun PermissionDecorator(
     val context = LocalContext.current
     var isPermissionGranted by remember {
         mutableStateOf(
-            PermissionManager.hasPermissions(
+            PermissionFactory.hasPermissions(
                 permissions,
                 context
             )
@@ -91,7 +91,7 @@ private fun PermissionHandler(
         ) {
             Text("Following Permission are not Granted :")
             permissions.forEach { permission ->
-                val hasNotGranted = !PermissionManager.hasPermissions(permission, context)
+                val hasNotGranted = !PermissionFactory.hasPermissions(permission, context)
                 if (hasNotGranted) {
                     Text(permission.shortName)
                 }

@@ -37,7 +37,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import data_submission.ui.components.PickedLocation
 import kotlinx.coroutines.launch
 import ui.permission.PermissionDecorator
-import ui.permission.PermissionManager
+import ui.permission.PermissionFactory
 
 @Composable
 actual fun LocationPicker(
@@ -57,7 +57,7 @@ internal fun GMapLocationPicker(
     onLocationPicked: (PickedLocation) -> Unit = {}
 ) {
     PermissionDecorator(
-        permissions = PermissionManager.googleMapsPermissions
+        permissions = PermissionFactory.googleMapsPermissions()
     ){
         _GMapLocationPicker(onLocationPicked)
     }
