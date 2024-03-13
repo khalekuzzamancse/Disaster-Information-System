@@ -3,18 +3,14 @@ package components
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddAPhoto
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.filled.NoteAlt
-import androidx.compose.material.icons.filled.Report
 import androidx.compose.material.icons.filled.TableView
-import androidx.compose.material.icons.filled.VideoFile
 import androidx.compose.material.icons.filled.VideoLibrary
 import androidx.compose.material.icons.outlined.AddAPhoto
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Report
 import androidx.compose.material.icons.outlined.TableView
 import androidx.compose.material.icons.outlined.VideoLibrary
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import routes.Destination
 
 
@@ -23,12 +19,14 @@ import routes.Destination
  */
 @Composable
 fun NavLayoutDecorator(
+    modifier: Modifier=Modifier,
     onDestinationSelected: (Destination) -> Unit,
     selected: Destination,
     content: @Composable () -> Unit,
 ) {
     val items = createBottomDestination()
     BottomBarToNavRailDecorator(
+        modifier=modifier,
         destinations = items,
         onItemSelected = { index ->
             when (index) {

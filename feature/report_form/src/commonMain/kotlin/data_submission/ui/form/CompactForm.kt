@@ -28,17 +28,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import data_submission.platform_contracts.LocationPicker
-import data_submission.ui.components.DatePicker
-import data_submission.ui.components.DatePickerDate
-import data_submission.ui.components.DescriptionTextField
-import data_submission.ui.components.FormTextField
-import data_submission.ui.components.ReadOnlyTextField
-import data_submission.ui.components.TimePickerCustom
-import data_submission.ui.components.TimePickerData
+import data_submission.ui.form.components.DatePicker
+import data_submission.ui.form.components.DatePickerDate
+import data_submission.ui.form.components.DescriptionTextField
+import data_submission.ui.form.components.FormTextField
+import data_submission.ui.form.components.ReadOnlyTextField
+import data_submission.ui.form.components.TimePickerCustom
+import data_submission.ui.form.components.TimePickerData
 
-
+@PublishedApi
 @Composable
-fun CompactForm(
+internal fun CompactForm(
     modifier: Modifier = Modifier,
     data: FormState,
     onEvent: (FormEvent) -> Unit,

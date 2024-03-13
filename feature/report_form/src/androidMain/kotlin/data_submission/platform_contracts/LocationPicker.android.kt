@@ -34,7 +34,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-import data_submission.ui.components.PickedLocation
+import data_submission.ui.form.components.PickedLocation
 import kotlinx.coroutines.launch
 import ui.permission.PermissionDecorator
 import ui.permission.PermissionFactory

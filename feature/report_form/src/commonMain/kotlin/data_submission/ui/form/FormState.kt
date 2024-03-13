@@ -1,8 +1,8 @@
 package data_submission.ui.form
 
-import data_submission.ui.components.TimePickerData
-
-data class FormState(
+import data_submission.ui.form.components.TimePickerData
+@PublishedApi
+internal data class FormState(
     var title: String,
     var date: String,
     var startTime: TimePickerData,

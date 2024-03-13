@@ -12,8 +12,8 @@
             <option value="$PROJECT_DIR$/applications" />
             <option value="$PROJECT_DIR$/applications/android" />
             <option value="$PROJECT_DIR$/applications/desktop" />
+            <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/core/di" />
             <option value="$PROJECT_DIR$/core/network" />
             <option value="$PROJECT_DIR$/core/work_manager" />
             <option value="$PROJECT_DIR$/feature" />
@@ -22,7 +22,6 @@
             <option value="$PROJECT_DIR$/feature/navigation" />
             <option value="$PROJECT_DIR$/feature/report_form" />
             <option value="$PROJECT_DIR$/feature/video_compression" />
-            <option value="$PROJECT_DIR$/ui" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
