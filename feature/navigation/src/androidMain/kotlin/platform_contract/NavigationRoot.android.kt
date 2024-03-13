@@ -21,8 +21,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import components.NavLayoutDecorator
-import data_submission.domain.ReportFormController
-import data_submission.non_platform.ui.ReportFormNavGraph
+import report_form.domain.ReportFormController
+import report_form.ui.ReportFormNavGraph
 import routes.Destination
 import routes.SplashScreen
 import ui.CustomSnackBar

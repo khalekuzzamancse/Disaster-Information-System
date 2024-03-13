@@ -1,3 +1,22 @@
+### Documentation conventions
+- "_ " used to denote the internal or private 
+
+## How to use this module as client
+
+```mermaid
+graph TD
+ %% defining nodes
+client[Client] ;navGraph(("MediaPickerNavGraph"))
+photoPicker((_PhotoPicker));videoPicker((_VideoPicker))
+
+
+client --MediaPickersController-->navGraph 
+ %% using no name using dot(.)
+ subgraph .
+navGraph --_imageGalleryController-->photoPicker
+navGraph --_videoGalleryController-->videoPicker
+    end
+```
 
 ## About this module
 
