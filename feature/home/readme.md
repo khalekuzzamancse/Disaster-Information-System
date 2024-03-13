@@ -8,22 +8,33 @@
 - Defining screen along with their data and domain
 
 
-
+#### State and Event
 
 ```mermaid
 graph TD
 
-%%defining LoginScreen Nodes
-home-module[HomeModule]
-    home[_Home Screen]
-    about-us[_About us]
-    contact-us[_Contact us]
 
-    home-module --> home
-     home-module --> about-us
-      home-module --> contact-us
+%%defining Nodes
+event-state["
+Events:
+onSendRequest
+onExitRequest
+States:
+enableSendButton
+"]
+client((Client)); navGraph((HomeModuleNavGraph))
+client -- enableSendButton --> navGraph
+%%definng variables
 
 
+%%defining subgraphs nodes
+home((_Home Screen)); aboutUs((_About Us)); contactUs((_Contact Us))
+    navGraph -- event --> client
+    navGraph -- enableSendButton--> home; 
+     home --event--> navGraph;
+ 
+    navGraph --> aboutUs; 
+    navGraph --> contactUs
 ```
 Home:
 It maintenance top level destination such as

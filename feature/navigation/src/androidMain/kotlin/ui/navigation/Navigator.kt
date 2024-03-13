@@ -1,7 +1,7 @@
 package ui.navigation
 
 import androidx.navigation.NavHostController
-import data_submission.non_platform.ui.ReportFormNavGraph
+import report_form.ui.ReportFormNavGraph
 import routes.Destination
 
 class Navigator(

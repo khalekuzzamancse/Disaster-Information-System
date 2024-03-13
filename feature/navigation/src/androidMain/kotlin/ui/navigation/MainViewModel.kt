@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import data_submission.data.ReportFormFactoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -13,6 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import report_form.platform_contracts.ReportFormFactory
 import routes.Destination
 import ui.MediaPickersController
 import ui.SnackBarMessage
@@ -64,7 +64,7 @@ class MainViewModel(
 ) : ViewModel() {
 
     private val _snackBarMessage = MutableStateFlow<SnackBarMessage?>(null)
-    val reportFormController = ReportFormFactoryImpl.createFormController()
+    val reportFormController = ReportFormFactory.createFormController()
 
     val mediaGalleryController = MediaPickersController(context)
 
