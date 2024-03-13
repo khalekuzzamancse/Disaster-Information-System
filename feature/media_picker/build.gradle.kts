@@ -17,7 +17,9 @@ kotlin {
     sourceSets{
         val commonMain by getting{
             dependencies {
-                implementation(project(":ui"))
+                implementation(project(":common"))
+                implementation(project(":core:network"))
+                implementation(project(":core:work_manager"))
                 //
                 implementation(compose.ui)
                 implementation(compose.material3)
@@ -41,8 +43,10 @@ kotlin {
                 //for gallery and intent launching and for context to access permission
                 implementation(libs.androidx.activity.compose)
                 //
-                //navigation
+                //navigation graph define
                 implementation(libs.androidx.navigation.compose)
+                //to access android such as to use Uri
+                implementation(libs.androidx.core)
             }
         }
         val desktopMain by getting{

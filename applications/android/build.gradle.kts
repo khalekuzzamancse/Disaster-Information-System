@@ -52,8 +52,7 @@ android {
 }
 
 dependencies {
-    implementation("khalekuzzamancse.cse:cmp-components:1.0.0")
-    implementation(project(":ui"))
+    implementation(project(":common"))
     implementation(project(":feature:navigation"))
     implementation(project(":feature:media_picker"))
     implementation(project(":core:network"))

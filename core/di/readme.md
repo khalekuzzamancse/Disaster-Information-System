@@ -1,1 +1,0 @@
-This a multiplatform module

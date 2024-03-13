@@ -17,7 +17,7 @@ kotlin {
     sourceSets{
         val commonMain by getting{
             dependencies {
-                implementation(project(":ui"))
+                implementation(project(":common"))
                 //
                 implementation(compose.ui)
                 implementation(compose.material3)

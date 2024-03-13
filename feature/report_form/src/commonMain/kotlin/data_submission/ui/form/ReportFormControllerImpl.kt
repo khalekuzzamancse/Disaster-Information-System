@@ -2,12 +2,14 @@ package data_submission.ui.form
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import data_submission.platform_contracts.ReportFormController
+import data_submission.domain.ReportFormController
 import data_submission.platform_contracts.DateUtilsCustom
-import data_submission.ui.components.TimePickerData
+import data_submission.ui.form.components.TimePickerData
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class ReportFormControllerImpl(private val dateUtil: DateUtilsCustom) :
-    ReportFormController {
+    ReportFormController() {
     private val _state = MutableStateFlow(
         FormState(
             title = "",
@@ -18,10 +20,10 @@ class ReportFormControllerImpl(private val dateUtil: DateUtilsCustom) :
             description = ""
         )
     )
-    override val fromState = _state.asStateFlow()
+   override val fromState = _state.asStateFlow()
 
 
-    override fun onFormEvent(event: FormEvent) {
+   override fun onFormEvent(event: FormEvent) {
         val newState = when (event) {
             is FormEvent.TitleChanged -> _state.value.copy(title = event.title)
             is FormEvent.DateChanged -> _state.value.copy(date = dateUtil.getDate(event.date.dateMillisecond))
@@ -32,5 +34,7 @@ class ReportFormControllerImpl(private val dateUtil: DateUtilsCustom) :
         }
         _state.value = newState
     }
+
+    override val  isFormValid=_state.map { it.areAllFieldsFilled() }
 
 }

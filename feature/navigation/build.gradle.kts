@@ -17,12 +17,10 @@ kotlin {
     sourceSets{
         val commonMain by getting{
             dependencies {
-                implementation(project(":ui"))
-                implementation(project(":core:di"))
+                implementation(project(":common"))
                 implementation(project(":feature:home"))
                 implementation(project(":feature:report_form"))
                 implementation(project(":feature:media_picker"))
-                implementation(project(":core:network"))
                 //
                 implementation(compose.ui)
                 implementation(compose.material3)
@@ -42,10 +40,7 @@ kotlin {
             dependencies {
                 //navigation
                 implementation(libs.androidx.navigation.compose)
-                //for media upload
-                implementation(project(":core:work_manager"))
-                //to access android such as to use Uri
-                implementation(libs.androidx.core)
+
             }
         }
         val desktopMain by getting{

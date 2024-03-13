@@ -10,6 +10,10 @@
 - It managed the permission that needed for it such as location permissions,and permission are platform dependent so use the expect-actual 
 
 
+## Public APIs
+- Destination
+- FormController
+- 
 
 
 ### Client responsibility in order to use it

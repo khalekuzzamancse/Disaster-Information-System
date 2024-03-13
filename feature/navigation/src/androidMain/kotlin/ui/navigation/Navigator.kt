@@ -1,7 +1,7 @@
 package ui.navigation
 
 import androidx.navigation.NavHostController
-import navigation.MediaPickerNavGraph
+import data_submission.non_platform.ui.ReportFormNavGraph
 import routes.Destination
 
 class Navigator(
@@ -11,6 +11,9 @@ class Navigator(
         try {
             navController.popBackStack()
             when (destination) {
+                Destination.REPORT_FORM -> {
+                    ReportFormNavGraph.navigateToReportForm(navController)
+                }
                 Destination.IMAGE_PICKER -> {
                     MediaPickerNavGraph.navigateToImagePicker(navController)
                 }

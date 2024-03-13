@@ -36,7 +36,9 @@ kotlin {
                 implementation(libs.maps.compose)
                 implementation(libs.play.services.location)
                 //to access  such as for permissions
-                implementation(project(":ui"))
+                implementation(project(":common"))
+                //navigation graph define
+                implementation(libs.androidx.navigation.compose)
             }
         }
         val desktopMain by getting{

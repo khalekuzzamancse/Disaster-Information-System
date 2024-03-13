@@ -2,7 +2,7 @@ package routes
 
 import androidx.compose.runtime.Composable
 import data_submission.ui.form.ReportFormControllerImpl
-import data_submission.ui.routes.ReportFormCommon
+import data_submission.ui.navigation.ReportFormCommon
 
 @Composable
 fun ReportFormRoute(
