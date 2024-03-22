@@ -1,4 +1,4 @@
-package ui.image_picker.common
+package ui.media_picker.common
 import androidx.compose.runtime.Immutable
 
 /**

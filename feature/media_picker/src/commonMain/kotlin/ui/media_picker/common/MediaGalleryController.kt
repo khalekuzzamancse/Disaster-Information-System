@@ -1,6 +1,6 @@
-package ui.image_picker.common
-import ui.image_picker.command_pattern.Command
-import ui.image_picker.command_pattern.GalleryCommands
+package ui.media_picker.common
+import ui.media_picker.command_pattern.Command
+import ui.media_picker.command_pattern.GalleryCommands
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

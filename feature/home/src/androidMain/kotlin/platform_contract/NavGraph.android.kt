@@ -7,15 +7,20 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import feature.home.ui.destination.Destination
-import feature.home.ui.destination.about_us.AboutUs
+import feature.home.ui.destination.AboutUs
+import feature.home.ui.destination.ContactUs
 import non.HomeDestinationAndroid
 import ui.SnackBarMessage
 
@@ -73,7 +78,12 @@ private fun HomeNavHost(
                 enableSend = enableSend,
                 onSendRequest = onSendRequest,
                 onAboutUsRequest = {
+                    println("NavigationRequest:Abouts")
                     onNavigationRequest(Destination.AboutUs)
+                },
+                onContactUsRequest = {
+                    println("NavigationRequest:Contactus")
+                    onNavigationRequest(Destination.ContactUs)
                 }
             )
         }
@@ -83,6 +93,16 @@ private fun HomeNavHost(
             exitTransition = { slideOutHorizontally() + fadeOut() }
         ) {
             AboutUs()
+        }
+        composable(
+            route = Destination.ContactUs.toString(),
+            enterTransition = { slideInHorizontally() + fadeIn() },
+            exitTransition = { slideOutHorizontally() + fadeOut() }
+        ) {
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                ContactUs()
+            }
+
         }
 
     }

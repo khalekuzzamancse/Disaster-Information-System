@@ -1,4 +1,4 @@
-package ui.video_picker
+package ui
 
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
 import coil3.compose.AsyncImage
-import ui.image_picker.common.KMPFile
+import ui.media_picker.common.KMPFile
 
 
 @Composable

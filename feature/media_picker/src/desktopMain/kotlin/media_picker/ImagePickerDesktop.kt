@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import ui.image_picker.GalleryScreen
+import ui.media_picker.GalleryScreen
 
 @Composable
 fun ImagePickerDesktop() {

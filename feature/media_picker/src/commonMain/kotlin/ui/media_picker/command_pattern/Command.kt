@@ -1,4 +1,4 @@
-package ui.image_picker.command_pattern
+package ui.media_picker.command_pattern
 @PublishedApi
 internal interface Command {
 

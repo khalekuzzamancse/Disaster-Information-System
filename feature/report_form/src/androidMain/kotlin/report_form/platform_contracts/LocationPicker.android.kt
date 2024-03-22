@@ -2,6 +2,7 @@ package report_form.platform_contracts
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
@@ -78,7 +79,7 @@ private fun _GMapLocationPicker(
     val scope = rememberCoroutineScope()
     val hostState = remember { SnackbarHostState() }
     Scaffold(
-        modifier = Modifier.widthIn(0.dp, 500.dp).heightIn(0.dp, 1000.dp),
+        modifier = Modifier.fillMaxSize(),
         //not defining size is causes crash while the parent is scrollable
         //may be the compose framework this version has bug,fix it later
         topBar = {

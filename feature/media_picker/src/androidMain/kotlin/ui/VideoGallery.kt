@@ -1,4 +1,4 @@
-package ui.video_picker
+package ui
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -39,10 +39,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ui.image_picker.GalleryScreen
-import ui.image_picker.common.KMPFile
-import ui.image_picker.common.GalleryMediaGeneric
-import ui.image_picker.common.MediaGalleryController
+import ui.media_picker.GalleryScreen
+import ui.media_picker.common.KMPFile
+import ui.media_picker.common.GalleryMediaGeneric
+import ui.media_picker.common.MediaGalleryController
 import ui.permission.PermissionDecorator
 import ui.permission.PermissionFactory
 
@@ -86,6 +86,7 @@ private fun _VideoGallery(
             )
 
         },
+        addButtonColor = MaterialTheme.colorScheme.secondary,
         onRemoveRequest = viewModel::remove,
         undoRequest = viewModel::undo,
         redoRequest = viewModel::redo

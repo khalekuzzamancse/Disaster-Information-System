@@ -1,7 +1,7 @@
-package ui.image_picker.command_pattern
+package ui.media_picker.command_pattern
 
-import ui.image_picker.common.KMPFile
-import ui.image_picker.common.GalleryMediaGeneric
+import ui.media_picker.common.KMPFile
+import ui.media_picker.common.GalleryMediaGeneric
 
 @PublishedApi
 internal object GalleryCommands {
