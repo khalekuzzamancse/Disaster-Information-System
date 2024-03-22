@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -41,12 +42,12 @@ internal fun WelcomeToHome(
         val res: DrawableResource = Res.drawable.just_logo_2
         //after that compile it again to generate Res class, use : .\gradlew generateComposeResClass
         Image(
-            modifier=Modifier.size(64.dp),
+            modifier=Modifier.size(200.dp),
             painter = painterResource(res),//org.jetbrains.compose.resources.
             contentDescription = null,
         )
         Text(text = "Welcome to", style = MaterialTheme.typography.headlineMedium)
-        Spacer(Modifier.width(16.dp))
+        Spacer(Modifier.height(16.dp))
         AppNameLogoSection(modifier = Modifier)
 
     }
@@ -76,7 +77,7 @@ fun AppNameLogoSection(
             text = text,
             style = TextStyle(
                 fontWeight = FontWeight.ExtraBold,
-                fontSize = 17.sp,
+                fontSize = 25.sp,
                 fontFamily = FontFamily.Serif
             )
         )

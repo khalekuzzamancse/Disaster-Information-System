@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.width
@@ -91,7 +92,7 @@ private fun Form(
         when (isOpened) {
             true -> {
                 LocationPicker(
-                    modifier = modifier,
+                    modifier = modifier.fillMaxSize(),
                     onLocationPicked = { loc ->
                         mapOpened = false
                         onLocationChanged("$loc")

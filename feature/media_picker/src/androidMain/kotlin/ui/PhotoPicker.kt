@@ -1,4 +1,4 @@
-package ui.image_picker
+package ui
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -43,9 +43,10 @@ import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
-import ui.image_picker.common.KMPFile
-import ui.image_picker.common.GalleryMediaGeneric
-import ui.image_picker.common.MediaGalleryController
+import ui.media_picker.GalleryScreen
+import ui.media_picker.common.KMPFile
+import ui.media_picker.common.GalleryMediaGeneric
+import ui.media_picker.common.MediaGalleryController
 import ui.permission.PermissionDecorator
 import ui.permission.PermissionFactory
 
@@ -81,6 +82,7 @@ private fun PhotoPicker(
             enableAddButton=true
         }
     )
+
     GalleryScreen(
         enableAddButton = enableAddButton,
         enabledUndo = viewModel.isUndoAvailable.collectAsState(false).value,
@@ -92,6 +94,7 @@ private fun PhotoPicker(
                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
             )
         },
+        addButtonColor = MaterialTheme.colorScheme.tertiary,
         onRemoveRequest = viewModel::remove,
         undoRequest = viewModel::undo,
         redoRequest = viewModel::redo

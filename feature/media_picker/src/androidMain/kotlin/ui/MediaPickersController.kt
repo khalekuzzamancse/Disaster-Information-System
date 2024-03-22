@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import platform_contracts.AndroidNetworkConnectivityObserver
-import ui.image_picker.common.MediaGalleryController
+import ui.media_picker.common.MediaGalleryController
 
 
 /*

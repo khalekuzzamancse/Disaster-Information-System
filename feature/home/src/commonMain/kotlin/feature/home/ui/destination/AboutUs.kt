@@ -1,4 +1,4 @@
-package feature.home.ui.destination.about_us
+package feature.home.ui.destination
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import disasterinformationsystem.feature.home.generated.resources.Res
 import disasterinformationsystem.feature.home.generated.resources.ower_image
 import org.jetbrains.compose.resources.DrawableResource
@@ -54,7 +55,7 @@ internal fun AboutUs() {
             contentDescription = null,
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Mahedi Hasan", style = MaterialTheme.typography.displaySmall)
+        Text(text = "Mahedi Hasan", fontSize = 20.sp)
         Spacer(modifier = Modifier.height(8.dp))
        Text(
             text = AnnotatedString.Builder().apply {

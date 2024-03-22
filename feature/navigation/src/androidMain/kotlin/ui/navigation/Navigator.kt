@@ -20,6 +20,9 @@ class Navigator(
                 Destination.VIDEO_PICKER -> {
                     MediaPickerNavGraph.navigateToVideoPicker(navController)
                 }
+                Destination.MediaPicker -> {
+                    MediaPickerNavGraph.navigateToMediaPicker(navController)
+                }
                 else -> {
                     navController.navigate(destination.toString())
                 }

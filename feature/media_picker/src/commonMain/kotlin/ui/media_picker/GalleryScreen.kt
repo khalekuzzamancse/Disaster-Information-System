@@ -1,4 +1,5 @@
-package ui.image_picker
+package ui.media_picker
+
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -11,18 +12,27 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 /**
  * Stateless Reusable gallery preview screen
  */
+data class GalleryScreenState(
+    val enableAddButton: Boolean = true,
+    val enabledUndo: Boolean = false,
+    val enabledRedo: Boolean = false,
+    val showRemoveButton: Boolean = false,
+    val fabIconColor: Color = Color.Unspecified
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @PublishedApi
 @Composable
@@ -31,6 +41,7 @@ internal fun GalleryScreen(
     enabledUndo: Boolean,
     enabledRedo: Boolean,
     showRemoveButton: Boolean,
+    addButtonColor: Color=MaterialTheme.colorScheme.primary,
     onAddRequest: () -> Unit,
     onRemoveRequest: () -> Unit,
     undoRequest: () -> Unit,
@@ -43,12 +54,12 @@ internal fun GalleryScreen(
                 title = { /*TODO*/ },
                 actions = {
                     UndoButton(
-                        enabled =enabledUndo,
+                        enabled = enabledUndo,
                         onClick = undoRequest
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     RedoButton(
-                        enabled =enabledRedo,
+                        enabled = enabledRedo,
                         onClick = redoRequest
                     )
                 }
@@ -57,19 +68,20 @@ internal fun GalleryScreen(
         floatingActionButton = {
             if (showRemoveButton) {
                 RemoveButton(
-                    onClick=onRemoveRequest
+                    onClick = onRemoveRequest
                 )
             } else {
                 AddButton(
-                    onClick =onAddRequest,
-                    enabled = enableAddButton
+                    onClick = onAddRequest,
+                    enabled = enableAddButton,
+                    color = addButtonColor
 
                 )
 
             }
         }
     ) {
-       content(it)
+        content(it)
     }
 
 }
@@ -115,11 +127,12 @@ private fun RedoButton(
 private fun AddButton(
     onClick: () -> Unit,
     enabled: Boolean,
+    color: Color=MaterialTheme.colorScheme.primary,
 ) {
     IconButton(
         colors = IconButtonDefaults.iconButtonColors().copy(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary,
+            containerColor = color,
+            contentColor = MaterialTheme.colorScheme.contentColorFor(color),
         ),
         onClick = onClick,
         modifier = Modifier.size(56.dp),

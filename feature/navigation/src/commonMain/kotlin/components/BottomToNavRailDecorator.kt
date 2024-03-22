@@ -30,6 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import routes.Destination
 
 /*
  * Manage the own navRail so that does not need to copy-paste or implement the nav-rail file separately
@@ -45,42 +46,46 @@ import androidx.compose.ui.unit.dp
  * and make the parent scrollable then it can causes crash,so use modifier to define it size in that case
  * @param modifier the scaffold modifier,so that you can control the scaffold
  * @param selected is Nullable because it might possible that no destination is selected
- * * mandatory parameters: [destinations],[onItemSelected],[content]
+ * * mandatory parameters: [destinations],[onDestinationSelected],[content]
  *
  */
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun BottomBarToNavRailDecorator(
     modifier: Modifier = Modifier,
-    destinations: List<BottomToNavDecoratorItem>,
-    onItemSelected: (Int) -> Unit,
+    destinations: List<NavigationItem>,
+    onDestinationSelected: (Destination) -> Unit,
     selected: Int? = null,
     topAppbar: @Composable () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
     val windowSize = calculateWindowSizeClass().widthSizeClass
+    val compact = WindowWidthSizeClass.Compact
+    val medium = WindowWidthSizeClass.Medium
+    val expanded = WindowWidthSizeClass.Expanded
+
     AnimatedContent(windowSize) { window ->
         when (window) {
-            WindowWidthSizeClass.Compact -> {
-                CompactModeLayout(
+            compact -> {
+                BottomBarLayout(
                     modifier = modifier,
                     destinations = destinations,
-                    onItemSelected = onItemSelected,
+                    onItemSelected = onDestinationSelected,
+                    selected = selected,
+                    topAppbar = topAppbar,
+                    content = content
+                )
+            }
+            medium, expanded -> {
+                NavRailLayout(
+                    destinations = destinations,
+                    onItemSelected = onDestinationSelected,
                     selected = selected,
                     topAppbar = topAppbar,
                     content = content
                 )
             }
 
-            WindowWidthSizeClass.Expanded, WindowWidthSizeClass.Medium -> {
-                NonCompactModeLayout(
-                    destinations = destinations,
-                    onItemSelected = onItemSelected,
-                    selected = selected,
-                    topAppbar = topAppbar,
-                    content = content
-                )
-            }
         }
     }
 
@@ -94,21 +99,23 @@ fun BottomBarToNavRailDecorator(
  * * It does only the information that need to NavigationItem
  * * It does not hold any extra information
  * * Mandatory params : [label] , [focusedIcon]
- *
+ * Storing the destination here,to reduce the client reprehensibly to figure out
+ * which destination is cliecked
  */
-class BottomToNavDecoratorItem(
+class NavigationItem(
     val label: String,
     val focusedIcon: ImageVector,
     val unFocusedIcon: ImageVector = focusedIcon,
     val badge: String? = null,
+    val destination: Destination=Destination.None,
 )
 
 
 @Composable
-private fun CompactModeLayout(
+private fun BottomBarLayout(
     modifier: Modifier = Modifier,
-    destinations: List<BottomToNavDecoratorItem>,
-    onItemSelected: (Int) -> Unit,
+    destinations: List<NavigationItem>,
+    onItemSelected: (Destination) -> Unit,
     selected: Int? = null,
     topAppbar: @Composable () -> Unit = {},
     content: @Composable () -> Unit,
@@ -117,7 +124,7 @@ private fun CompactModeLayout(
         modifier = modifier,
         topBar = topAppbar,
         bottomBar = {
-            LocalBottomNavigationBar(
+            _BottomNavBar(
                 destinations = destinations,
                 selected = selected,
                 onDestinationSelected = onItemSelected
@@ -132,23 +139,23 @@ private fun CompactModeLayout(
 }
 
 @Composable
-private fun NonCompactModeLayout(
+private fun NavRailLayout(
     modifier: Modifier = Modifier,
-    destinations: List<BottomToNavDecoratorItem>,
-    onItemSelected: (Int) -> Unit,
+    destinations: List<NavigationItem>,
+    onItemSelected: (Destination) -> Unit,
     selected: Int? = null,
     topAppbar: @Composable () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
     Row(modifier = modifier) {
-        LocalNavRail(
+        _NavRail(
             destinations = destinations,
             selected = selected,
             onItemSelected = onItemSelected
         )
         Scaffold(
             modifier = Modifier,
-           topBar = topAppbar,
+            topBar = topAppbar,
         ) { scaffoldPadding ->
             Box(Modifier.padding(scaffoldPadding)) { content() }//takes the remaining space,after the NavRail takes place
         }
@@ -162,21 +169,20 @@ private fun NonCompactModeLayout(
  * Used to loose coupling,so that direcly this file can be copy -paste without the nav-rail dependency
  */
 @Composable
-private fun LocalNavRail(
+private fun _NavRail(
     modifier: Modifier = Modifier,
-    destinations: List<BottomToNavDecoratorItem>,
-    onItemSelected: (Int) -> Unit,
+    destinations: List<NavigationItem>,
+    onItemSelected: (Destination) -> Unit,
     selected: Int? = null,
 ) {
-
     NavigationRail(
         modifier = modifier,
         containerColor = MaterialTheme.colorScheme.surface
     ) {
-        Surface (
-            modifier=Modifier.fillMaxHeight(),
-            tonalElevation =3.dp //same as bottom bar elevation
-        ){
+        Surface(
+            modifier = Modifier.fillMaxHeight(),
+            tonalElevation = 3.dp //same as bottom bar elevation
+        ) {
             Column(Modifier.width(IntrinsicSize.Max)) {
                 destinations.forEachIndexed { index, navigationItem ->
                     //Using Drawer item so place the icon and label side by side
@@ -184,12 +190,14 @@ private fun LocalNavRail(
                         colors = NavigationDrawerItemDefaults.colors(
                             selectedContainerColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f),
                             selectedIconColor = MaterialTheme.colorScheme.secondary,
-                            selectedTextColor =MaterialTheme.colorScheme.contentColorFor(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f)),
+                            selectedTextColor = MaterialTheme.colorScheme.contentColorFor(
+                                MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f)
+                            ),
 
                             unselectedIconColor = MaterialTheme.colorScheme.primary,//because they are clickable button,so high importance
 
 
-                         //   se = MaterialTheme.colorScheme.onSecondary,
+                            //   se = MaterialTheme.colorScheme.onSecondary,
 
                         ),
                         modifier = Modifier.padding(4.dp),
@@ -205,7 +213,7 @@ private fun LocalNavRail(
                             )
                         },
                         selected = selected == index,
-                        onClick = { onItemSelected(index) },
+                        onClick = { onItemSelected(navigationItem.destination) },
                         shape = RoundedCornerShape(8.dp)
                     )
                 }
@@ -221,20 +229,20 @@ private fun LocalNavRail(
  */
 
 @Composable
-private fun LocalBottomNavigationBar(
+private fun _BottomNavBar(
     modifier: Modifier = Modifier,
-    destinations: List<BottomToNavDecoratorItem>,
+    destinations: List<NavigationItem>,
     selected: Int? = null,
-    onDestinationSelected: (Int) -> Unit,
+    onDestinationSelected: (Destination) -> Unit,
 ) {
     NavigationBar(
         modifier = modifier,
-        ) {
+    ) {
         destinations.forEachIndexed { index, destination ->
             NavigationBarItem(
                 selected = selected == index,
                 onClick = {
-                    onDestinationSelected(index)
+                    onDestinationSelected(destination.destination)
                 },
                 label = {
                     Text(text = destination.label)

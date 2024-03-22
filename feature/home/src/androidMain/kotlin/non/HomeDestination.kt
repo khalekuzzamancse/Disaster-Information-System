@@ -5,7 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import feature.home.ui.destination.home.HomeDestination
+import feature.home.ui.destination.HomeDestination
 import ui.SnackBarMessage
 import ui.permission.PermissionDecorator
 import ui.permission.PermissionFactory
@@ -18,7 +18,8 @@ internal fun HomeDestinationAndroid(
     snackBarMessage: SnackBarMessage?,
     enableSend: Boolean,
     onSendRequest: () -> Unit,
-    onAboutUsRequest: () -> Unit
+    onContactUsRequest:()->Unit,
+    onAboutUsRequest: () -> Unit,
 ) {
 
     /**
@@ -36,7 +37,8 @@ internal fun HomeDestinationAndroid(
                     isSentButtonClicked = true
                     onSendRequest()
                 },
-                onAboutUsRequest = onAboutUsRequest
+                onAboutUsRequest = onAboutUsRequest,
+                onContactUsRequest=onContactUsRequest
             )
         }
 
@@ -48,7 +50,8 @@ internal fun HomeDestinationAndroid(
                 isSentButtonClicked = true
                 onSendRequest()
             },
-            onAboutUsRequest = onAboutUsRequest
+            onAboutUsRequest = onAboutUsRequest,
+            onContactUsRequest=onContactUsRequest
         )
     }
 

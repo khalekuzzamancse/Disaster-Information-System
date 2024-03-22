@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 @Composable
 internal fun MyDropDownMenu(
     onAboutClick:()->Unit={},
-    onInfoClick:()->Unit={}
+    onContactUsClick:()->Unit={}
 ) {
 
     var expanded by remember { mutableStateOf(false) }
@@ -55,7 +55,7 @@ internal fun MyDropDownMenu(
             )
             DropdownMenuItem(
                 text = { Text("Contact") },
-                onClick = onInfoClick,
+                onClick = onContactUsClick,
                 leadingIcon = {
                     Icon(Icons.Default.Info,null,tint = MaterialTheme.colorScheme.tertiary)
                 }

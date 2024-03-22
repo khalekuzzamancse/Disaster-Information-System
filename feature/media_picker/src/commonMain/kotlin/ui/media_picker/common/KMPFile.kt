@@ -1,4 +1,4 @@
-package ui.image_picker.common
+package ui.media_picker.common
 
 /**
  * * Used to provide the type safely of the file
