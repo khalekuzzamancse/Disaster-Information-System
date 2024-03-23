@@ -16,6 +16,7 @@ The abbreviation SRS might not be immediately clear to all readers. Consider ren
 ## Table of Contents
 
 - [Introduction](#introduction)
+    - [Overview](#overview)
     - [Motivation and Purpose](#motivation-and-purpose)
     - [Project Scope and Assumptions](#project-scope-and-assumptions)
 
@@ -48,8 +49,10 @@ Project Scope Clarity:
 Briefly describe what the problem it solve 
 -->
 <p align=" justify" >
- Disaster Information System is a  Multiplatform application.It is being developed using Kotlin and Compose Multiplatform technology.
+
+**Disaster Information System** is a  Multiplatform application.It is being developed using Kotlin and Compose Multiplatform technology.
 </p>
+
 
 ### Motivation and Purpose
 <p align=" justify" >
@@ -67,8 +70,8 @@ This project is intended for use with a high-speed internet connection and requi
 
 - **Android** | [APK File]() | [Google Play](https://develop) (will available soon)
 - **Windows** | [EXE File]() | [Microsoft Link](https://develop) (will available soon)
-- [Website Link](https://develop) (will available soon)
-- [Apple Store Link](https://develop) (will available soon)
+- [ **Website Link** ](https://develop) (will available soon)
+- [**Apple Store Link**](https://develop) (will available soon)
 
 
 
@@ -173,17 +176,16 @@ This project is intended for use with a high-speed internet connection and requi
 ## DOCUMENTATION
 
 ### Software Requirements Specification (SRS)
-- [Link](https://)
+- [Link](./docs/srs_document.md)
 ### User Manual
-- [Video](https://ktor.io/)
-- [Text](documentation)
+- [Video Preview](https://youtu.be/KBp_7D-v7hw)
 
 </details>
 <!-- New section -->
 <!-- Ending section-->
 
 ## Project Ownership & Contributors
-Owner: [Mahedi Hasan](https://just.edu.bd/t/mahedihasan), Dept of [CSE]()   , [JASHORE UNIVERSITY OF SCIENCE AND TECHNOLOGY](https://just.edu.bd/)
+Owner: [**Mahedi Hasan**](https://just.edu.bd/t/mahedihasan), Dept of [CSE]()   , [JASHORE UNIVERSITY OF SCIENCE AND TECHNOLOGY](https://just.edu.bd/)
 
 Server-Side and  Web Platform Developer : [Jatrion Mondol Joy](), Dept of [CSE](), [JASHORE UNIVERSITY OF SCIENCE AND TECHNOLOGY](https://just.edu.bd/)
 
