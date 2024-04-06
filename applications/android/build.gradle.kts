@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.khalekuzzaman.just.cse.datacollect"
+    namespace = "com.disaster_info"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.khalekuzzaman.just.cse.datacollect"
+        applicationId = "com.khalekuzzaman.just.cse.disaster_info"
         minSdk = 27
         targetSdk = 34
         versionCode = 1
@@ -24,7 +24,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -52,13 +52,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
     implementation(project(":feature:navigation"))
-    implementation(project(":feature:media_picker"))
-    implementation(project(":core:network"))
-    implementation(project(":core:work_manager"))
-    implementation(project(":feature:home"))
-    implementation(project(":feature:report_form"))
 
     implementation(compose.ui)
     implementation(compose.material3)

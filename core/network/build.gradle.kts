@@ -21,7 +21,15 @@ kotlin {
                 implementation(libs.bundles.ktorClient)
                 implementation(libs.kotlinx.coroutines.core)
 
+
             }
+        }
+        val commonTest by getting {
+                dependencies {
+                    implementation(libs.bundles.unitTest)
+                }
+
+
         }
         val androidMain by getting{
             dependencies {

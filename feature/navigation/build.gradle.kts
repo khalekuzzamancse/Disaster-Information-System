@@ -18,9 +18,10 @@ kotlin {
         val commonMain by getting{
             dependencies {
                 implementation(project(":common"))
-                implementation(project(":feature:home"))
+                implementation(project(":feature:miscellaneous"))
                 implementation(project(":feature:report_form"))
                 implementation(project(":feature:media_picker"))
+
                 //
                 implementation(compose.ui)
                 implementation(compose.material3)

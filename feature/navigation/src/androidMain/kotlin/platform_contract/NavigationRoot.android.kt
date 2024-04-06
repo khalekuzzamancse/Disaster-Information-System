@@ -21,25 +21,25 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import components.NavLayoutDecorator
+import media_picker.di.DependencyFactory
 import report_form.domain.ReportFormController
 import report_form.ui.ReportFormNavGraph
 import routes.Destination
 import routes.SplashScreen
 import ui.CustomSnackBar
-import ui.MediaPickersController
+import media_picker.ui.pickers.MediaPickersController
 import ui.navigation.MainViewModel
 import ui.navigation.MainViewModelFactory
-import ui.navigation.MediaPickerNavGraph
+import media_picker.ui.navigation.MediaPickerNavGraph
 import ui.navigation.Navigator
 
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 actual fun NavigationRoot() {
-    val context = LocalContext.current
+    LocalContext.current
     val navController = rememberNavController()
-    val factory = MainViewModelFactory(context)
-
+    val factory = MainViewModelFactory(DependencyFactory.mediaPickerController())
     val mainViewModel: MainViewModel = viewModel(factory = factory)
     val showSlashScreen = mainViewModel.splashScreenShowing.collectAsState().value
 

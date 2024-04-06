@@ -1,6 +1,5 @@
 package ui.navigation
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -12,9 +11,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import media_picker.ui.pickers.MediaPickersController
 import report_form.platform_contracts.ReportFormFactory
 import routes.Destination
-import ui.MediaPickersController
 import ui.SnackBarMessage
 
 /*
@@ -45,12 +44,12 @@ Checking the internet connection here,so that
  */
 
 class MainViewModelFactory(
-    private val context: Context,
+    private val mediaGalleryController: MediaPickersController,
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MainViewModel(context) as T
+            return MainViewModel(mediaGalleryController) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
@@ -60,23 +59,25 @@ class MainViewModelFactory(
  * we are not holding the context,just for one time use
  */
 class MainViewModel(
-    context: Context,
+    val mediaGalleryController: MediaPickersController,
 ) : ViewModel() {
 
     private val _snackBarMessage = MutableStateFlow<SnackBarMessage?>(null)
     val reportFormController = ReportFormFactory.createFormController()
 
-    val mediaGalleryController = MediaPickersController(context)
-
-    val snackBarMessage = combine(_snackBarMessage,mediaGalleryController.errorMessage){msg1,msg2->
-        msg1 ?: msg2
-    }
+    val snackBarMessage =
+        combine(_snackBarMessage, mediaGalleryController.errorMessage) { msg1, msg2 ->
+            msg1 ?: msg2
+        }
     private val _splashScreenShowing = MutableStateFlow(true)
     val splashScreenShowing = _splashScreenShowing.asStateFlow()
     private val _enableSendButton = MutableStateFlow(true)
-    private val isFormValid=reportFormController.isFormValid
+    private val isFormValid = reportFormController.isFormValid
 
-    val enableSendButton = combine(_enableSendButton, isFormValid) { enable, valid -> enable && valid }
+    val enableSendButton = combine(_enableSendButton, isFormValid) { enable, valid ->
+        //enable && valid
+        true
+    }
 
 
     private val _selectedDestination = MutableStateFlow(Destination.HOME)
@@ -100,7 +101,6 @@ class MainViewModel(
             disableSendButtonTemporary()
         }
         CoroutineScope(Dispatchers.Default).launch {
-            mediaGalleryController.upload()
             mediaGalleryController.upload()
         }
 

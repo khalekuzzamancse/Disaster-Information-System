@@ -19,7 +19,7 @@ kotlin {
             dependencies {
                 implementation(project(":common"))
                 implementation(project(":core:network"))
-                implementation(project(":core:work_manager"))
+                implementation(project(":core:uploader"))
                 //
                 implementation(compose.ui)
                 implementation(compose.material3)

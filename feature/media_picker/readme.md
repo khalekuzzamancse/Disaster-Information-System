@@ -1,3 +1,12 @@
+
+Responsible
+to pick the media and give to the client
+it will not responsible for send,or compression
+so that it responsibility is less,so it easy to test and maintain
+
+
+
+
 ### Documentation conventions
 - "_ " used to denote the internal or private 
 

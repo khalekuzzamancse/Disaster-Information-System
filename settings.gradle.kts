@@ -22,9 +22,9 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "DisasterInformationSystem"
-val coreModules = listOf(":core", ":core:network", ":core:work_manager")
+val coreModules = listOf(":core", ":core:network", ":core:uploader")
 val uiLayers = listOf(":common")
 val applications = listOf(":applications", ":applications:android", ":applications:desktop")
-val features= listOf(":feature",":feature:navigation",":feature:media_picker",":feature:video_compression",":feature:report_form",":feature:home")
+val features= listOf(":feature",":feature:navigation",":feature:media_picker",":feature:video_compression",":feature:report_form",":feature:miscellaneous")
 include(applications+uiLayers+coreModules+features)
 

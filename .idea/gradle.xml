@@ -15,10 +15,10 @@
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/network" />
-            <option value="$PROJECT_DIR$/core/work_manager" />
+            <option value="$PROJECT_DIR$/core/uploader" />
             <option value="$PROJECT_DIR$/feature" />
-            <option value="$PROJECT_DIR$/feature/home" />
             <option value="$PROJECT_DIR$/feature/media_picker" />
+            <option value="$PROJECT_DIR$/feature/miscellaneous" />
             <option value="$PROJECT_DIR$/feature/navigation" />
             <option value="$PROJECT_DIR$/feature/report_form" />
             <option value="$PROJECT_DIR$/feature/video_compression" />

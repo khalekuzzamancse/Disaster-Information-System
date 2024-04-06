@@ -1,6 +1,7 @@
 package ui.navigation
 
 import androidx.navigation.NavHostController
+import media_picker.ui.navigation.MediaPickerNavGraph
 import report_form.ui.ReportFormNavGraph
 import routes.Destination
 
