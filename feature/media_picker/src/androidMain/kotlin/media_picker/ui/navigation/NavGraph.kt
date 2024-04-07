@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
@@ -99,8 +101,8 @@ object MediaPickerNavGraph {
                     enterTransition = { slideInVertically { 1000 } + fadeIn() },
                     exitTransition = { slideOutHorizontally() + fadeOut() }
                 ) {
-                    Row(Modifier.fillMaxWidth()) {
-                        Box(Modifier.weight(1f)) {
+                    Row(Modifier.fillMaxWidth().semantics { contentDescription="Media Picker" }) {
+                        Box(Modifier.weight(1f).semantics { contentDescription="Photo Picker" }) {
                             PhotoPickerAndroid(
                                 viewModel = controller.imageGalleryController
                             )
@@ -108,7 +110,7 @@ object MediaPickerNavGraph {
                         Spacer(Modifier.width(8.dp))
                         VerticalDivider(Modifier.fillMaxHeight())
                         Spacer(Modifier.width(8.dp))
-                        Box(Modifier.weight(1f)) {
+                        Box(Modifier.weight(1f).semantics { contentDescription="Video Picker" }) {
                             VideoGalleryAndroid(
                                 viewModel = controller.videoGalleryController
                             )

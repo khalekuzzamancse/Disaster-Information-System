@@ -24,5 +24,5 @@ internal fun VideoPreviewer(file: KMPFile) {
     } finally {
         mediaMetadataRetriever.release()
     }
-    AsyncImage(model = thumbnail, contentDescription = null, modifier = Modifier)
+    AsyncImage(model = thumbnail, contentDescription = "video thumbnail", modifier = Modifier)
 }

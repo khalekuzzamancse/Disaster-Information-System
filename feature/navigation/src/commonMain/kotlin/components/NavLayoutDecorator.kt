@@ -17,6 +17,8 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import routes.Destination
 
 
@@ -26,7 +28,7 @@ import routes.Destination
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun NavLayoutDecorator(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.semantics { contentDescription="NavRail Decorator" },
     onDestinationSelected: (Destination) -> Unit,
     selected: Destination,
     content: @Composable () -> Unit,

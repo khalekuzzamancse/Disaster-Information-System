@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Data Collect</string>
+    <string name="app_name">DIS</string>
+    <string name="google_maps_key" translatable="false" >
+        AIzaSyBh7-oxF3fKK-Xq4ABUzx6UCC33WrfmeXs
+    </string>
 </resources>

@@ -1,4 +1,4 @@
-package com.disaster_info
+package com.dis
 
 import android.app.Application
 

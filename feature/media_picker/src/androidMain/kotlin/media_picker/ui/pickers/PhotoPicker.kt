@@ -37,6 +37,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -100,7 +102,7 @@ private fun PhotoPicker(
         redoRequest = viewModel::redo
     ) {
         Column(
-            modifier = Modifier.padding(it)
+            modifier = Modifier.padding(it).semantics { contentDescription="Photo Picker content" }
         ) {
             if (hasImages) {
                 ImageGallery(
@@ -131,7 +133,7 @@ internal fun ImageGallery(
 
     Box {
         LazyVerticalStaggeredGrid(
-            modifier = Modifier,
+            modifier = Modifier.semantics { contentDescription="Lazy Grid" },
             columns = StaggeredGridCells.Adaptive(120.dp),
             contentPadding = PaddingValues(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -142,7 +144,7 @@ internal fun ImageGallery(
                 items = images,
                 itemContent = { image ->
                     Box(
-                        modifier = Modifier
+                        modifier = Modifier.semantics { contentDescription="Items" }
                             .clickable {
                                 imageMediaGalleryController.flipSelection(image.identity)
                             }
@@ -163,7 +165,7 @@ internal fun ImageGallery(
                                 onCheckedChange = {
                                     onSelection(image.identity)
                                 },
-                                modifier = Modifier.align(Alignment.BottomEnd)
+                                modifier = Modifier.align(Alignment.BottomEnd).semantics { contentDescription="CheckBox" }
                             )
                         }
                     }
@@ -186,7 +188,7 @@ private fun Image(
     Box {
         AsyncImage(
             model =identity.id.toUri(),//use the androidx.core.net Uri
-            contentDescription = null,
+            contentDescription = "Image item",
             modifier = Modifier,
             onState = {
                 isLoading = it is AsyncImagePainter.State.Loading
@@ -196,11 +198,14 @@ private fun Image(
         if (isLoading) {
             Box(modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Gray.copy(alpha = 0.7f))) {
+                .background(Color.Gray.copy(alpha = 0.7f))
+                .semantics { contentDescription="Image Loading" }
+            ) {
                 CircularProgressIndicator(
                     modifier = Modifier
                         .padding(16.dp)
                         .align(Alignment.Center)
+                        .semantics { contentDescription="Image loading progress bar" }
 
                 )
             }
@@ -215,11 +220,11 @@ private fun Image(
 @Composable
 private fun NoImagesScreen() {
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().semantics { contentDescription="Empty Image Screen" },
         color = MaterialTheme.colorScheme.background
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(16.dp),
+            modifier = Modifier.fillMaxSize().padding(16.dp).semantics { contentDescription="empty image screen layout" },
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

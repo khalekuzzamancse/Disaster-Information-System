@@ -22,17 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-/**
- * Stateless Reusable gallery preview screen
- */
-data class GalleryScreenState(
-    val enableAddButton: Boolean = true,
-    val enabledUndo: Boolean = false,
-    val enabledRedo: Boolean = false,
-    val showRemoveButton: Boolean = false,
-    val fabIconColor: Color = Color.Unspecified
-)
-
 @OptIn(ExperimentalMaterial3Api::class)
 @PublishedApi
 @Composable
@@ -100,7 +89,7 @@ private fun UndoButton(
     ) {
         Icon(
             imageVector = Icons.AutoMirrored.Filled.Undo,
-            contentDescription = "Add Image",
+            contentDescription = "Undo Button",
         )
     }
 
@@ -117,7 +106,7 @@ private fun RedoButton(
     ) {
         Icon(
             imageVector = Icons.AutoMirrored.Filled.Redo,
-            contentDescription = "Add Image",
+            contentDescription = "Redo Button",
         )
     }
 
@@ -160,7 +149,7 @@ private fun RemoveButton(
     ) {
         Icon(
             imageVector = Icons.Filled.Delete,
-            contentDescription = "Add Image",
+            contentDescription = "Remove Button",
         )
     }
 

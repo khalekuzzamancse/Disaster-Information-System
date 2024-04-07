@@ -30,6 +30,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RadialGradientShader
 import androidx.compose.ui.graphics.Shader
 import androidx.compose.ui.graphics.ShaderBrush
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -55,7 +57,7 @@ import org.jetbrains.compose.resources.painterResource
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun SplashScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier.semantics { contentDescription="Slash Screen" }
 ) {
 
     val primary = MaterialTheme.colorScheme.primary
@@ -89,18 +91,12 @@ fun SplashScreen(
             Image(
                 modifier = Modifier.size(150.dp),
                 painter = painterResource(res),//org.jetbrains.compose.resources.
-                contentDescription = null,
-//                colorFilter = ColorFilter.tint(
-//                        MaterialTheme.colorScheme.tertiaryContainer
-//
-//                )
+                contentDescription = "Logo",
             )
             Spacer(Modifier.height(32.dp))
             WelcomeSection(Modifier.align(Alignment.CenterHorizontally))
             Spacer(Modifier.height(8.dp))
             AppNameLogoSection(Modifier)
-
-
             DevelopedBy(Modifier)
         }
     }
@@ -116,7 +112,6 @@ private fun WelcomeSection(
         modifier = modifier,
         text = "Welcome To ",
         color = MaterialTheme.colorScheme.contentColorFor(MaterialTheme.colorScheme.tertiary),
-
         style = TextStyle(
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp,

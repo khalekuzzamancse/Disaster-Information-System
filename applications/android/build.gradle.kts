@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.disaster_info"
+    namespace = "com.dis"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.khalekuzzaman.just.cse.disaster_info"
+        applicationId = "com.khalekuzzaman.just.cse.dis"
         minSdk = 27
         targetSdk = 34
         versionCode = 1
@@ -53,7 +53,6 @@ android {
 
 dependencies {
     implementation(project(":feature:navigation"))
-
     implementation(compose.ui)
     implementation(compose.material3)
     implementation(compose.animation)
@@ -71,6 +70,7 @@ dependencies {
     //navigation
     implementation(libs.androidx.navigation.compose)
     implementation(libs.play.services.location)
-
+//
+    implementation("org.slf4j:slf4j-simple:1.7.30")
 
 }

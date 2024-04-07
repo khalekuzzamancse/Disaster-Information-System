@@ -1,4 +1,4 @@
-package com.disaster_info.theme
+package com.dis.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

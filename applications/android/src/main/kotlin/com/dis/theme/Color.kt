@@ -1,4 +1,4 @@
-package com.disaster_info.theme
+package com.dis.theme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme

@@ -15,6 +15,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -86,13 +88,17 @@ private fun RootDestination(
         }
     ) {
         NavLayoutDecorator(
-            modifier = Modifier.padding(it),
+            modifier = Modifier
+                .padding(it)
+                .semantics {
+                    contentDescription = "NavLayoutDecorator"
+                },
             selected = selected,
             onDestinationSelected = mainViewModel::onSelected,
         ) {
 
             RootNavHost(
-                modifier = Modifier,
+                modifier = Modifier.semantics { contentDescription="RootNavHost" },
                 navController = navController,
                 formController = mainViewModel.reportFormController,
                 controller = mainViewModel.mediaGalleryController,
@@ -122,7 +128,7 @@ private fun RootNavHost(
 
 
     NavHost(
-        modifier = modifier,
+        modifier = modifier.semantics { contentDescription="Root Nav Host" },
         navController = navController,
         startDestination = Destination.HOME.toString()
     ) {

@@ -36,6 +36,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -92,7 +94,7 @@ private fun _VideoGallery(
         redoRequest = viewModel::redo
     ) {
         Column(
-            modifier = Modifier.padding(it)
+            modifier = Modifier.padding(it).semantics { contentDescription="Video Picker Screen" }
         ) {
             if (hasImages) {
                 VideoGalleryAndroid(
@@ -100,7 +102,7 @@ private fun _VideoGallery(
                     onSelection = viewModel::flipSelection
                 )
             } else {
-                NoVodeosScreen()
+                NoVideosScreen()
             }
 
         }
@@ -119,7 +121,7 @@ internal fun VideoGalleryAndroid(
 
     val state = rememberLazyStaggeredGridState()
     LazyVerticalStaggeredGrid(
-        modifier = Modifier,
+        modifier = Modifier.semantics { contentDescription="Lazy Grid" },
         columns = StaggeredGridCells.Adaptive(120.dp),
         contentPadding = PaddingValues(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -141,6 +143,8 @@ internal fun VideoGalleryAndroid(
                         .clickable {
                             onSelection(video.identity)
                         }
+                        .semantics { contentDescription="Lazy Grid item" }
+
 
                 ) {
                     VideoPreviewer(
@@ -152,7 +156,7 @@ internal fun VideoGalleryAndroid(
                             onCheckedChange = {
                                 onSelection(video.identity)
                             },
-                            modifier = Modifier.align(Alignment.BottomEnd)
+                            modifier = Modifier.align(Alignment.BottomEnd).semantics { contentDescription="Video preview checkbox" }
                         )
                     }
                 }
@@ -164,13 +168,13 @@ internal fun VideoGalleryAndroid(
 }
 
 @Composable
-private fun NoVodeosScreen() {
+private fun NoVideosScreen() {
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().semantics { contentDescription="No video screen" },
         color = MaterialTheme.colorScheme.background
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(16.dp),
+            modifier = Modifier.fillMaxSize().padding(16.dp).semantics { contentDescription="No video screen content" },
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

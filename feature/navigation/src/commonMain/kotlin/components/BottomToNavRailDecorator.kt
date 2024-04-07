@@ -29,6 +29,8 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import routes.Destination
 
@@ -52,7 +54,7 @@ import routes.Destination
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun BottomBarToNavRailDecorator(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.semantics { contentDescription="BottomBarToNavRailDecorator" },
     destinations: List<NavigationItem>,
     onDestinationSelected: (Destination) -> Unit,
     selected: Int? = null,
@@ -113,7 +115,7 @@ class NavigationItem(
 
 @Composable
 private fun BottomBarLayout(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.semantics { contentDescription="BottomBarLayout" },
     destinations: List<NavigationItem>,
     onItemSelected: (Destination) -> Unit,
     selected: Int? = null,
@@ -140,7 +142,7 @@ private fun BottomBarLayout(
 
 @Composable
 private fun NavRailLayout(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.semantics { contentDescription="NavRailLayout" },
     destinations: List<NavigationItem>,
     onItemSelected: (Destination) -> Unit,
     selected: Int? = null,
@@ -154,7 +156,7 @@ private fun NavRailLayout(
             onItemSelected = onItemSelected
         )
         Scaffold(
-            modifier = Modifier,
+            modifier = Modifier.semantics { contentDescription="Scaffold" },
             topBar = topAppbar,
         ) { scaffoldPadding ->
             Box(Modifier.padding(scaffoldPadding)) { content() }//takes the remaining space,after the NavRail takes place
@@ -170,7 +172,7 @@ private fun NavRailLayout(
  */
 @Composable
 private fun _NavRail(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.semantics { contentDescription="NavRails" },
     destinations: List<NavigationItem>,
     onItemSelected: (Destination) -> Unit,
     selected: Int? = null,
@@ -204,7 +206,7 @@ private fun _NavRail(
                         icon = {
                             Icon(
                                 navigationItem.focusedIcon,
-                                contentDescription = null
+                                contentDescription = "icon"
                             )
                         },
                         label = {
@@ -230,7 +232,7 @@ private fun _NavRail(
 
 @Composable
 private fun _BottomNavBar(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.semantics { contentDescription="Bottombar" },
     destinations: List<NavigationItem>,
     selected: Int? = null,
     onDestinationSelected: (Destination) -> Unit,

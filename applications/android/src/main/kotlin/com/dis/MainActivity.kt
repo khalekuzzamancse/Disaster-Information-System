@@ -1,11 +1,11 @@
-package com.disaster_info
+package com.dis
 
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import com.disaster_info.theme.DisasterInfoSystemTheme
+import com.dis.theme.DisasterInfoSystemTheme
 import platform_contract.NavigationRoot
 
 
