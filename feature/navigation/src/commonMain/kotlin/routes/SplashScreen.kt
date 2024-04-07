@@ -38,8 +38,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import disasterinformationsystem.feature.navigation.generated.resources.Res
-import disasterinformationsystem.feature.navigation.generated.resources.app_logo
+import diasterinformationsystem.feature.navigation.generated.resources.Res
+import diasterinformationsystem.feature.navigation.generated.resources.app_logo
+
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi

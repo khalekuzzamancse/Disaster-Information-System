@@ -21,7 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import components.NavLayoutDecorator
-import media_picker.di.DependencyFactory
+import media_picker.di.MediaPickerFactory
 import report_form.domain.ReportFormController
 import report_form.ui.ReportFormNavGraph
 import routes.Destination
@@ -39,7 +39,7 @@ import ui.navigation.Navigator
 actual fun NavigationRoot() {
     LocalContext.current
     val navController = rememberNavController()
-    val factory = MainViewModelFactory(DependencyFactory.mediaPickerController())
+    val factory = MainViewModelFactory(MediaPickerFactory.mediaPickerController())
     val mainViewModel: MainViewModel = viewModel(factory = factory)
     val showSlashScreen = mainViewModel.splashScreenShowing.collectAsState().value
 

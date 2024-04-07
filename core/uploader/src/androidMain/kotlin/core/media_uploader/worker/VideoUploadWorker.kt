@@ -1,45 +1,14 @@
-package core.media_uploader
+package core.media_uploader.worker
+
 import android.content.Context
 import android.net.Uri
-import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.Data
-import androidx.work.ExistingWorkPolicy
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
 import androidx.work.WorkerParameters
+import core.media_uploader.MediaUploaderAndroid
 import core.nofication_manager.IndeterminateProgressNotification
-import core.work_manager.MultiplatformMedia
 import kotlin.random.Random
 
-/**
- * Preventing client module to create the instance of it,
- * since it required context,to avoid complexity and reduce the responsibility if client
- */
-class ImageUploaderImpl internal constructor(context: Context):ImageUploader {
-    private val workManager = WorkManager.getInstance(context)
-    override fun upload(mediaList: List<MultiplatformMedia.Media>, mediaType: MultiplatformMedia.MediaType) {
-        mediaList.forEachIndexed { _, mediaItem ->
-            // Prepare the input data
-            val inputData = Data.Builder()
-                .putString(ImageUploadWorker.URI, mediaItem.id)
-                .putString(ImageUploadWorker.FILE_NAME, mediaItem.fileName)
-                .build()
-
-            // Create a work request for the UploadWorker
-            val workTag = "${mediaItem.fileName}${mediaType.prefix}"
-            val constraints=Constraints.Builder().setRequiredNetworkType(NetworkType.METERED).build()
-            val workRequest = OneTimeWorkRequest.Builder(ImageUploadWorker::class.java)
-                .addTag(workTag)
-                .setInputData(inputData)
-                .build()
-            workManager.enqueueUniqueWork(workTag, ExistingWorkPolicy.REPLACE, workRequest)
-        }
-
-    }
-
-}
 
 /*
 WorkManger state is not as the same as your function return result.
@@ -66,7 +35,7 @@ If you want to observer the task that are failed then you can observe them by on
 
  */
 
-internal class ImageUploadWorker(private val context: Context, workerParams: WorkerParameters) :
+class VideoUploadWorker(private val context: Context, workerParams: WorkerParameters) :
     CoroutineWorker(context, workerParams) {
     companion object {
         const val URI = "FILE_URI"
@@ -82,15 +51,11 @@ internal class ImageUploadWorker(private val context: Context, workerParams: Wor
 
 
     override suspend fun doWork(): Result {
-
         notification.start()
         // Get the input URI
-        val imageUriString = inputData.getString(URI)
-        val imageUri = Uri.parse(imageUriString)
-        val res = MediaUploaderAndroid.uploadImages(
-            context,
-            imageUri,
-        )
+        val videoUriString = inputData.getString(URI)
+        val videoUri = Uri.parse(videoUriString)
+        val res = MediaUploaderAndroid().uploadVideo(context, videoUri)
         // Indicate whether the work finished successfully with the Result
         return if (res.isSuccess) {
             notification.stop(message = "✅")

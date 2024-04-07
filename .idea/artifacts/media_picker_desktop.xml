@@ -1,8 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="media_picker-desktop">
     <output-path>$PROJECT_DIR$/feature/media_picker/build/libs</output-path>
-    <root id="archive" name="media_picker-desktop.jar">
-      <element id="module-output" name="DisasterInformationSystem.feature.media_picker.desktopMain" />
-    </root>
+    <root id="archive" name="media_picker-desktop.jar" />
   </artifact>
 </component>

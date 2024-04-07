@@ -24,8 +24,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import disasterinformationsystem.feature.home.generated.resources.Res
-import disasterinformationsystem.feature.home.generated.resources.just_logo_2
+import diasterinformationsystem.feature.miscellaneous.generated.resources.Res
+import diasterinformationsystem.feature.miscellaneous.generated.resources.just_logo_2
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource

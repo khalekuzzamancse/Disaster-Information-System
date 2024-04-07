@@ -24,8 +24,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import disasterinformationsystem.feature.home.generated.resources.Res
-import disasterinformationsystem.feature.home.generated.resources.ower_image
+import diasterinformationsystem.feature.miscellaneous.generated.resources.Res
+import diasterinformationsystem.feature.miscellaneous.generated.resources.ower_image
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource

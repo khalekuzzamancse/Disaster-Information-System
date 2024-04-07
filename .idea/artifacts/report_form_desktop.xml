@@ -1,8 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="report_form-desktop">
     <output-path>$PROJECT_DIR$/feature/report_form/build/libs</output-path>
-    <root id="archive" name="report_form-desktop.jar">
-      <element id="module-output" name="DisasterInformationSystem.feature.report_form.desktopMain" />
-    </root>
+    <root id="archive" name="report_form-desktop.jar" />
   </artifact>
 </component>

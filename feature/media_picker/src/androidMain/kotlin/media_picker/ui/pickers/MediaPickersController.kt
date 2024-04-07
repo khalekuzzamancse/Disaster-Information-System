@@ -3,7 +3,7 @@ package media_picker.ui.pickers
 import android.net.ConnectivityManager
 import android.net.Uri
 import androidx.core.net.toUri
-import core.media_uploader.ImageUploader
+import core.media_uploader.uploader.ImageUploadNotifierWorker
 import core.work_manager.MultiplatformMedia
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import core.AndroidNetworkConnectivityObserver
+import core.media_uploader.uploader.VideoUploadNotifierWorker
 import ui.SnackBarMessage
 import ui.SnackBarMessageType
 import ui.media_picker.common.MediaGalleryController
@@ -51,7 +52,8 @@ Checking the internet connection here,so that
  */
 class MediaPickersController(
     connectivityManager:ConnectivityManager,
-    private val imageUploader: ImageUploader,
+    private val imageUploadNotifierWorker: ImageUploadNotifierWorker,
+    private val  videoUploadNotifierWorker: VideoUploadNotifierWorker,
 ) {
     private val connectivityObserver = AndroidNetworkConnectivityObserver(connectivityManager)
     private val _snackBarMessage = MutableStateFlow<SnackBarMessage?>(null)
@@ -64,6 +66,7 @@ class MediaPickersController(
         CoroutineScope(Dispatchers.Default).launch {
             runIfInternetConnected {
                 uploadImages(images = imageGalleryController.galleryState.value.map { it.identity.id.toUri() })
+                uploadVideos(videos = videoGalleryController.galleryState.value.map { it.identity.id.toUri() })
             }
         }
     }
@@ -74,7 +77,14 @@ class MediaPickersController(
         val imageMedias = images.mapIndexed { index, uri ->
             MultiplatformMedia.Media("Image-${index + 1}", uri.toString())
         }
-        imageUploader.upload(imageMedias, MultiplatformMedia.MediaType.IMAGE)
+        imageUploadNotifierWorker.upload(imageMedias)
+
+    }
+    private fun uploadVideos(videos: List<Uri>) {
+        val videosMedia = videos.mapIndexed { index, uri ->
+            MultiplatformMedia.Media("Video-${index + 1}", uri.toString())
+        }
+        videoUploadNotifierWorker.upload(videosMedia)
 
     }
 

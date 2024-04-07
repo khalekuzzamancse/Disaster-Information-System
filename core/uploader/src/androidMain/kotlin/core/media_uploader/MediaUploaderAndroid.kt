@@ -5,7 +5,7 @@ import android.net.Uri
 import core.work_manager.MediaUploaderCommon
 
 
-internal object MediaUploaderAndroid {
+internal class MediaUploaderAndroid {
     suspend fun uploadVideo(context: Context, uri: Uri): Result<Unit> {
         val byteArray = uriToByteArray(context, uri)
         return try {
