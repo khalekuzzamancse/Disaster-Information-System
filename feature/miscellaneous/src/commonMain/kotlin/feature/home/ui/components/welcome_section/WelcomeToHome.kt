@@ -16,6 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -42,9 +44,9 @@ internal fun WelcomeToHome(
         val res: DrawableResource = Res.drawable.just_logo_2
         //after that compile it again to generate Res class, use : .\gradlew generateComposeResClass
         Image(
-            modifier=Modifier.size(200.dp),
+            modifier = Modifier.size(200.dp),
             painter = painterResource(res),//org.jetbrains.compose.resources.
-            contentDescription = null,
+            contentDescription = null//used as group with parent
         )
         Text(text = "Welcome to", style = MaterialTheme.typography.headlineMedium)
         Spacer(Modifier.height(16.dp))
@@ -61,7 +63,12 @@ fun AppNameLogoSection(
 ) {
 
     val text = buildAnnotatedString {
-        append(AnnotatedString(text = "Disaster ", spanStyle = SpanStyle(MaterialTheme.colorScheme.error)))
+        append(
+            AnnotatedString(
+                text = "Disaster ",
+                spanStyle = SpanStyle(MaterialTheme.colorScheme.error)
+            )
+        )
         append(AnnotatedString(text = "Information ", spanStyle = SpanStyle(Color.Blue)))
         append(AnnotatedString(text = "System"))
     }
@@ -69,7 +76,7 @@ fun AppNameLogoSection(
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
         Icon(
             imageVector = Icons.Filled.DataExploration,
-            contentDescription = null,
+            contentDescription = null,//used as group with parent,
             tint = MaterialTheme.colorScheme.primary
         )
         Spacer(Modifier.width(8.dp))

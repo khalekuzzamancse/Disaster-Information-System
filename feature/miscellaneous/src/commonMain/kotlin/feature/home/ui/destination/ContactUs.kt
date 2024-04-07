@@ -16,6 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,11 +29,11 @@ internal fun ContactUs(
     Column(modifier =modifier) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
+            modifier = Modifier.semantics(mergeDescendants = true) { contentDescription="developed by" }
         ) {
             Icon(
                 Icons.Default.School,
-                "web icon",
+                contentDescription = null,//grouped with parent
                 tint = MaterialTheme.colorScheme.primary
             )
             Spacer(Modifier.width(8.dp))
@@ -46,11 +48,11 @@ internal fun ContactUs(
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
+            modifier = Modifier.semantics(mergeDescendants = true) { contentDescription="developed university name" }
         ) {
             Icon(
                 Icons.Default.Apartment,
-                "web icon",
+                contentDescription = null,//grouped with parent
                 tint = MaterialTheme.colorScheme.primary
             )
             Spacer(Modifier.width(8.dp))
@@ -64,11 +66,11 @@ internal fun ContactUs(
         Spacer(Modifier.height(16.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
+            modifier = Modifier.semantics(mergeDescendants = true) { contentDescription="developed university location" }
         ) {
             Icon(
                 Icons.Default.LocationOn,
-                "web icon",
+                contentDescription = null,//grouped with parent
                 tint = MaterialTheme.colorScheme.primary
             )
             Spacer(Modifier.width(8.dp))
@@ -83,11 +85,11 @@ internal fun ContactUs(
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
+            modifier =  Modifier.semantics(mergeDescendants = true) { contentDescription="developed university  website link" }
         ) {
             Icon(
                 Icons.Default.Link,
-                "web icon",
+                contentDescription = null,//grouped with parent
                 tint = MaterialTheme.colorScheme.primary
             )
             Spacer(Modifier.width(8.dp))

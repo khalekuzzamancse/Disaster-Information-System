@@ -19,23 +19,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 
 @Composable
 internal fun MyDropDownMenu(
-    onAboutClick:()->Unit={},
-    onContactUsClick:()->Unit={}
+    modifier: Modifier,
+    onAboutClick: () -> Unit = {},
+    onContactUsClick: () -> Unit = {}
 ) {
-
     var expanded by remember { mutableStateOf(false) }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .wrapContentSize(Alignment.TopEnd)
     ) {
         IconButton(onClick = { expanded = !expanded }) {
             Icon(
                 imageVector = Icons.Default.MoreVert,
-                contentDescription = "More",
+                contentDescription = null,//merged with parent
                 tint = MaterialTheme.colorScheme.primary //to indicate as clickable
 
             )
@@ -45,21 +47,61 @@ internal fun MyDropDownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            DropdownMenuItem(
-                text = { Text("About Us") },
-                onClick = onAboutClick,
-                leadingIcon = {
-                    Icon(Icons.Default.Person,null, tint = MaterialTheme.colorScheme.tertiary)
-                }
+            _AboutUsButton(
+                modifier = Modifier
+                    .semantics(mergeDescendants = true) {
+                        contentDescription = "navigate button to go"
+                    },
+                onClick = onAboutClick
+            )
+            _ContactUsButton(
+                modifier = Modifier
+                    .semantics(mergeDescendants = true) {
+                        contentDescription = "navigate button to go"
+                    },
+                onClick = onContactUsClick
+            )
 
-            )
-            DropdownMenuItem(
-                text = { Text("Contact") },
-                onClick = onContactUsClick,
-                leadingIcon = {
-                    Icon(Icons.Default.Info,null,tint = MaterialTheme.colorScheme.tertiary)
-                }
-            )
+
         }
     }
+}
+
+@Composable
+private fun _AboutUsButton(
+    modifier: Modifier,
+    onClick: () -> Unit,
+) {
+    DropdownMenuItem(
+        modifier = modifier,
+        text = { Text("About Us") },
+        onClick = onClick,
+        leadingIcon = {
+            Icon(
+                Icons.Default.Person,
+                contentDescription = null,//merged with parent
+                tint = MaterialTheme.colorScheme.tertiary
+            )
+        }
+
+    )
+}
+
+@Composable
+private fun _ContactUsButton(
+    modifier: Modifier,
+    onClick: () -> Unit,
+) {
+    DropdownMenuItem(
+        modifier =modifier,
+        text = { Text("Contact Us") },
+        onClick = onClick,
+        leadingIcon = {
+            Icon(
+                Icons.Default.Info,
+                contentDescription = null,//merged with parent
+                tint = MaterialTheme.colorScheme.tertiary
+            )
+        }
+    )
 }

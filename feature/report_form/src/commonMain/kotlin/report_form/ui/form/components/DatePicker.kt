@@ -17,6 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 
 /**
  * Defining so client module that the component does not depends on underlying date representation
@@ -46,7 +48,7 @@ fun DatePicker(
 ) {
     var openDialog by remember { mutableStateOf(false) }
     ReadOnlyTextField(
-        modifier = modifier,
+        modifier = modifier.semantics { contentDescription="Read only Text field" },
         label = label,
         value = value,
         leadingIcon = leadingIcon,
@@ -60,6 +62,7 @@ fun DatePicker(
         val confirmEnabled =
             remember { derivedStateOf { datePickerState.selectedDateMillis != null } }
         DatePickerDialog(
+            modifier=Modifier.semantics { contentDescription="Date Picker " },
             onDismissRequest = {
                 openDialog = false
             },
@@ -86,6 +89,7 @@ fun DatePicker(
             }
         ) {
             DatePicker(
+                modifier=Modifier.semantics { contentDescription="Date picker dialog" },
                 showModeToggle = false,
                 state = datePickerState
             )

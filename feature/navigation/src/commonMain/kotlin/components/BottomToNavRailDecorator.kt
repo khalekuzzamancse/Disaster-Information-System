@@ -54,7 +54,7 @@ import routes.Destination
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun BottomBarToNavRailDecorator(
-    modifier: Modifier = Modifier.semantics { contentDescription="BottomBarToNavRailDecorator" },
+    modifier: Modifier = Modifier,
     destinations: List<NavigationItem>,
     onDestinationSelected: (Destination) -> Unit,
     selected: Int? = null,
@@ -115,7 +115,7 @@ class NavigationItem(
 
 @Composable
 private fun BottomBarLayout(
-    modifier: Modifier = Modifier.semantics { contentDescription="BottomBarLayout" },
+    modifier: Modifier = Modifier,
     destinations: List<NavigationItem>,
     onItemSelected: (Destination) -> Unit,
     selected: Int? = null,
@@ -127,6 +127,7 @@ private fun BottomBarLayout(
         topBar = topAppbar,
         bottomBar = {
             _BottomNavBar(
+                modifier=Modifier.semantics(mergeDescendants = true) { contentDescription="Navigation section" },
                 destinations = destinations,
                 selected = selected,
                 onDestinationSelected = onItemSelected
@@ -142,7 +143,7 @@ private fun BottomBarLayout(
 
 @Composable
 private fun NavRailLayout(
-    modifier: Modifier = Modifier.semantics { contentDescription="NavRailLayout" },
+    modifier: Modifier = Modifier,
     destinations: List<NavigationItem>,
     onItemSelected: (Destination) -> Unit,
     selected: Int? = null,
@@ -151,12 +152,13 @@ private fun NavRailLayout(
 ) {
     Row(modifier = modifier) {
         _NavRail(
+            modifier=Modifier.semantics (mergeDescendants = true){ contentDescription="Navigation section" },
             destinations = destinations,
             selected = selected,
             onItemSelected = onItemSelected
         )
         Scaffold(
-            modifier = Modifier.semantics { contentDescription="Scaffold" },
+            modifier = Modifier,
             topBar = topAppbar,
         ) { scaffoldPadding ->
             Box(Modifier.padding(scaffoldPadding)) { content() }//takes the remaining space,after the NavRail takes place
@@ -172,7 +174,7 @@ private fun NavRailLayout(
  */
 @Composable
 private fun _NavRail(
-    modifier: Modifier = Modifier.semantics { contentDescription="NavRails" },
+    modifier: Modifier = Modifier,
     destinations: List<NavigationItem>,
     onItemSelected: (Destination) -> Unit,
     selected: Int? = null,
@@ -189,6 +191,7 @@ private fun _NavRail(
                 destinations.forEachIndexed { index, navigationItem ->
                     //Using Drawer item so place the icon and label side by side
                     NavigationDrawerItem(
+                        modifier=Modifier.padding(4.dp).semantics (mergeDescendants = true){ contentDescription="Navigate to" },
                         colors = NavigationDrawerItemDefaults.colors(
                             selectedContainerColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f),
                             selectedIconColor = MaterialTheme.colorScheme.secondary,
@@ -202,11 +205,10 @@ private fun _NavRail(
                             //   se = MaterialTheme.colorScheme.onSecondary,
 
                         ),
-                        modifier = Modifier.padding(4.dp),
                         icon = {
                             Icon(
                                 navigationItem.focusedIcon,
-                                contentDescription = "icon"
+                                contentDescription = null,//merged with parent
                             )
                         },
                         label = {
@@ -232,7 +234,7 @@ private fun _NavRail(
 
 @Composable
 private fun _BottomNavBar(
-    modifier: Modifier = Modifier.semantics { contentDescription="Bottombar" },
+    modifier: Modifier = Modifier,
     destinations: List<NavigationItem>,
     selected: Int? = null,
     onDestinationSelected: (Destination) -> Unit,
@@ -242,6 +244,7 @@ private fun _BottomNavBar(
     ) {
         destinations.forEachIndexed { index, destination ->
             NavigationBarItem(
+                modifier=Modifier.semantics(mergeDescendants = true) { contentDescription="Navigate to ${destination.label}" },
                 selected = selected == index,
                 onClick = {
                     onDestinationSelected(destination.destination)
@@ -265,7 +268,7 @@ private fun _BottomNavBar(
                         } else destination.unFocusedIcon).let {
                             Icon(
                                 imageVector = it,
-                                contentDescription = destination.label
+                                contentDescription = null//merged with parent
                             )
                         }
                     }

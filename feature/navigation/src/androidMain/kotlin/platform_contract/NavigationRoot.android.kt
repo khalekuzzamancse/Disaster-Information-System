@@ -44,16 +44,16 @@ actual fun NavigationRoot() {
     val factory = MainViewModelFactory(MediaPickerFactory.mediaPickerController())
     val mainViewModel: MainViewModel = viewModel(factory = factory)
     val showSlashScreen = mainViewModel.splashScreenShowing.collectAsState().value
+    RootDestination(
+        mainViewModel = mainViewModel,
+        navController = navController,
+    )
+//    if (showSlashScreen) {
+//        SplashScreen()
+//    } else {
 
-    if (showSlashScreen) {
-        SplashScreen()
-    } else {
-        RootDestination(
-            mainViewModel = mainViewModel,
-            navController = navController,
-        )
 
-    }
+    //  }
 
 }
 
@@ -90,15 +90,15 @@ private fun RootDestination(
         NavLayoutDecorator(
             modifier = Modifier
                 .padding(it)
-                .semantics {
-                    contentDescription = "NavLayoutDecorator"
+                .semantics (mergeDescendants = true){
+                    contentDescription = "Entire  screen"
                 },
             selected = selected,
             onDestinationSelected = mainViewModel::onSelected,
         ) {
 
             RootNavHost(
-                modifier = Modifier.semantics { contentDescription="RootNavHost" },
+                modifier = Modifier,
                 navController = navController,
                 formController = mainViewModel.reportFormController,
                 controller = mainViewModel.mediaGalleryController,
@@ -125,10 +125,8 @@ private fun RootNavHost(
     onSendRequest: () -> Unit,
     onExitRequestFromHomeModule: () -> Unit,
 ) {
-
-
     NavHost(
-        modifier = modifier.semantics { contentDescription="Root Nav Host" },
+        modifier = modifier,
         navController = navController,
         startDestination = Destination.HOME.toString()
     ) {

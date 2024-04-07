@@ -27,6 +27,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import report_form.platform_contracts.LocationPicker
 import report_form.ui.form.components.DatePicker
@@ -44,10 +46,10 @@ internal fun Form(
     data: FormState,
     onEvent: (FormEvent) -> Unit,
 ) {
-    val fieldModifier = Modifier.fillMaxWidth()
+    val fieldModifier = Modifier.fillMaxWidth().semantics { contentDescription="Text Field" }
 
     Form(
-        modifier = modifier,
+        modifier = modifier.semantics { contentDescription="Form Modifier" },
         fieldModifier = fieldModifier,
         title = data.title,
         onTitleChanged = { onEvent(FormEvent.TitleChanged(it)) },
@@ -92,7 +94,7 @@ private fun Form(
         when (isOpened) {
             true -> {
                 LocationPicker(
-                    modifier = modifier.fillMaxSize(),
+                    modifier = modifier.fillMaxSize().semantics { contentDescription="Location Picker" },
                     onLocationPicked = { loc ->
                         mapOpened = false
                         onLocationChanged("$loc")
@@ -149,7 +151,7 @@ private fun _PrimitiveForm(
         WindowWidthSizeClass.Expanded -> {
             Row(modifier = modifier) {
                 _FormWithoutDescription(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(1f).semantics { contentDescription="Form without Description" },
                     fieldModifier = fieldModifier,
                     title = title,
                     onTitleChanged = onTitleChanged,
@@ -180,7 +182,7 @@ private fun _PrimitiveForm(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 _FormWithoutDescription(
-                    modifier = Modifier,
+                    modifier = Modifier.semantics { contentDescription="Form without description" },
                     fieldModifier = fieldModifier,
                     title = title,
                     onTitleChanged = onTitleChanged,
@@ -195,7 +197,7 @@ private fun _PrimitiveForm(
                 )
                 DescriptionTextField(
                     modifier = fieldModifier,
-                    textFieldModifier = Modifier.fillMaxWidth(),
+                    textFieldModifier = Modifier.fillMaxWidth().semantics { contentDescription="Text Field" },
                     label = "Description",
                     value = description,
                     leadingIcon = Icons.Outlined.Description,

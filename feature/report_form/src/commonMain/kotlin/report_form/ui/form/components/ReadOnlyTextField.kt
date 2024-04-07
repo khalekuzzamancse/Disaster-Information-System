@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 
 @Composable
 internal fun ReadOnlyTextField(
@@ -24,7 +26,7 @@ internal fun ReadOnlyTextField(
     colors:TextFieldColors,
 ) {
 
-    Column(modifier = modifier) {
+    Column(modifier = modifier.semantics { contentDescription="Read only Text Field" }) {
         Text(text = label)
         TextField(
             label = null,
@@ -43,7 +45,7 @@ internal fun ReadOnlyTextField(
                     Icon(
                         modifier = Modifier.clickable { onTrailingIconClick?.invoke() },
                         imageVector = trailingIcon,
-                        contentDescription = null,
+                        contentDescription = "Leading Icon",
                         tint = MaterialTheme.colorScheme.primary//to indicate that it is important/clickable
                     )
                 }

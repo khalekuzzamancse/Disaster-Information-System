@@ -17,6 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -33,17 +35,17 @@ import org.jetbrains.compose.resources.painterResource
 @OptIn(ExperimentalResourceApi::class)
 @PublishedApi
 @Composable
-internal fun AboutUs() {
-    // Assuming we have a function to open URLs
-    val openUrl = { url: String ->
-        // Implement URL opening logic here
-    }
+internal fun AboutUs(
+    modifier: Modifier=Modifier,
+) {
+
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(16.dp)
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+        ,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -52,10 +54,10 @@ internal fun AboutUs() {
         Image(
             modifier=Modifier.size(80.dp).clip(CircleShape),
             painter = painterResource(res),//org.jetbrains.compose.resources.
-            contentDescription = null,
+            contentDescription = "Mehedi hasan image ",
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Mahedi Hasan", fontSize = 20.sp)
+        Text(text = "Mehedi Hasan", fontSize = 20.sp)
         Spacer(modifier = Modifier.height(8.dp))
        Text(
             text = AnnotatedString.Builder().apply {

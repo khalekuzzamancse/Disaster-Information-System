@@ -14,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -34,6 +36,7 @@ actual fun HomeModuleNavGraph(
     val navController = rememberNavController()
     val viewModel = remember { ModuleViewModel(navController) }
     HomeNavHost(
+        modifier = Modifier,
         navController = viewModel.navHostController,
         onSendRequest = onSendRequest,
         onBackPressed = {
@@ -82,7 +85,6 @@ private fun HomeNavHost(
                     onNavigationRequest(Destination.AboutUs)
                 },
                 onContactUsRequest = {
-                    println("NavigationRequest:Contactus")
                     onNavigationRequest(Destination.ContactUs)
                 }
             )

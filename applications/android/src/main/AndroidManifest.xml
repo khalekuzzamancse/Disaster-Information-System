@@ -45,7 +45,7 @@
         <activity
             android:name="com.dis.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.DataCollect">
+            android:theme="@style/Theme.SplashScreen.MySplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

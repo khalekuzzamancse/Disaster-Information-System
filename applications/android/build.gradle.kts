@@ -13,8 +13,8 @@ android {
         applicationId = "com.khalekuzzaman.just.cse.dis"
         minSdk = 27
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -72,5 +72,7 @@ dependencies {
     implementation(libs.play.services.location)
 //
     implementation("org.slf4j:slf4j-simple:1.7.30")
+    //for slash screen
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
 }

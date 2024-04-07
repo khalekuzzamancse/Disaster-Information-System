@@ -28,7 +28,7 @@ import routes.Destination
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun NavLayoutDecorator(
-    modifier: Modifier = Modifier.semantics { contentDescription="NavRail Decorator" },
+    modifier: Modifier,
     onDestinationSelected: (Destination) -> Unit,
     selected: Destination,
     content: @Composable () -> Unit,

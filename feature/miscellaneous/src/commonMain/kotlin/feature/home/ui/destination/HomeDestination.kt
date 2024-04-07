@@ -29,6 +29,8 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import feature.home.ui.components.MyDropDownMenu
 import feature.home.ui.components.welcome_section.WelcomeToHome
@@ -44,7 +46,7 @@ internal fun HomeDestination(
     enableSend: Boolean,
     onSendRequest: () -> Unit = {},
     onAboutUsRequest: () -> Unit = {},
-    onContactUsRequest:()->Unit={},
+    onContactUsRequest: () -> Unit = {},
 ) {
     val windowSize = calculateWindowSizeClass().widthSizeClass
     val compact = WindowWidthSizeClass.Compact
@@ -83,7 +85,7 @@ private fun _CompactHomeDestination(
     enableSend: Boolean,
     onSendRequest: () -> Unit = {},
     onAboutUsRequest: () -> Unit = {},
-    onContactUsRequest:()->Unit,
+    onContactUsRequest: () -> Unit,
 ) {
     Scaffold(
         snackbarHost = {
@@ -96,8 +98,9 @@ private fun _CompactHomeDestination(
                 title = {},
                 actions = {
                     MyDropDownMenu(
+                        modifier = Modifier.semantics (mergeDescendants = true){ contentDescription="More options" },
                         onAboutClick = onAboutUsRequest,
-                        onContactUsClick = onContactUsRequest
+                        onContactUsClick = onContactUsRequest,
                     )
                 }
 
@@ -109,7 +112,8 @@ private fun _CompactHomeDestination(
                 .padding(scaffoldPadding)
                 .padding(start = 8.dp, end = 8.dp)
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
+                .verticalScroll(rememberScrollState())
+                .semantics { contentDescription = "Home Screen" },
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -144,7 +148,8 @@ private fun _ExpandedHome(
             modifier = Modifier
                 .padding(scaffoldPadding)
                 .padding(start = 8.dp, end = 8.dp)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .semantics { contentDescription = "screen with home,about us and contact" },
             horizontalArrangement = Arrangement.Center
         ) {
             _WelcomeNSendButton(
@@ -154,7 +159,7 @@ private fun _ExpandedHome(
             )
             AboutUsContactUs(
                 modifier = Modifier
-                    //  .verticalScroll(rememberScrollState()) fix bug why crashes
+                    //TODO(.verticalScroll(rememberScrollState()) fix bug why crashes)
                     .weight(1f)
 
             )
@@ -175,7 +180,8 @@ private fun _WelcomeNSendButton(
     Column(
         modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        WelcomeToHome(modifier = Modifier)
+        WelcomeToHome(modifier = Modifier
+            .semantics(mergeDescendants = true) { contentDescription = "Welcome section" })
         Spacer(Modifier.height(24.dp))
         _SentButton(
             modifier = Modifier,
@@ -198,7 +204,7 @@ private fun _SentButton(
     ) {
         Icon(
             imageVector = Icons.AutoMirrored.Filled.Send,
-            contentDescription = null,
+            contentDescription = null,//used as group with parent
             tint = MaterialTheme.colorScheme.contentColorFor(MaterialTheme.colorScheme.primary),
         )
         Spacer(Modifier.width(8.dp))

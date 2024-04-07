@@ -16,6 +16,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,6 +52,7 @@ fun TimePickerCustom(
 
     if (openDialog) {
         DatePickerDialog(
+            modifier=Modifier.semantics { contentDescription="Date Picker semantic dialogue" },
             onDismissRequest = {
                 openDialog = false
             },

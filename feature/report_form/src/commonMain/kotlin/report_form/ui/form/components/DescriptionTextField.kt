@@ -62,7 +62,7 @@ private fun _Label(modifier: Modifier = Modifier, label: String, leadingIcon: Im
             Spacer(Modifier.width(10.dp))
             Icon(
                 imageVector = leadingIcon,
-                contentDescription = null,
+                contentDescription = "Text Field Leading Icon",
                 tint = MaterialTheme.colorScheme.tertiary
             )
         }
