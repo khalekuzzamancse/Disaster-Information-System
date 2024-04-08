@@ -1,0 +1,1 @@
+Our  app respects your privacy. We do not collect any personal information from users. All data generated or inputted within the app remains strictly local to your device and is not shared with any third parties.
