@@ -8,14 +8,12 @@ plugins {
 android {
     namespace = "com.dis"
     compileSdk = 34
-
     defaultConfig {
         applicationId = "com.khalekuzzaman.just.cse.dis"
         minSdk = 27
         targetSdk = 34
-        versionCode = 2
-        versionName = "1.1"
-
+        versionCode = 17
+        versionName = "1.6"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true

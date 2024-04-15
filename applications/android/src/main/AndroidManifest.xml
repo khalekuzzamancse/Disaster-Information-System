@@ -30,22 +30,23 @@
     <!-- add the following attribute to the <application> tag for the wifi-enabled api
             android:networkSecurityConfig="@xml/network_security_config"
     -->
+    <!--        android:networkSecurityConfig="@xml/network_security_config"-->
     <application
-        android:name="com.dis.MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/launcher_icon"
         android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/launcher_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DataCollect"
-        tools:targetApi="31">
+        android:theme="@style/Theme.App.Starting"
+        tools:targetApi="31"
+
+        >
+<!--        android:theme="@style/Theme.SplashScreen.MySplash">-->
         <activity
             android:name="com.dis.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.SplashScreen.MySplash">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -11,19 +11,18 @@ import platform_contract.NavigationRoot
 
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()//before super.onCreate()
         super.onCreate(savedInstanceState)
-        installSplashScreen()
         setContent {
             DisasterInfoSystemTheme {
                 NavigationRoot()
             }
         }
     }
-
-
 }
+
+
 
 
